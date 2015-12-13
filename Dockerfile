@@ -125,7 +125,7 @@ COPY .spacemacs /home/developer/
 RUN apk --update add emacs --update-cache --repository                  \
       http://dl-3.alpinelinux.org/alpine/edge/testing                && \
     git clone https://github.com/syl20bnr/spacemacs.git                 \
-      --branch develop --single-branch /home/developer/.emacs.d      && \
+      /home/developer/.emacs.d                                       && \
     rm -rf /home/developer/.emacs.d/private/snippets                 && \
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git    \
       /home/developer/.emacs.d/private/snippets                      && \
