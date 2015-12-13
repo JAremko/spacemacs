@@ -7,6 +7,7 @@ ENV HOME /home/developer
 ENV GOPATH /home/developer/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
+ENV TERM xterm-256color
 
 ENV NODEBIN /usr/lib/node_modules/bin
 
@@ -30,6 +31,7 @@ RUN apk --update add bash                                                       
     echo "export GOBIN=$GOROOT/bin" >> /home/developer/.profile                       && \
     echo "export NODEBIN=/usr/lib/node_modules/bin" >> /home/developer/.profile       && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> /home/developer/.profile  && \
+    echo "export TERM=xterm-256color" >> /home/developer/.profile                     && \
     echo "source /home/developer/.profile" >> /home/developer/.bashrc                 && \
     . /home/developer/.bashrc                                                         && \
 
@@ -101,6 +103,7 @@ RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.or
     echo "/usr/bin/fish" >> /etc/shells                                                                 && \
     mkdir -p /home/developer/.config/fish                                                               && \
     echo "set -x HOME /home/developer" >> /home/developer/.config/fish/config.fish                      && \
+    echo "set -x TERM xterm-256color" >> /home/developer/.config/fish/config.fish                       && \
     echo "set -x GOPATH /home/developer/workspace" >> /home/developer/.config/fish/config.fish          && \
     echo "set -x GOROOT /usr/lib/go" >> /home/developer/.config/fish/config.fish                        && \
     echo "set -x GOBIN $GOROOT/bin" >> /home/developer/.config/fish/config.fish                         && \
