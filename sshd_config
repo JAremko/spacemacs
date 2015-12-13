@@ -30,7 +30,7 @@ UseLogin no
 UsePrivilegeSeparation yes
 X11DisplayOffset 10
 X11Forwarding yes
-X11UseLocalhost yes
+X11UseLocalhost no
 
 #AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
 #AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
