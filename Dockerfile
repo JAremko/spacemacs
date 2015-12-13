@@ -7,18 +7,15 @@ ENV HOME /home/developer
 ENV GOPATH /home/developer/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
+
 ENV NODEBIN /usr/lib/node_modules/bin
+
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
 #              ssh   mosh
 EXPOSE 80 8080 62222 60001/udp
 
-COPY sshd_config /etc/ssh/sshd_config
-COPY .spacemacs /home/developer/
-COPY start.bash /usr/local/bin/start.bash
-
 ADD https://github.com/jaremko.keys /home/developer/.ssh/authorized_keys
-ADD http://www.fontsquirrel.com/fonts/download/source-code-pro /tmp/scp.zip
 
 RUN mkdir -p /home/developer/workspace                                    && \
     sed -i 's/0:0:root:\/root:/0:0:root:\/home\/developer:/g' /etc/passwd
@@ -26,6 +23,7 @@ RUN mkdir -p /home/developer/workspace                                    && \
 RUN apk add --update tar fontconfig curl htop unzip && rm -rf /var/cache/apk/*
 
 #bash
+
 RUN apk --update add bash                                                             && \
     echo "export GOPATH=/home/developer/workspace" >> /home/developer/.profile        && \
     echo "export GOROOT=/usr/lib/go" >> /home/developer/.profile                      && \
@@ -38,7 +36,9 @@ RUN apk --update add bash                                                       
     find / -name ".git" -prune -exec rm -rf "{}" \;                                   && \
     rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
 
-#ssh mosh
+#ssh, mosh
+
+COPY sshd_config /etc/ssh/sshd_config
 
 RUN apk --update add mosh openssh                              && \
     rc-update add sshd                                         && \
@@ -52,9 +52,12 @@ RUN apk --update add mosh openssh                              && \
 
 #Fonts
 
+ADD http://www.fontsquirrel.com/fonts/download/source-code-pro /tmp/scp.zip
+
 RUN mkdir -p /usr/share/fonts/local              && \
     unzip /tmp/scp.zip -d /usr/share/fonts/local && \
-    fc-cache -f                                                                                      
+    fc-cache -f                                  && \
+    rm -rf /tmp/*                                                                                    
 
 #Golang
 
@@ -90,24 +93,6 @@ RUN apk --update add mercurial git go godep                       \
     find / -name ".git" -prune -exec rm -rf "{}" \;            && \
     rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
 
-#TypeScript
-
-RUN apk --update add nodejs                                     && \
-    mkdir -p /usr/lib/node_modules/bin                          && \
-    ln -s /usr/bin/node /usr/local/bin/node                     && \
-    ln -s /usr/bin/node /usr/lib/node_modules/bin/node          && \
-    curl -L https://www.npmjs.com/install.sh | bash             && \
-    npm cache clean -f                                          && \
-    npm install -g n                                            && \
-    n stable                                                    && \
-
-    npm install --prefix /usr/lib/node_modules/ -g typescript   && \
-    npm install tsd -g                                          && \
-    npm install http-server -g                                  && \
-
-    find / -name ".git" -prune -exec rm -rf "{}" \;             && \
-    rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
-
 #fish
 
 RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community && \
@@ -132,6 +117,8 @@ RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.or
 
 #Spacemacs
 
+COPY .spacemacs /home/developer/
+
 RUN apk --update add emacs --update-cache --repository                  \
       http://dl-3.alpinelinux.org/alpine/edge/testing                && \
     git clone https://github.com/syl20bnr/spacemacs.git                 \
@@ -146,5 +133,7 @@ RUN apk --update add emacs --update-cache --repository                  \
 
 RUN apk add --update docker --update-cache --repository                             \
       http://dl-3.alpinelinux.org/alpine/edge/community  && rm -rf /var/cache/apk/*
+
+COPY start.bash /usr/local/bin/start.bash
 
 ENTRYPOINT ["bash", "/usr/local/bin/start.bash"]
