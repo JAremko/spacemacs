@@ -89,16 +89,16 @@ RUN sudo mkdir -p /usr/share/fonts/local              && \
 
 COPY .spacemacs /home/${UNAME}/
  
-RUN sudo apk --update add emacs-xorg --update-cache --repository        \
-      http://dl-3.alpinelinux.org/alpine/edge/testing                && \
-    git clone https://github.com/syl20bnr/spacemacs.git                 \
-      /home/${UNAME}/.emacs.d                                        && \
-    rm -rf /home/${UNAME}/.emacs.d/private/snippets                  && \
-    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git    \
-      /home/${UNAME}/.emacs.d/private/snippets                       && \
-    sudo emacs -nw -batch -u "root" -kill                            && \
+RUN sudo apk --update add mesa-gl emacs-xorg --update-cache --repository    \
+      http://dl-3.alpinelinux.org/alpine/edge/testing                    && \
+    git clone https://github.com/syl20bnr/spacemacs.git                     \
+      /home/${UNAME}/.emacs.d                                            && \
+    rm -rf /home/${UNAME}/.emacs.d/private/snippets                      && \
+    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git        \
+      /home/${UNAME}/.emacs.d/private/snippets                           && \
+    sudo emacs -nw -batch -u "root" -kill                                && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;             && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                 && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 #firefox
