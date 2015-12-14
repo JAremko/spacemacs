@@ -67,7 +67,7 @@ RUN apk --update add mercurial go godep                           \
     go get -u github.com/jstemmer/gotags                       && \
     go get -u gopkg.in/godo.v2/cmd/godo                        && \
     go get -u github.com/fsouza/go-dockerclient                && \
-    mv /home/developer/workspace/bin/* $GOBIN                  && \
+    mv /home/developer/workspace/bin/* $GOBIN/                 && \
     apk del mercurial                                          && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;            && \
