@@ -102,7 +102,7 @@ RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.or
 
 COPY .spacemacs /home/developer/
 
-RUN apk --update add emacs --update-cache --repository                  \
+RUN apk --update add emacs-xorg --update-cache --repository             \
       http://dl-3.alpinelinux.org/alpine/edge/testing                && \
     git clone https://github.com/syl20bnr/spacemacs.git                 \
       /home/developer/.emacs.d                                       && \
