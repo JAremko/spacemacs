@@ -2,7 +2,7 @@ FROM jare/alpine:latest
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
-RUN apk add --update tar sudo fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
+RUN apk add --update tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
 # Setup user
 
@@ -28,8 +28,7 @@ ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
 #bash
 
-RUN sudo apk --update add bash                                                   && \
-    echo "export GOPATH=/home/jare/workspace" >> /home/jare/.profile             && \
+RUN echo "export GOPATH=/home/jare/workspace" >> /home/jare/.profile             && \
     echo "export GOROOT=/usr/lib/go" >> /home/jare/.profile                      && \
     echo "export GOBIN=$GOROOT/bin" >> /home/jare/.profile                       && \
     echo "export NODEBIN=/usr/lib/node_modules/bin" >> /home/jare/.profile       && \
