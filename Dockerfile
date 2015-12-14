@@ -45,8 +45,8 @@ RUN echo "export GOPATH=/home/${UNAME}/workspace" >> /home/${UNAME}/.profile    
 
 #Golang
 
-RUN sudo apk --update add mercurial go godep                          \ 
-      --update-cache --repository                                     \		
+RUN sudo apk --update add mercurial go godep                          \
+      --update-cache --repository                                     \
       http://dl-3.alpinelinux.org/alpine/edge/community            && \
     sudo chown ${uid}:${gid} -R /usr/lib/go                        && \
     go get -u golang.org/x/tools/cmd/benchcmp                      && \
@@ -88,7 +88,7 @@ RUN sudo mkdir -p /usr/share/fonts/local              && \
 #firefox
 
 RUN sudo apk add --update firefox --update-cache --repository    \
-      http://dl-3.alpinelinux.org/alpine/edge/testing         && \ 
+      http://dl-3.alpinelinux.org/alpine/edge/testing         && \
     sudo rm -rf /var/cache/apk/*
 
 #Docker
@@ -124,23 +124,23 @@ RUN sudo apk add --update fish --update-cache                                   
 
 COPY .spacemacs /home/${UNAME}/
  
-RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast \
-      libxtst-dev emacs-xorg gdk-pixbuf --update-cache --repository          \
-      http://dl-3.alpinelinux.org/alpine/edge/testing                     && \
-    git clone https://github.com/syl20bnr/spacemacs.git                      \
-      /home/${UNAME}/.emacs.d                                             && \
-    rm -rf /home/${UNAME}/.emacs.d/private/snippets                       && \
-    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git         \
-      /home/${UNAME}/.emacs.d/private/snippets                            && \
+RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    \
+      libxtst-dev emacs-xorg gdk-pixbuf --update-cache --repository             \
+      http://dl-3.alpinelinux.org/alpine/edge/testing                        && \
+    git clone https://github.com/syl20bnr/spacemacs.git                         \
+      --branch develop --single-branch /home/${UNAME}/.emacs.d               && \
+    rm -rf /home/${UNAME}/.emacs.d/private/snippets                          && \
+    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git            \
+      /home/${UNAME}/.emacs.d/private/snippets                               && \
       
-    sudo find /home/${UNAME}/                                                \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                          \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                       && \
+    sudo find /home/${UNAME}/                                                   \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                             \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                          && \
      
-    export SHELL=/usr/bin/fish                                            && \ 
-    emacs -nw -batch -u "jare" -kill                                      && \
+    export SHELL=/usr/bin/fish                                               && \
+    emacs -nw -batch -u "jare" -kill                                         && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                     && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 
