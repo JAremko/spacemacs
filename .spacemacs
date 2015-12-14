@@ -308,9 +308,23 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
   (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
  
-  ;; set specific browser to open links
+  ;; Set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
   
-)
+  ;; Start spacemacs in the workspace
+  (getenv "HOME")
+  (setq default-directory "~/workspace/")
+  
+  ;; Automatically save and restore sessions
+  (setq desktop-dirname             "~/workspace/desktop/"
+        desktop-base-file-name      "emacs.desktop"
+        desktop-base-lock-name      "lock"
+        desktop-path                (list desktop-dirname)
+        desktop-save                t
+        desktop-files-not-to-save   "^$" ;reload tramp paths
+        desktop-load-locked-desktop nil)
+  (desktop-save-mode 1)
+  
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
