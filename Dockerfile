@@ -16,7 +16,7 @@ EXPOSE 80 8080
 
 RUN mkdir -p /home/developer/workspace                                    && \
     sed -i 's/0:0:root:\/root:/0:0:root:\/home\/developer:/g' /etc/passwd
-
+    
 RUN apk add --update tar fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
 #bash
@@ -67,7 +67,7 @@ RUN apk --update add mercurial go godep                           \
     go get -u github.com/jstemmer/gotags                       && \
     go get -u gopkg.in/godo.v2/cmd/godo                        && \
     go get -u github.com/fsouza/go-dockerclient                && \
-    mv /home/developer/workspace/bin/* $GOBIN/                 && \
+    mv $GOPATH/bin/* $GOBIN/                                   && \
     apk del mercurial                                          && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;            && \
