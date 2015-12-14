@@ -28,7 +28,7 @@ ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
 #bash
 
-RUN apk --update add bash                                                        && \
+RUN sudo apk --update add bash                                                   && \
     echo "export GOPATH=/home/jare/workspace" >> /home/jare/.profile             && \
     echo "export GOROOT=/usr/lib/go" >> /home/jare/.profile                      && \
     echo "export GOBIN=$GOROOT/bin" >> /home/jare/.profile                       && \
@@ -42,7 +42,7 @@ RUN apk --update add bash                                                       
 
 #Golang
 
-RUN apk --update add mercurial go godep                           \ 
+RUN sudo apk --update add mercurial go godep                      \ 
       --update-cache --repository                                 \		
       http://dl-3.alpinelinux.org/alpine/edge/community           \		
       --allow-untrusted                                        && \
@@ -69,62 +69,63 @@ RUN apk --update add mercurial go godep                           \
     go get -u gopkg.in/godo.v2/cmd/godo                        && \
     go get -u github.com/fsouza/go-dockerclient                && \
     mv $GOPATH/bin/* $GOBIN/                                   && \
-    apk del mercurial                                          && \
+    sudo apk del mercurial                                     && \
 
-    find / -name ".git" -prune -exec rm -rf "{}" \;            && \
-    rm -rf /var/cache/apk/* /home/jare/workspace/* /tmp/*
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;       && \
+    sudo rm -rf /var/cache/apk/* /home/jare/workspace/* /tmp/*
     
 #Fonts
 
 ADD http://www.fontsquirrel.com/fonts/download/source-code-pro /tmp/scp.zip
 
-RUN mkdir -p /usr/share/fonts/local              && \
-    unzip /tmp/scp.zip -d /usr/share/fonts/local && \
-    fc-cache -f                                  && \
+RUN sudo mkdir -p /usr/share/fonts/local              && \
+    sudo unzip /tmp/scp.zip -d /usr/share/fonts/local && \
+    sudo fc-cache -f                                  && \
     rm -rf /tmp/*                                                                                    
 
 #Spacemacs
 
 COPY .spacemacs /home/jare/
 
-RUN apk --update add emacs-xorg --update-cache --repository             \
+RUN sudo apk --update add emacs-xorg --update-cache --repository        \
       http://dl-3.alpinelinux.org/alpine/edge/testing                && \
     git clone https://github.com/syl20bnr/spacemacs.git                 \
       /home/jare/.emacs.d                                            && \
     rm -rf /home/jare/.emacs.d/private/snippets                      && \
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git    \
       /home/jare/.emacs.d/private/snippets                           && \
-    emacs -nw -batch -u "root" -kill                                 && \
+    sudo emacs -nw -batch -u "root" -kill                            && \
 
-    find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
-    rm -rf /var/cache/apk/* /tmp/*
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;             && \
+    sudo rm -rf /var/cache/apk/* /tmp/*
 
 #Docker
 
-RUN apk add --update docker --update-cache --repository                             \
+RUN sudo apk add --update docker --update-cache --repository                        \
       http://dl-3.alpinelinux.org/alpine/edge/community  && rm -rf /var/cache/apk/*
 
 #fish
 
-RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community && \
-    sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                                                && \
+RUN sudo apk add --update fish --update-cache                                                      \
+      --repository http://dl-3.alpinelinux.org/alpine/edge/community                            && \
+    sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                                   && \
 
-    echo "/usr/bin/fish" >> /etc/shells                                                                 && \
-    mkdir -p /home/jare/.config/fish                                                                    && \
-    echo "set -x HOME /home/jare" >> /home/jare/.config/fish/config.fish                                && \
-    echo "set -x GOPATH /home/jare/workspace" >> /home/jare/.config/fish/config.fish                    && \
-    echo "set -x GOROOT /usr/lib/go" >> /home/jare/.config/fish/config.fish                             && \
-    echo "set -x GOBIN $GOROOT/bin" >> /home/jare/.config/fish/config.fish                              && \
-    echo "set -x NODEBIN /usr/lib/node_modules/bin" >> /home/jare/.config/fish/config.fish              && \
-    echo "set -g fish_key_bindings fish_vi_key_bindings" >> /home/jare/.config/fish/config.fish         && \
-    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"                    \
-      >> /home/jare/.config/fish/config.fish                                                            && \
-    fish -c source /home/jare/.config/fish/config.fish                                                  && \
-    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install         && \
-    fish /tmp/ohmf-install                                                                              && \
+    echo "/usr/bin/fish" >> /etc/shells                                                         && \
+    mkdir -p /home/jare/.config/fish                                                            && \
+    echo "set -x HOME /home/jare" >> /home/jare/.config/fish/config.fish                        && \
+    echo "set -x GOPATH /home/jare/workspace" >> /home/jare/.config/fish/config.fish            && \
+    echo "set -x GOROOT /usr/lib/go" >> /home/jare/.config/fish/config.fish                     && \
+    echo "set -x GOBIN $GOROOT/bin" >> /home/jare/.config/fish/config.fish                      && \
+    echo "set -x NODEBIN /usr/lib/node_modules/bin" >> /home/jare/.config/fish/config.fish      && \
+    echo "set -g fish_key_bindings fish_vi_key_bindings" >> /home/jare/.config/fish/config.fish && \
+    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"            \
+      >> /home/jare/.config/fish/config.fish                                                    && \
+    fish -c source /home/jare/.config/fish/config.fish                                          && \
+    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install && \
+    sudo fish /tmp/ohmf-install                                                                 && \
 
-    find / -name ".git" -prune -exec rm -rf "{}" \;                                                     && \
-    rm -rf /var/cache/apk/* /tmp/*
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                        && \
+    sudo rm -rf /var/cache/apk/* /tmp/*
 
 EXPOSE 80 8080
 
