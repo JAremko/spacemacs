@@ -114,7 +114,7 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev                \
       \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                         \
       -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                      && \
       
-    sudo emacs -nw -batch -u "jare" -kill                                && \
+    emacs -nw -batch -u "jare" -kill                                     && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                 && \
     sudo rm -rf /var/cache/apk/* /tmp/*
@@ -137,7 +137,7 @@ RUN sudo apk add --update fish --update-cache                                   
       >> /home/${UNAME}/.config/fish/config.fish                                                    && \
     fish -c source /home/${UNAME}/.config/fish/config.fish                                          && \
     curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
-    sudo fish /tmp/ohmf-install                                                                     && \
+    fish /tmp/ohmf-install                                                                          && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                            && \
     sudo rm -rf /var/cache/apk/* /tmp/*
