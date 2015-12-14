@@ -96,28 +96,6 @@ RUN sudo apk add --update firefox --update-cache --repository    \
 RUN sudo apk add --update docker --update-cache --repository    \
       http://dl-3.alpinelinux.org/alpine/edge/community      && \
     sudo rm -rf /var/cache/apk/*
-    
-#Spacemacs
-
-COPY .spacemacs /home/${UNAME}/
- 
-RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev                \
-      libxtst-dev emacs-xorg --update-cache --repository                    \
-      http://dl-3.alpinelinux.org/alpine/edge/testing                    && \
-    git clone https://github.com/syl20bnr/spacemacs.git                     \
-      /home/${UNAME}/.emacs.d                                            && \
-    rm -rf /home/${UNAME}/.emacs.d/private/snippets                      && \
-    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git        \
-      /home/${UNAME}/.emacs.d/private/snippets                           && \
-      
-    sudo find /home/${UNAME}/                                               \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                         \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                      && \
-      
-    emacs -nw -batch -u "jare" -kill                                     && \
-
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                 && \
-    sudo rm -rf /var/cache/apk/* /tmp/*
 
 #fish
 
@@ -140,6 +118,29 @@ RUN sudo apk add --update fish --update-cache                                   
     fish /tmp/ohmf-install                                                                          && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                            && \
+    sudo rm -rf /var/cache/apk/* /tmp/*
+    
+#Spacemacs
+
+COPY .spacemacs /home/${UNAME}/
+ 
+RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast \
+      libxtst-dev emacs-xorg gdk-pixbuf --update-cache --repository          \
+      http://dl-3.alpinelinux.org/alpine/edge/testing                     && \
+    git clone https://github.com/syl20bnr/spacemacs.git                      \
+      /home/${UNAME}/.emacs.d                                             && \
+    rm -rf /home/${UNAME}/.emacs.d/private/snippets                       && \
+    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git         \
+      /home/${UNAME}/.emacs.d/private/snippets                            && \
+      
+    sudo find /home/${UNAME}/                                                \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                          \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                       && \
+     
+    export SHELL=/usr/bin/fish                                            && \ 
+    emacs -nw -batch -u "jare" -kill                                      && \
+
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 
