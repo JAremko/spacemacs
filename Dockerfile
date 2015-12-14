@@ -7,21 +7,17 @@ ENV HOME /home/developer
 ENV GOPATH /home/developer/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
-ENV TERM xterm-256color
 
 ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
-#              ssh   mosh
-EXPOSE 80 8080 62222 60001/udp
-
-ADD https://github.com/jaremko.keys /home/developer/.ssh/authorized_keys
+EXPOSE 80 8080
 
 RUN mkdir -p /home/developer/workspace                                    && \
     sed -i 's/0:0:root:\/root:/0:0:root:\/home\/developer:/g' /etc/passwd
 
-RUN apk add --update tar fontconfig curl htop unzip && rm -rf /var/cache/apk/*
+RUN apk add --update tar fontconfig curl htop unzip mosh-client && rm -rf /var/cache/apk/*
 
 #bash
 
@@ -31,25 +27,10 @@ RUN apk --update add bash                                                       
     echo "export GOBIN=$GOROOT/bin" >> /home/developer/.profile                       && \
     echo "export NODEBIN=/usr/lib/node_modules/bin" >> /home/developer/.profile       && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> /home/developer/.profile  && \
-    echo "export TERM=xterm-256color" >> /home/developer/.profile                     && \
     echo "source /home/developer/.profile" >> /home/developer/.bashrc                 && \
     . /home/developer/.bashrc                                                         && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;                                   && \
-    rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
-
-#ssh, mosh
-
-COPY sshd_config /etc/ssh/sshd_config
-
-RUN apk --update add mosh openssh                              && \
-    rc-update add sshd                                         && \
-    rc-status                                                  && \
-    touch /run/openrc/softlevel                                && \
-    /etc/init.d/sshd start > /dev/null 2>&1                    && \
-    /etc/init.d/sshd stop > /dev/null 2>&1                     && \
-
-    find / -name ".git" -prune -exec rm -rf "{}" \;            && \
     rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
 
 #Fonts
@@ -103,7 +84,6 @@ RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.or
     echo "/usr/bin/fish" >> /etc/shells                                                                 && \
     mkdir -p /home/developer/.config/fish                                                               && \
     echo "set -x HOME /home/developer" >> /home/developer/.config/fish/config.fish                      && \
-    echo "set -x TERM xterm-256color" >> /home/developer/.config/fish/config.fish                       && \
     echo "set -x GOPATH /home/developer/workspace" >> /home/developer/.config/fish/config.fish          && \
     echo "set -x GOROOT /usr/lib/go" >> /home/developer/.config/fish/config.fish                        && \
     echo "set -x GOBIN $GOROOT/bin" >> /home/developer/.config/fish/config.fish                         && \
@@ -139,4 +119,4 @@ RUN apk add --update docker --update-cache --repository                         
 
 COPY start.bash /usr/local/bin/start.bash
 
-ENTRYPOINT ["bash", "/usr/local/bin/start.bash"]
+ENTRYPOINT ["emacs"]
