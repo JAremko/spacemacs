@@ -22,6 +22,8 @@ USER ${UNAME}
 
 ENV HOME /home/${UNAME}
 
+LABEL HOME="${HOME}"
+
 ENV GOPATH /home/${UNAME}/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
@@ -141,7 +143,7 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    
     sudo chmod 744 /home/${UNAME}/.spacemacs                                 && \
     
     export SHELL=/usr/bin/fish                                               && \
-    sudo emacs -nw -batch -u "jare" -kill                                    && \
+    emacs -nw -batch -u "jare" -kill                                         && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                     && \
     sudo rm -rf /var/cache/apk/* /tmp/*
