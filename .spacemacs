@@ -236,11 +236,24 @@ values."
 
   (add-hook 'go-mode-hook
               (lambda ()
+              (push '("!=" . ?≠) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
               (push '("->" . ?→) prettify-symbols-alist)))
 
   (add-hook 'go-mode-hook
               (lambda ()
               (push '("<-" . ?←) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("go" . ?⇉) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("return" . ?↵) prettify-symbols-alist)))
+
   ;;===============================================================
 
   ;; replace the standard text representations globally
