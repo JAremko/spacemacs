@@ -44,7 +44,7 @@ RUN mkdir -p /usr/share/fonts/local              && \
 
 #Golang
 
-RUN apk --update add mercurial go godep                           \
+RUN apk --update add mercurial go godep                        && \
     go get -u golang.org/x/tools/cmd/benchcmp                  && \
     go get -u golang.org/x/tools/cmd/callgraph                 && \
     go get -u golang.org/x/tools/cmd/digraph                   && \
