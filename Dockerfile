@@ -1,6 +1,6 @@
 FROM jare/alpine:latest
 
-MAINTAINER ${UNAME}mko <w3techplaygound@gmail.com>
+MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 RUN apk add --update tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
