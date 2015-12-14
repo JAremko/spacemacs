@@ -119,4 +119,4 @@ RUN apk add --update docker --update-cache --repository                         
 
 COPY start.bash /usr/local/bin/start.bash
 
-ENTRYPOINT ["emacs"]
+ENTRYPOINT ["bash", "/usr/local/bin/start.bash"]
