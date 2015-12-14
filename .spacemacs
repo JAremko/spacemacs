@@ -268,14 +268,15 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "<C-down>") 'enlarge-window)
   (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
   (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
-)
-
-  ;; Global utf-8
+  
+    ;; Global utf-8
   (prefer-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment 'utf-8)
-
+  
+  (eyebrowse-mode t)
+)
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
