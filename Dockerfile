@@ -101,7 +101,8 @@ RUN sudo apk add --update docker --update-cache --repository    \
 
 COPY .spacemacs /home/${UNAME}/
  
-RUN sudo apk --update add mesa-gl emacs-xorg --update-cache --repository    \
+RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev                \
+      libxtst-dev emacs-xorg --update-cache --repository                    \
       http://dl-3.alpinelinux.org/alpine/edge/testing                    && \
     git clone https://github.com/syl20bnr/spacemacs.git                     \
       /home/${UNAME}/.emacs.d                                            && \
