@@ -2,13 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-;; Global utf-8
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-language-environment 'utf-8)
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -225,6 +218,33 @@ values."
 
 (defun dotspacemacs/user-init ()
 
+  ;; Global utf-8
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-language-environment 'utf-8)
+
+  ;;===========Text-representations================================
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '(">=" . ?≥) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<=" . ?≤) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("->" . ?→) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<-" . ?←) prettify-symbols-alist)))
+  ;;===============================================================
+
+  ;; replace the standard text representations globally
+  (global-prettify-symbols-mode +1)
  
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
@@ -244,7 +264,7 @@ layers configuration. You are free to put any user code."
   (global-linum-mode)
   (linum-relative-toggle)
 
-  ;; Realative  line number
+  ;; Magit
   (setq-default git-magit-status-fullscreen t)
   (setq magit-repository-directories '("~/workspace/"))
 
@@ -277,7 +297,7 @@ layers configuration. You are free to put any user code."
  
   ;; set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
- 
+  
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
