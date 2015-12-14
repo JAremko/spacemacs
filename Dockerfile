@@ -17,7 +17,7 @@ EXPOSE 80 8080
 RUN mkdir -p /home/developer/workspace                                    && \
     sed -i 's/0:0:root:\/root:/0:0:root:\/home\/developer:/g' /etc/passwd
 
-RUN apk add --update tar fontconfig curl htop unzip mosh-client && rm -rf /var/cache/apk/*
+RUN apk add --update tar fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
 #bash
 
@@ -31,7 +31,7 @@ RUN apk --update add bash                                                       
     . /home/developer/.bashrc                                                         && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;                                   && \
-    rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
+    rm -rf /var/cache/apk/* /tmp/*
 
 #Fonts
 
@@ -44,11 +44,7 @@ RUN mkdir -p /usr/share/fonts/local              && \
 
 #Golang
 
-RUN apk --update add mercurial git go godep                       \
-      --update-cache --repository                                 \
-      http://dl-3.alpinelinux.org/alpine/edge/community           \
-      --allow-untrusted                                        && \
-    mkdir -p /home/developer/workspace                         && \
+RUN apk --update add mercurial go godep                           \
     go get -u golang.org/x/tools/cmd/benchcmp                  && \
     go get -u golang.org/x/tools/cmd/callgraph                 && \
     go get -u golang.org/x/tools/cmd/digraph                   && \
@@ -71,6 +67,7 @@ RUN apk --update add mercurial git go godep                       \
     go get -u github.com/jstemmer/gotags                       && \
     go get -u gopkg.in/godo.v2/cmd/godo                        && \
     go get -u github.com/fsouza/go-dockerclient                && \
+    mv /home/developer/workspace/bin/* $GOBIN                  && \
     apk del mercurial                                          && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;            && \
@@ -96,7 +93,7 @@ RUN apk add --update fish --update-cache --repository http://dl-3.alpinelinux.or
     fish /tmp/ohmf-install                                                                              && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;                                                     && \
-    rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
+    rm -rf /var/cache/apk/* /tmp/*
 
 #Spacemacs
 
@@ -112,7 +109,7 @@ RUN apk --update add emacs-xorg --update-cache --repository             \
     emacs -nw -batch -u "root" -kill                                 && \
 
     find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
-    rm -rf /var/cache/apk/* /home/developer/workspace/* /tmp/*
+    rm -rf /var/cache/apk/* /tmp/*
 
 RUN apk add --update docker --update-cache --repository                             \
       http://dl-3.alpinelinux.org/alpine/edge/community  && rm -rf /var/cache/apk/*
