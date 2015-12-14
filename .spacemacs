@@ -33,7 +33,6 @@ values."
      evil-snipe
      unimpaired
      vinegar
-     eyebrowse
      auto-completion
      smex
      spell-checking
@@ -276,7 +275,6 @@ layers configuration. You are free to put any user code."
   (set-keyboard-coding-system 'utf-8)
   (set-language-environment 'utf-8)
   
-  (eyebrowse-mode t)
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
