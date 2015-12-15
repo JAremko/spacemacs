@@ -9,3 +9,5 @@ export SHELL=/usr/bin/fish
 mkdir -p ~/workspace/desktop
 
 /usr/bin/emacs
+
+sudo poweroff
