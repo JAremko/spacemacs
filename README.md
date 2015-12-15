@@ -1,4 +1,4 @@
-## Dockerized Spacemacs(GUI)
+#### Dockerized Spacemacs(GUI)  
 
 ![screenshot](http://i.imgur.com/qBOYEe5.png)
 
