@@ -1,5 +1,5 @@
-Dockerized Spacemacs
-====================
+## Dockerized Spacemacs(GUI)
+
 ![screenshot](http://i.imgur.com/qBOYEe5.png)
 
 #### What's inside?
