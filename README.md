@@ -2,6 +2,13 @@ Dockerized Spacemacs
 ====================
 ![screenshot](http://i.imgur.com/qBOYEe5.png)
 
+#### What's inside?
+
+  - [Spacemacs](https://github.com/syl20bnr/spacemacs)
+  - [Golang](https://golang.org/)
+  - [Docker](https://www.docker.com/)
+  - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+  - [Fish](http://fishshell.com/)
 
 #### Usage example: 
 *open the current directory in the Spacemacs*  
