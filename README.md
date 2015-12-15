@@ -13,14 +13,15 @@
 #### Usage example: 
 *open the current directory in the Spacemacs*  
 
-`spacemacs.bash`
+**spacemacs.bash**
 ```bash
 #!/bin/bash
 
 #Keep Spacemacs container up-to-date
 docker pull jare/spacemacs:latest
 
-SPACE_HOME="$(docker inspect --format '{{.Config.Labels.HOME}}' jare/spacemacs:latest)"
+SPACE_HOME="$(docker inspect --format '{{.Config.Labels.HOME}}' \
+  jare/spacemacs:latest)"
 
 echo '3...2...1...'
 
@@ -36,7 +37,5 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
   -p 80:80 -p 8080:8080                                   \
   --name spacemacs jare/spacemacs:latest
 ```
-`.bashrc`
-```bash
-alias spacemacs='bash /usr/local/bin/spacemacs.bash'
-```
+******************************************************************************************************************************
+**.bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`
