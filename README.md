@@ -10,10 +10,15 @@
   - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
   - [Fish](http://fishshell.com/)
 
-#### Usage example: 
-*open the current directory in the Spacemacs*  
+You can set images user by changing those lines in the Dockerfile:
+```
+ENV uid 1000
+ENV gid 1000
+ENV UNAME jare
+```
+#### Usage: 
 
-**spacemacs.bash**
+ - **Create /usr/local/bin/spacemacs.bash**
 ```bash
 #!/bin/bash
 
@@ -37,5 +42,5 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
   -p 80:80 -p 8080:8080                                   \
   --name spacemacs jare/spacemacs:latest
 ```
-******************************************************************************************************************************
-**.bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`
+
+ - **Add this line to .bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`
