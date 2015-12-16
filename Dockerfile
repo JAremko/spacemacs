@@ -83,7 +83,7 @@ RUN sudo apk --update add mercurial go godep                          \
     
 #Fonts
 
-ADD http://www.fontsquirrel.com/fonts/download/source-code-pro /tmp/scp.zip
+ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
 
 RUN sudo mkdir -p /usr/share/fonts/local              && \
     sudo unzip /tmp/scp.zip -d /usr/share/fonts/local && \
