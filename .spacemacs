@@ -42,6 +42,8 @@ values."
      search-engine
      prodigy
      org
+     eyebrowse
+     perspectives
      
      (auto-completion :variables
        auto-completion-enable-help-tooltip t)
