@@ -30,6 +30,7 @@ values."
      typescript
      yaml
      git
+     github
      evil-snipe
      unimpaired
      vinegar
@@ -249,11 +250,6 @@ values."
   (add-hook 'go-mode-hook
               (lambda ()
               (push '("go" . ?⇉) prettify-symbols-alist)))
-  ;;!!!!!!!!!!!!!!!!!-_-_OVERKILL_-_-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  (add-hook 'go-mode-hook
-              (lambda ()
-              (push '("return" . ?↵) prettify-symbols-alist)))
-
   ;;===============================================================
 
   ;; replace the standard text representations globally
