@@ -44,6 +44,7 @@ values."
      org
      eyebrowse
      perspectives
+     gnus
      
      (auto-completion :variables
        auto-completion-enable-help-tooltip t)
@@ -220,14 +221,6 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-
-  ;; Global utf-8
-  (prefer-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment 'utf-8)
-
   ;;===========Text-representations================================
   (add-hook 'go-mode-hook
               (lambda ()
