@@ -222,17 +222,24 @@ values."
 
 (defun dotspacemacs/user-init ()
 
+  ;; Start spacemacs in the workspace
+  (getenv "HOME")
+  (setq default-directory "~/workspace/")
+  
   ;; Automatically save and restore sessions
   (require 'desktop)
   (desktop-save-mode 1)
+  (setq desktop-path '("~/workspace/"))
+  (setq desktop-dirname "~/workspace/")
+  (setq desktop-base-file-name "emacs-desktop") 
   (defun my-desktop-save ()
     (interactive)
     ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
     (if (eq (desktop-owner) (emacs-pid))
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save)
-
-  (setq frame-title-format '("" "Spacemacs" emacs-version))
+  ;; Frame title
+  (setq frame-title-format '("Spacemacs"))
   
   ;;===========Text-representations================================
   (add-hook 'go-mode-hook
@@ -314,10 +321,6 @@ layers configuration. You are free to put any user code."
  
   ;; Set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
-  
-  ;; Start spacemacs in the workspace
-  (getenv "HOME")
-  (setq default-directory "~/workspace/")
   
   )
 ;; Do not write anything past this comment. This is where Emacs will
