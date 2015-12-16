@@ -20,6 +20,9 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
 
 USER ${UNAME}
 
+RUN mkdir -p /home/${UNAME}/.ssh   && \
+    chmod 664 /home/${UNAME}/.ssh 
+    
 ENV HOME /home/${UNAME}
 
 LABEL HOME="${HOME}"
