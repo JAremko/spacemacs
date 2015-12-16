@@ -10,7 +10,7 @@
   - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
   - [Fish](http://fishshell.com/)
 
-You can set images user by changing those lines in the Dockerfile:
+You can set container's user by changing those lines in the Dockerfile:
 ```
 ENV uid 1000
 ENV gid 1000
