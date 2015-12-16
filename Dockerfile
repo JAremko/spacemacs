@@ -86,11 +86,12 @@ RUN sudo apk --update add mercurial go godep                          \
 ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
 ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
 
-RUN sudo mkdir -p /usr/share/fonts/local              && \
-    sudo unzip /tmp/scp.zip -d /usr/share/fonts/local && \
-    sudo unzip /tmp/ng.zip -d /usr/share/fonts/local  && \
-    sudo chmod 644 -R /usr/share/fonts/local          && \
-    sudo fc-cache -f                                  && \
+RUN sudo mkdir -p /usr/share/fonts/local               && \
+    sudo unzip /tmp/scp.zip -d /usr/share/fonts/local  && \
+    sudo unzip /tmp/ng.zip -d /usr/share/fonts/local   && \
+    sudo chown ${uid}:${gid} -R /usr/share/fonts/local && \
+    sudo chmod 744 -R /usr/share/fonts/local           && \
+    sudo fc-cache -f                                   && \
     sudo rm -rf /tmp/*                                                                                    
 
 #firefox
