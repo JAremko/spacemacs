@@ -221,6 +221,19 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+
+  ;; Automatically save and restore sessions
+  (require 'desktop)
+  (desktop-save-mode 1)
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
+
+  (setq frame-title-format '("" "Spacemacs" emacs-version))
+  
   ;;===========Text-representations================================
   (add-hook 'go-mode-hook
               (lambda ()
@@ -305,16 +318,6 @@ layers configuration. You are free to put any user code."
   ;; Start spacemacs in the workspace
   (getenv "HOME")
   (setq default-directory "~/workspace/")
-  
-  ;; Automatically save and restore sessions
-  (setq desktop-dirname             "~/workspace/desktop/"
-        desktop-base-file-name      "emacs.desktop"
-        desktop-base-lock-name      "lock"
-        desktop-path                (list desktop-dirname)
-        desktop-save                t
-        desktop-files-not-to-save   "^$" ;reload tramp paths
-        desktop-load-locked-desktop nil)
-  (desktop-save-mode 1)
   
   )
 ;; Do not write anything past this comment. This is where Emacs will
