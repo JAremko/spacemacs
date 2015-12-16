@@ -1,6 +1,6 @@
 #### Dockerized Spacemacs(GUI)  
 
-[![screenshot](http://i.imgur.com/qBOYEe5.png)](http://i.imgur.com/qBOYEe5.png)
+[![screenshot](http://i.imgur.com/Qi0XEUo.png)](http://i.imgur.com/Qi0XEUo.png)
 
 #### What's inside?
 
