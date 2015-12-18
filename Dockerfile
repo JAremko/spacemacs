@@ -112,7 +112,7 @@ RUN sudo apk add --update fish --update-cache                                   
       --repository http://dl-3.alpinelinux.org/alpine/edge/community                                && \
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                                       && \
 
-    echo "/usr/bin/fish" >> /etc/shells                                                             && \
+    sudo echo "/usr/bin/fish" >> /etc/shells                                                        && \
     mkdir -p /home/${UNAME}/.config/fish                                                            && \
     echo "set -x HOME /home/${UNAME}" >> /home/${UNAME}/.config/fish/config.fish                    && \
     echo "set -x GOPATH /home/${UNAME}/workspace" >> /home/${UNAME}/.config/fish/config.fish        && \
