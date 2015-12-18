@@ -7,7 +7,7 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories          && \
     echo "http://nl.alpinelinux.org/alpine/latest-stable/main" >> /etc/apk/repositories && \
     echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories       && \
-    echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories     && \
+    echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories   
 
 RUN apk --update add tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
