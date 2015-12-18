@@ -1,8 +1,15 @@
-FROM alpine:latest
+FROM alpine:edge
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
-RUN apk add --update tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
+#add repos
+
+RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories          && \
+    echo "http://nl.alpinelinux.org/alpine/latest-stable/main" >> /etc/apk/repositories && \
+    echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories       && \
+    echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories     && \
+
+RUN apk --update add tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
 
 # Setup user
 
@@ -50,9 +57,7 @@ RUN echo "export GOPATH=/home/${UNAME}/workspace" >> /home/${UNAME}/.profile    
 
 #Golang
 
-RUN sudo apk --update add mercurial go godep                          \
-      --update-cache --repository                                     \
-      http://dl-3.alpinelinux.org/alpine/edge/community            && \
+RUN sudo apk --update add mercurial go godep                       && \
     sudo chown ${uid}:${gid} -R /usr/lib/go                        && \
     go get -u golang.org/x/tools/cmd/benchcmp                      && \
     go get -u golang.org/x/tools/cmd/callgraph                     && \
@@ -96,20 +101,17 @@ RUN sudo mkdir -p /usr/share/fonts/local               && \
 
 #firefox
 
-RUN sudo apk add --update firefox --update-cache --repository    \
-      http://dl-3.alpinelinux.org/alpine/edge/testing         && \
+RUN sudo apk --update add firefox && \
     sudo rm -rf /var/cache/apk/*
 
 #Docker
 
-RUN sudo apk add --update docker --update-cache --repository    \
-      http://dl-3.alpinelinux.org/alpine/edge/community      && \
+RUN sudo apk --update add docker && \
     sudo rm -rf /var/cache/apk/*
 
 #fish
 
-RUN sudo apk add --update fish --update-cache                                                          \
-      --repository http://dl-3.alpinelinux.org/alpine/edge/community                                && \
+RUN sudo apk --update add fish                                                                      && \
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                                       && \
 
     mkdir -p /home/${UNAME}/.config/fish                                                            && \
@@ -133,8 +135,7 @@ RUN sudo apk add --update fish --update-cache                                   
 COPY .spacemacs /home/${UNAME}/
  
 RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast       \
-      libxtst-dev emacs-xorg gdk-pixbuf --update-cache --repository                \
-      http://dl-3.alpinelinux.org/alpine/edge/testing                           && \
+      libxtst-dev emacs-xorg gdk-pixbuf                                         && \
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     rm -rf /home/${UNAME}/.emacs.d/private/snippets                             && \
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git               \
