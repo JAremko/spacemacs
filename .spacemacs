@@ -122,7 +122,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 18
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.8)
@@ -318,6 +318,9 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "<C-down>") 'enlarge-window)
   (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
   (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
+  
+  ;; toggle follow-mode
+ (global-set-key (kbd "wf") 'follow-mode)   
  
   ;; Set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
