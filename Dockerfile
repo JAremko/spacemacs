@@ -9,7 +9,11 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories  
     echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories       && \
     echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories   
 
-RUN apk --update add tar sudo bash fontconfig curl git htop unzip mosh-client && rm -rf /var/cache/apk/*
+RUN apk upgrade --update-cache --available                  && \
+    apk --update add tar sudo bash fontconfig curl git htop    \
+      unzip openssl mosh-client ca-certificates             && \
+    update-ca-certificates -f                               && \
+    rm -rf /var/cache/apk/*
 
 # Setup user
 
