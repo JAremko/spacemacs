@@ -97,7 +97,15 @@ RUN sudo apk --update add mercurial go godep                       && \
       github.com/nsf/gocode                                           \
       github.com/kisielk/errcheck                                     \
       github.com/golang/lint/golint                                   \
-      github.com/jstemmer/gotags                                   && \
+      github.com/jstemmer/gotags                                      \
+      
+      github.com/golang/mock/gomock                                   \
+      github.com/golang/mock/mockgen                                  \
+      github.com/dustin/go-humanize                                   \
+      github.com/gosuri/uiprogress                                    \
+      github.com/onsi/ginkgo/ginkgo                                   \
+      github.com/onsi/gomega                                          \
+      github.com/sclevine/agouti                                   && \
       
     go get -u github.com/fsouza/go-dockerclient                    && \
     sudo apk del mercurial                                         && \
@@ -143,22 +151,26 @@ RUN sudo apk --update add fish                                                  
     echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"                \
       >> /home/${UNAME}/.config/fish/config.fish                                                    && \
     fish -c source /home/${UNAME}/.config/fish/config.fish                                          && \
-#    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
-#    fish /tmp/ohmf-install                                                                          && \
+#   curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
+#   fish /tmp/ohmf-install                                                                          && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                            && \
     sudo rm -rf /var/cache/apk/* /tmp/*
     
 #Spacemacs
 
-COPY .spacemacs /home/${UNAME}/
- 
 RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast       \
       libxtst-dev emacs-xorg gdk-pixbuf                                         && \
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
-    rm -rf /home/${UNAME}/.emacs.d/private/snippets                             && \
+    
+    rm -rf /home/${UNAME}/.emacs.d/private/                                     && \
+    
+    git clone https://github.com/JAremko/spacemacs-private.git                     \
+      /home/${UNAME}/.emacs.d/private                                           && \
+      
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git               \
-      /home/${UNAME}/.emacs.d/private/snippets                                  && \
+    /tmp/snippets                                                               && \
+    mv -f /tmp/snippets /home/${UNAME}/.emacs.d/private/snippets                && \
       
     sudo find /home/${UNAME}/                                                      \
       \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                                \
