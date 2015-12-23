@@ -160,16 +160,15 @@ RUN sudo apk --update add fish                                                  
 #Spacemacs
 
 COPY .spacemacs /home/${UNAME}/.spacemacs
+COPY private /tmp/private
 
 RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast       \
       libxtst-dev emacs-xorg gdk-pixbuf                                         && \
+ 
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     
-    rm -rf /home/${UNAME}/.emacs.d/private/                                     && \
-    
-    git clone https://github.com/JAremko/spacemacs-private.git                     \
-      /home/${UNAME}/.emacs.d/private                                           && \
-      
+    mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                         && \
+                
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git               \
     /tmp/snippets                                                               && \
     mv -f /tmp/snippets /home/${UNAME}/.emacs.d/private/snippets                && \
