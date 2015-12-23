@@ -176,15 +176,13 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    
       \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                                \
       -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                             && \
      
-    sudo chown ${uid}:${gid} /home/${UNAME}/.spacemacs                          && \
-    sudo chmod 744 /home/${UNAME}/.spacemacs                                    && \
+    sudo chown -R ${uid}:${gid} /home/${UNAME}                                  && \
     
     export SHELL=/usr/bin/fish                                                  && \
     emacs -nw -batch -u "jare" -kill                                            && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                        && \
     sudo rm -rf /var/cache/apk/* /tmp/*
-
 
 EXPOSE 80 8080
 
