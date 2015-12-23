@@ -36,6 +36,10 @@ values."
      unimpaired
      vinegar
      auto-completion
+    (auto-completion :variables
+      auto-completion-enable-help-tooltip t)
+    (auto-completion :variables
+      auto-completion-enable-snippets-in-popup t)
      smex
      spell-checking
      syntax-checking
@@ -213,11 +217,6 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-
-  (auto-completion :variables
-    auto-completion-enable-help-tooltip t)
-  (auto-completion :variables
-    auto-completion-enable-snippets-in-popup t)
 
   ;; Start spacemacs in the workspace
   (getenv "HOME")
