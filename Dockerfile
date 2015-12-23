@@ -167,11 +167,11 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    
  
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     
-    mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                         && \
+    sudo mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                    && \
                 
     git clone https://github.com/AndreaCrotti/yasnippet-snippets.git               \
     /tmp/snippets                                                               && \
-    mv -f /tmp/snippets /home/${UNAME}/.emacs.d/private/snippets                && \
+    sudo mv -f /tmp/snippets /home/${UNAME}/.emacs.d/private/snippets           && \
       
     sudo find /home/${UNAME}/                                                      \
       \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                                \
