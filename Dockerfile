@@ -12,7 +12,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories  
 RUN apk upgrade --update-cache --available                  && \
     apk --update add tar sudo bash fontconfig curl git htop    \
       unzip openssl mosh-client ca-certificates             && \
-    update-ca-certificates -f                               && \
+    update-ca-certificates --verbose                        && \
     rm -rf /var/cache/apk/*
 
 # Setup user
