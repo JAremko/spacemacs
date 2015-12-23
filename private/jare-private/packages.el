@@ -66,18 +66,18 @@
   ;; If you would like to use git-gutter.el and linum-mode
   (git-gutter:linum-setup)
 
-  (global-set-key (kbd "SPC G T") 'git-gutter:toggle)
-  (global-set-key (kbd "SPC G =") 'git-gutter:popup-hunk)
+  (global-set-key (kbd "G T") 'git-gutter:toggle)
+  (global-set-key (kbd "G =") 'git-gutter:popup-hunk)
 
   ;; Jump to next/previous hunk
-  (global-set-key (kbd "SPC G p") 'git-gutter:previous-hunk)
-  (global-set-key (kbd "SPC G n") 'git-gutter:next-hunk)
+  (global-set-key (kbd "G p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "G n") 'git-gutter:next-hunk)
 
   ;; Stage current hunk
-  (global-set-key (kbd "SPC G s") 'git-gutter:stage-hunk)
+  (global-set-key (kbd "G s") 'git-gutter:stage-hunk)
 
   ;; Revert current hunk
-  (global-set-key (kbd "SPC G r") 'git-gutter:revert-hunk)
+  (global-set-key (kbd "G r") 'git-gutter:revert-hunk)
 )
 
 (defun jare-private/init-fringe-helper ()
