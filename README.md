@@ -5,7 +5,7 @@
 #### What's inside?
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)
-  - [Golang](https://golang.org/)
+  - [Golang](https://golang.org/) + a ton of tools
   - [Docker](https://www.docker.com/)
   - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
   - [Fish](http://fishshell.com/)
