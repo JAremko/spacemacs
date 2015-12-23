@@ -128,8 +128,8 @@ RUN sudo apk --update add fish                                                  
     echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"                \
       >> /home/${UNAME}/.config/fish/config.fish                                                    && \
     fish -c source /home/${UNAME}/.config/fish/config.fish                                          && \
-    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
-    fish /tmp/ohmf-install                                                                          && \
+#    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
+#    fish /tmp/ohmf-install                                                                          && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                            && \
     sudo rm -rf /var/cache/apk/* /tmp/*
