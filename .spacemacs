@@ -18,6 +18,34 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     jare-private
+     restclient
+     emacs-lisp
+     go
+     haskell
+     html
+     javascript
+     markdown
+     scala
+     shell-scripts
+     typescript
+     yaml
+     git
+     github
+     evil-snipe
+     unimpaired
+     vinegar
+     auto-completion
+     smex
+     spell-checking
+     syntax-checking
+     shell
+     search-engine
+     prodigy
+     org
+     eyebrowse
+     perspectives
+     gnus
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -79,21 +107,17 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
                          monokai
-                         zenburn)
+                         solarized-dark)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 16
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.8)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -146,7 +170,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup 1
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -189,16 +213,101 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+
+  (auto-completion :variables
+    auto-completion-enable-help-tooltip t)
+  (auto-completion :variables
+    auto-completion-enable-snippets-in-popup t)
+
+  ;; Start spacemacs in the workspace
+  (getenv "HOME")
+  (setq default-directory "~/workspace/")
+  
+  ;; Automatically save and restore sessions
+  (require 'desktop)
+  (desktop-save-mode 1)
+  (setq desktop-path '("~/workspace/"))
+  (setq desktop-dirname "~/workspace/")
+  (setq desktop-base-file-name "emacs-desktop") 
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
+
+  ;; Frame title
+  (setq frame-title-format '("Spacemacs"))
+  
+  ;;===========Text-representations================================
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '(">=" . ?≥) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<=" . ?≤) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("!=" . ?≠) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("->" . ?→) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<-" . ?←) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("go" . ?⇉) prettify-symbols-alist)))
+  ;;===============================================================
+
+  ;; replace the standard text representations globally
+  (global-prettify-symbols-mode +1)
+ 
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
   )
 
 (defun dotspacemacs/user-config ()
+
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-)
 
+  ;; Disable fancy arrows 
+  (setq powerline-default-separator 'bar)
+
+  ;; Realative  line number
+  (global-linum-mode)
+  (linum-relative-toggle)
+
+  ;; Magit
+  (setq-default git-magit-status-fullscreen t)
+  (setq magit-repository-directories '("~/workspace/"))
+  
+  ;; Use undo-tree globally
+  (global-undo-tree-mode 1)
+
+  ;; Enable indent-guide-mode in all buffers
+  (indent-guide-global-mode)
+
+  ;; Window resize
+  (global-set-key (kbd "<C-j>") 'shrink-window)
+  (global-set-key (kbd "<C-k>") 'enlarge-window)
+  (global-set-key (kbd "<C-l>") 'shrink-window-horizontally)
+  (global-set-key (kbd "<C-h>") 'enlarge-window-horizontally)
+  
+  ;; toggle follow-mode
+ (global-set-key (kbd "wf") 'follow-mode)
+ 
+  ;; Set specific browser to open links
+  (setq browse-url-browser-function 'browse-url-firefox)
+  
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
