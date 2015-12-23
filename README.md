@@ -10,8 +10,6 @@
   - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
   - [Fish](http://fishshell.com/)
 
-*My Spacemacs configs: https://github.com/JAremko/spacemacs-private*
-
 You can set container's user by changing those lines in the Dockerfile:
 ```
   ENV uid 1000
