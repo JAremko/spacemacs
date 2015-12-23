@@ -63,27 +63,42 @@ RUN echo "export GOPATH=/home/${UNAME}/workspace" >> /home/${UNAME}/.profile    
 
 RUN sudo apk --update add mercurial go godep                       && \
     sudo chown ${uid}:${gid} -R /usr/lib/go                        && \
-    go get -u golang.org/x/tools/cmd/benchcmp                      && \
-    go get -u golang.org/x/tools/cmd/callgraph                     && \
-    go get -u golang.org/x/tools/cmd/digraph                       && \
-    go get -u golang.org/x/tools/cmd/eg                            && \
-    go get -u golang.org/x/tools/cmd/fiximports                    && \
-    go get -u golang.org/x/tools/cmd/godex                         && \
-    go get -u golang.org/x/tools/cmd/godoc                         && \
-    go get -u github.com/nsf/gocode                                && \
-    go get -u golang.org/x/tools/cmd/gomvpkg                       && \
-    go get -u golang.org/x/tools/cmd/gorename                      && \
-    go get -u golang.org/x/tools/cmd/html2article                  && \
-    go get -u github.com/kisielk/errcheck                          && \
-    go get -u golang.org/x/tools/cmd/oracle                        && \
-    go get -u golang.org/x/tools/cmd/ssadump                       && \
-    go get -u golang.org/x/tools/cmd/stringer                      && \
-    go get -u golang.org/x/tools/cmd/vet                           && \
-    go get -u golang.org/x/tools/cmd/vet/whitelist                 && \
-    go get -u code.google.com/p/rog-go/exp/cmd/godef               && \
-    go get -u github.com/golang/lint/golint                        && \
-    go get -u github.com/jstemmer/gotags                           && \
-    go get -u gopkg.in/godo.v2/cmd/godo                            && \
+    
+    go get -u                                                         \
+    
+      golang.org/x/tools/cmd/benchcmp                                 \
+      golang.org/x/tools/cmd/bundle                                   \
+      golang.org/x/tools/cmd/callgraph                                \
+      golang.org/x/tools/cmd/cover                                    \
+      golang.org/x/tools/cmd/digraph                                  \
+      golang.org/x/tools/cmd/eg                                       \
+      golang.org/x/tools/cmd/fiximports                               \
+      golang.org/x/tools/cmd/godex                                    \
+      golang.org/x/tools/cmd/godoc                                    \
+      golang.org/x/tools/cmd/goimports                                \
+      golang.org/x/tools/cmd/gomvpkg                                  \
+      golang.org/x/tools/cmd/gorename                                 \
+      golang.org/x/tools/cmd/gotype                                   \
+      golang.org/x/tools/cmd/html2article                             \
+      golang.org/x/tools/cmd/oracle                                   \
+      golang.org/x/tools/cmd/present                                  \
+      golang.org/x/tools/cmd/ssadump                                  \
+      golang.org/x/tools/cmd/stress                                   \
+      golang.org/x/tools/cmd/stringer                                 \
+      golang.org/x/tools/cmd/tip                                      \
+      golang.org/x/tools/cmd/vet                                      \
+      
+      golang.org/x/tools/refactor/eg                                  \
+      golang.org/x/tools/refactor/importgraph                         \
+      golang.org/x/tools/refactor/rename                              \
+      golang.org/x/tools/refactor/satisfy                             \
+      
+      github.com/go-godo/godo                                         \
+      github.com/nsf/gocode                                           \
+      github.com/kisielk/errcheck                                     \
+      github.com/golang/lint/golint                                   \
+      github.com/jstemmer/gotags                                   && \
+      
     go get -u github.com/fsouza/go-dockerclient                    && \
     sudo apk del mercurial                                         && \
 
