@@ -302,7 +302,7 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "<C-h>") 'enlarge-window-horizontally)
   
   ;; toggle follow-mode
- (global-set-key (kbd "wf") 'follow-mode)
+  (evil-leader/set-key "wf" 'follow-mode)
  
   ;; Set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
