@@ -18,10 +18,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     jare-private
      restclient
      emacs-lisp
-     go
      haskell
      html
      javascript
@@ -50,6 +48,8 @@ values."
      eyebrowse
      perspectives
      gnus
+     go
+     jare-private
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
