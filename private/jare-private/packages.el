@@ -66,18 +66,12 @@
   ;; If you would like to use git-gutter.el and linum-mode
   (git-gutter:linum-setup)
 
-  ;;(global-set-key (kbd "M-x G T") 'git-gutter:toggle)
-  ;;(global-set-key (kbd "M-x G =") 'git-gutter:popup-hunk)
-
-  ;; Jump to next/previous hunk
-  ;;(global-set-key (kbd "M-x G p") 'git-gutter:previous-hunk)
-  ;;(global-set-key (kbd "M-x G n") 'git-gutter:next-hunk)
-
-  ;; Stage current hunk
-  ;;(global-set-key (kbd "M-x G s") 'git-gutter:stage-hunk)
-
-  ;; Revert current hunk
-  ;;(global-set-key (kbd "M-x G r") 'git-gutter:revert-hunk)
+  (evil-leader/set-key "Gt" 'git-gutter:toggle)
+  (evil-leader/set-key "G=" 'git-gutter:popup-hunk)
+  (evil-leader/set-key "Gp" 'git-gutter:previous-hunk)
+  (evil-leader/set-key "Gn" 'git-gutter:next-hunk)
+  (evil-leader/set-key "Gs" 'git-gutter:stage-hunk)
+  (evil-leader/set-key "Gr" 'git-gutter:revert-hunk)
 )
 
 (defun jare-private/init-fringe-helper ()
@@ -86,5 +80,4 @@
 
 (defun jare-private/init-git-gutter-fringe ()
   (use-package git-gutter-fringe)
-  (setq git-gutter-fr:side 'right-fringe)
 )
