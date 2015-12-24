@@ -20,7 +20,6 @@
       git-gutter-fringe
       multiple-cursors
       indent-guide
-      tdd-status-mode-line
       ))
 
 ;; List of packages to exclude.
@@ -48,11 +47,6 @@
 
 (defun jare-private/init-indent-guide ()
   (use-package indent-guide)
-)
-
-(defun jare-private/init-tdd-status-mode-line ()
-  (use-package tdd-status-mode-line)
-  (tdd-status-global-mode)
 )
 
 (defun jare-private/init-git-gutter ()
