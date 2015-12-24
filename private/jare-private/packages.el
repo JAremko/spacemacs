@@ -60,12 +60,12 @@
   ;; If you would like to use git-gutter.el and linum-mode
   (git-gutter:linum-setup)
 
-  (evil-leader/set-key "Gt" 'git-gutter:toggle)
-  (evil-leader/set-key "G=" 'git-gutter:popup-hunk)
-  (evil-leader/set-key "Gp" 'git-gutter:previous-hunk)
-  (evil-leader/set-key "Gn" 'git-gutter:next-hunk)
-  (evil-leader/set-key "Gs" 'git-gutter:stage-hunk)
-  (evil-leader/set-key "Gr" 'git-gutter:revert-hunk)
+  (evil-leader/set-key "gut" 'git-gutter:toggle)
+  (evil-leader/set-key "gu=" 'git-gutter:popup-hunk)
+  (evil-leader/set-key "gup" 'git-gutter:previous-hunk)
+  (evil-leader/set-key "gun" 'git-gutter:next-hunk)
+  (evil-leader/set-key "gus" 'git-gutter:stage-hunk)
+  (evil-leader/set-key "gur" 'git-gutter:revert-hunk)
 )
 
 (defun jare-private/init-fringe-helper ()

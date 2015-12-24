@@ -34,6 +34,7 @@ You can set container's user by changing those lines in the Dockerfile:
     -v /etc/localtime:/etc/localtime:ro                     \
     -v /home/jare/.ssh/id_rsa:/home/jare/.ssh/id_rsa:ro     \
     -v /var/run/docker.sock:/var/run/docker.sock            \
+    -v /var/run/dbus:/var/run/dbus                          \
     -v /tmp/.X11-unix:/tmp/.X11-unix                        \
     -v /etc/machine-id:/etc/machine-id:ro                   \
     -e DISPLAY=$DISPLAY                                     \
