@@ -307,6 +307,7 @@ layers configuration. You are free to put any user code."
   ;; Set specific browser to open links
   (setq browse-url-browser-function 'browse-url-firefox)
   
+  (require 'seq)
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
