@@ -164,7 +164,7 @@ RUN sudo apk --update add fish                                                  
 COPY .spacemacs /home/${UNAME}/.spacemacs
 COPY private /tmp/private
 
-RUN sudo apk --update add mesa-gl libxext libxrende mesa-dri-swrast libxtst        \
+RUN sudo apk --update add mesa-gl libxext libxrender mesa-dri-swrast libxtst       \
       emacs-xorg aspell aspell-en aspell-ru aspell-uk gdk-pixbuf                   \
       --update-cache --repository                                                  \
       http://nl.alpinelinux.org/alpine/latest-stable/main                       && \
