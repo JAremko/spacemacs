@@ -170,7 +170,8 @@ COPY .spacemacs /home/${UNAME}/.spacemacs
 COPY private /tmp/private
 
 RUN sudo apt-get update -y                                                         && \
-    sudo apt-get install -y emacs ispell iamerican-insane ibritish-insane irussian && \
+    sudo apt-get install -y emacs ispell iamerican-insane ibritish-insane irussian    \
+      dbus-x11                                                                     && \
  
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d    && \
     cd /home/${UNAME}/.emacs.d                                                     && \
