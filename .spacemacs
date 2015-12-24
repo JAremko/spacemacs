@@ -72,7 +72,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(seq)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -304,10 +304,9 @@ layers configuration. You are free to put any user code."
   ;; toggle follow-mode
   (evil-leader/set-key "wf" 'follow-mode)
  
-  ;; Set specific browser to open links
-  (setq browse-url-browser-function 'browse-url-firefox)
-  
-  (require 'seq)
+  ;; Set Chromium browser to open links
+  (setq browse-url-browser-function 'browse-url-generic
+    browse-url-generic-program "chromium-browser")
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
