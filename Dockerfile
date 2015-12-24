@@ -121,12 +121,11 @@ RUN sudo apk --update add mercurial go godep                       && \
 ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
 ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
 
-RUN sudo mkdir -p /usr/share/fonts/local               && \
-    sudo unzip /tmp/scp.zip -d /usr/share/fonts/local  && \
-    sudo unzip /tmp/ng.zip -d /usr/share/fonts/local   && \
-    sudo chown ${uid}:${gid} -R /usr/share/fonts/local && \
-    sudo chmod 744 -R /usr/share/fonts/local           && \
-    sudo fc-cache -f                                   && \
+RUN sudo mkdir -p /usr/local/share/fonts               && \
+    sudo unzip /tmp/scp.zip -d /usr/local/share/fonts  && \
+    sudo unzip /tmp/ng.zip -d /usr/local/share/fonts   && \
+    sudo chmod 777 -R /usr/local/share/fonts           && \
+    sudo fc-cache -vf                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
 #firefox
@@ -166,12 +165,13 @@ COPY .spacemacs /home/${UNAME}/.spacemacs
 COPY private /tmp/private
 
 RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast       \
-      libxtst-dev emacs-xorg gdk-pixbuf                                         && \
+      libxtst-dev emacs-xorg gdk-pixbuf --update-cache --repository                \
+      http://nl.alpinelinux.org/alpine/latest-stable/main                       && \
  
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     cd /home/${UNAME}/.emacs.d                                                  && \
     git checkout develop                                                        && \
-    git submodule update --init --recursive                                     && \ 
+    git submodule update --init --recursive                                     && \
     
     sudo mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                    && \
                 
@@ -186,7 +186,7 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    
     sudo chown -R ${uid}:${gid} /home/${UNAME}                                  && \
     
     export SHELL=/usr/bin/fish                                                  && \
-    emacs -nw -batch -u "jare" -kill                                            && \
+    emacs -nw -batch -u ${UNAME} -kill                                          && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                        && \
     sudo rm -rf /var/cache/apk/* /tmp/*
