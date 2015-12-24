@@ -168,7 +168,7 @@ COPY private /tmp/private
 RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast       \
       libxtst-dev emacs-xorg gdk-pixbuf                                         && \
  
-    git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d 
+    git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     cd /home/${UNAME}/.emacs.d                                                  && \
     git checkou develop                                                         && \
     git submodule update --init --recursive                                     && \ 
