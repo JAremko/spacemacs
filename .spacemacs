@@ -307,6 +307,25 @@ layers configuration. You are free to put any user code."
   ;; Set Chromium browser to open links
   (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "chromium-browser")
+ 
+  ;;compile on save
+  (defun compile-on-save-start ()
+    (let ((buffer (compilation-find-buffer)))
+      (unless (get-buffer-process buffer) 
+        (recompile))))
+  
+  (define-minor-mode compile-on-save-mode
+    "Minor mode to automatically call `recompile' whenever the
+  current buffer is saved. When there is ongoing compilation,
+  nothing happens."
+    :lighter " CoS"
+      (if compile-on-save-mode
+      (progn  (make-local-variable 'after-save-hook)
+          (add-hook 'after-save-hook 'compile-on-save-start nil t))
+        (kill-local-variable 'after-save-hook)))
+
+  (evil-leader/set-key "cs" 'compile-on-save-mode)
+
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
