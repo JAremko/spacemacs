@@ -170,7 +170,7 @@ RUN sudo apk --update add mesa-gl libxext-dev libxrender-dev mesa-dri-swrast    
  
     git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d && \
     cd /home/${UNAME}/.emacs.d                                                  && \
-    git checkou develop                                                         && \
+    git checkout develop                                                        && \
     git submodule update --init --recursive                                     && \ 
     
     sudo mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                    && \
