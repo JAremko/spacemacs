@@ -10,5 +10,3 @@ sudo touch ~/workspace/emacs-desktop
 sudo chmod 777 ~/workspace/emacs-desktop
 
 /usr/bin/emacs
-
-sudo poweroff
