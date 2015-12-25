@@ -110,13 +110,8 @@ RUN sudo apt-get update -y                                             && \
 #     github.com/gosuri/uiprogress                                        \
 #     github.com/fsouza/go-dockerclient                                   \                         
       github.com/dougm/goflymake                                          \
-      github.com/mattn/goveralls                                       && \
-
-    git clone https://github.com/go-godo/godo.git  /tmp/godo           && \
-    cd /tmp/godo                                                       && \
-    git checkout v2                                                    && \
-    go build                                                           && \
-    go install                                                         && \
+      github.com/mattn/goveralls                                          \
+      gopkg.in/godo.v2/cmd/godo                                        && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
