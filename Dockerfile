@@ -112,7 +112,7 @@ RUN sudo apt-get update -y                                             && \
       github.com/dougm/goflymake                                          \
       github.com/mattn/goveralls                                       && \
 
-    git clone https://github.com/go-godo/godo.got  /tmp/godo           && \
+    git clone https://github.com/go-godo/godo.git  /tmp/godo           && \
     cd /tmp/godo                                                       && \
     git checkout v2                                                    && \
     go build                                                           && \
