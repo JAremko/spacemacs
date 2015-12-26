@@ -35,14 +35,14 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
 
 USER ${UNAME}
 
-RUN mkdir -p /home/${UNAME}/.ssh   && \
-    chmod 664 /home/${UNAME}/.ssh 
+RUN mkdir -p $HOME/.ssh   && \
+    chmod 664 $HOME/.ssh 
     
 ENV HOME /home/${UNAME}
 
-LABEL HOME="${HOME}"
+LABEL HOME=$HOME
 
-ENV GOPATH /home/${UNAME}/workspace
+ENV GOPATH $HOME/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
 
@@ -52,14 +52,15 @@ ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
 #bash
 
-RUN echo "export GOPATH=/home/${UNAME}/workspace" >> /home/${UNAME}/.bashrc        && \
-    echo "export GOROOT=/usr/lib/go" >> /home/${UNAME}/.bashrc                     && \
-    echo "export GOBIN=$GOROOT/bin" >> /home/${UNAME}/.bashrc                      && \
-    echo "export NODEBIN=/usr/lib/node_modules/bin" >> /home/${UNAME}/.bashrc      && \
-    echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> /home/${UNAME}/.bashrc && \
-    . /home/${UNAME}/.bashrc                                                       && \
+RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
+    echo "export GOPATH=$GOPATH" >> $HOME/.bashrc                         && \
+    echo "export GOROOT=$GOROOT" >> $HOME/.bashrc                         && \
+    echo "export GOBIN=$GOBIN" >> $HOME/.bashrc                           && \
+    echo "export NODEBIN=$NODEBIN" >> $HOME/.bashrc                       && \
+    echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
+    . $HOME/.bashrc                                                       && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                           && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 #Golang
@@ -104,18 +105,20 @@ RUN sudo apt-get update -y                                             && \
       github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
-#     github.com/onsi/gomega                                              \
-#     github.com/sclevine/agouti                                          \
-#     github.com/dustin/go-humanize                                       \
-#     github.com/gosuri/uiprogress                                        \
-#     github.com/fsouza/go-dockerclient                                   \                         
+      github.com/onsi/gomega                                              \
+      github.com/sclevine/agouti                                          \
+      github.com/dustin/go-humanize                                       \
+      github.com/gosuri/uiprogress                                        \
+      github.com/fsouza/go-dockerclient                                   \                         
       github.com/dougm/goflymake                                          \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
+    mv -f $GOPATH/src/* $GOROOT/src/                                   && \
+
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/* /home/${UNAME}/workspace/*
+    sudo rm -rf /tmp/* /var/lib/apt/lists/* $HOME/workspace/*
     
 #Fonts
 
@@ -144,58 +147,61 @@ RUN sudo curl -sSL https://test.docker.com/ | sh && \
 
 #fish
 
-RUN sudo apt-get update -y                                                                          && \
-    sudo apt-get install -y fish                                                                    && \
-    sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                                       && \
+RUN sudo apt-get update -y                                                                 && \
+    sudo apt-get install -y fish                                                           && \
+    sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
 
-    mkdir -p /home/${UNAME}/.config/fish                                                            && \
-    echo "set -x HOME /home/${UNAME}" >> /home/${UNAME}/.config/fish/config.fish                    && \
-    echo "set -x GOPATH /home/${UNAME}/workspace" >> /home/${UNAME}/.config/fish/config.fish        && \
-    echo "set -x GOROOT /usr/lib/go" >> /home/${UNAME}/.config/fish/config.fish                     && \
-    echo "set -x GOBIN $GOROOT/bin" >> /home/${UNAME}/.config/fish/config.fish                      && \
-    echo "set -x NODEBIN /usr/lib/node_modules/bin" >> /home/${UNAME}/.config/fish/config.fish      && \
-    echo "set -g fish_key_bindings fish_vi_key_bindings" >> /home/${UNAME}/.config/fish/config.fish && \
-    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"                \
-      >> /home/${UNAME}/.config/fish/config.fish                                                    && \
-    fish -c source /home/${UNAME}/.config/fish/config.fish                                          && \
-    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install > /tmp/ohmf-install     && \
-    fish /tmp/ohmf-install                                                                          && \
+    mkdir -p $HOME/.config/fish                                                            && \
+
+    echo "set -x HOME $HOME" >> $HOME/.config/fish/config.fish                             && \
+    echo "set -x GOPATH $GOPATH" >> $HOME/.config/fish/config.fish                         && \
+    echo "set -x GOROOT $GOROOT" >> $HOME/.config/fish/config.fish                         && \
+    echo "set -x GOBIN $GOBIN" >> $HOME/.config/fish/config.fish                           && \
+    echo "set -x NODEBIN $NODEBIN" >> $HOME/.config/fish/config.fish                       && \
+    echo "set -g fish_key_bindings fish_vi_key_bindings" >> $HOME/.config/fish/config.fish && \
+    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"       \
+      >> $HOME/.config/fish/config.fish                                                    && \
+
+    fish -c source $HOME/.config/fish/config.fish                                          && \
+    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install >                 \
+      /tmp/ohmf-install                                                                    && \
+    fish /tmp/ohmf-install                                                                 && \
     
-    sudo apt-get autoclean -y                                                                       && \
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                            && \
+    sudo apt-get autoclean -y                                                              && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                   && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/* 
     
 #Spacemacs
 
-COPY .spacemacs /home/${UNAME}/.spacemacs
+COPY .spacemacs $HOME/.spacemacs
 COPY private /tmp/private
 
-RUN sudo apt-get update -y                                                         && \
-    sudo apt-get install -y emacs ispell iamerican-insane ibritish-insane irussian    \
-      dbus-x11                                                                     && \
+RUN sudo apt-get update -y                                             && \
+    sudo apt-get install -y emacs ispell iamerican-insane                 \
+    ibritish-insane irussian dbus-x11                                  && \
  
-    git clone https://github.com/syl20bnr/spacemacs.git /home/${UNAME}/.emacs.d    && \
-    cd /home/${UNAME}/.emacs.d                                                     && \
-    git submodule update --init --recursive                                        && \ 
+    git clone https://github.com/syl20bnr/spacemacs.git $HOME/.emacs.d && \
+    cd $HOME/.emacs.d                                                  && \
+    git submodule update --init --recursive                            && \ 
     
-    sudo mv -f /tmp/private  /home/${UNAME}/.emacs.d/private                       && \
+    sudo mv -f /tmp/private  $HOME/.emacs.d/private                    && \
                 
-    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git                  \
-      /tmp/snippets                                                                && \
-    sudo mv -f /tmp/snippets /home/${UNAME}/.emacs.d/private/snippets              && \
+    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
+      /tmp/snippets                                                    && \
+    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
       
-    sudo find /home/${UNAME}/                                                         \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                                   \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                                && \
+    sudo find $HOME/                                                      \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
      
-    sudo chown -R ${uid}:${gid} /home/${UNAME}                                     && \
+    sudo chown -R ${uid}:${gid} $HOME                                  && \
     
-    export SHELL=/usr/bin/fish                                                     && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                                        && \
+    export SHELL=/usr/bin/fish                                         && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
 
-    sudo apt-get purge -y software-properties-common                               && \ 
-    sudo apt-get autoclean -y                                                      && \
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                           && \
+    sudo apt-get purge -y software-properties-common                   && \ 
+    sudo apt-get autoclean -y                                          && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080
