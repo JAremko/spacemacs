@@ -135,8 +135,9 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
 
 #Chromium
 
-RUN sudo apt-get update -y                        && \
-    sudo apt-get install -y chromium chromedriver && \
+RUN sudo apt-get update -y                                          && \
+    sudo apt-get install -y chromium chromedriver                   && \
+    sudo ln -s /usr/lib/chromium/chromedriver /usr/bin/chromedriver && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 #Docker
