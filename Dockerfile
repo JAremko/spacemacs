@@ -102,7 +102,7 @@ RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
       golang.org/x/tools/refactor/rename                                  \
       golang.org/x/tools/refactor/satisfy                                 \
       github.com/nsf/gocode                                               \
-      igithub.com/kisielk/errcheck                                        \
+      github.com/kisielk/errcheck                                         \
       github.com/golang/lint/golint                                       \
       github.com/jstemmer/gotags                                          \  
       github.com/golang/mock/gomock                                       \
