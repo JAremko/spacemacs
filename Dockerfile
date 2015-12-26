@@ -118,9 +118,9 @@ RUN sudo apt-get update -y                                             && \
     sudo mkdir -p $GOROOT/src/gopkg.in $GOROOT/src/github.com             \
       golang.org                                                       && \
 
-    sudo  rsync -av $GOPATH/src/gopkg.in $GOROOT/src/gopkg.in          && \
-    sudo  rsync -av $GOPATH/src/github.com $GOROOT/src/github.com      && \
-    sudo  rsync -av $GOPATH/src/golang.org $GOROOT/src/golang.org      && \
+    sudo rsync $GOPATH/src/gopkg.in $GOROOT/src/gopkg.in               && \
+    sudo rsync $GOPATH/src/github.com $GOROOT/src/github.com           && \
+    sudo rsync $GOPATH/src/golang.org $GOROOT/src/golang.org           && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
 
