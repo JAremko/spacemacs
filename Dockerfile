@@ -65,12 +65,14 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 #Golang
 
-RUN mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/                    && \
-    mkdir -p $GOROOT/src/ $GOROOT/bin/ $GOROOT/pkg/                    && \
+RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
+    sudo mkdir -p $GOROOT/src/ $GOROOT/bin/ $GOROOT/pkg/               && \
 
     sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
-    sudo chown ${uid}:${gid} -R /usr/lib/go                            && \
+
+    sudo chown ${uid}:${gid} -R $GOPATH                                && \
+    sudo chown ${uid}:${gid} -R $GOROOT                                && \
     
     go get -u                                                             \
     
@@ -102,7 +104,7 @@ RUN mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/                    && \
       golang.org/x/tools/refactor/rename                                  \
       golang.org/x/tools/refactor/satisfy                                 \
       github.com/nsf/gocode                                               \
-      github.com/kisielk/errcheck                                         \
+      igithub.com/kisielk/errcheck                                         \
       github.com/golang/lint/golint                                       \
       github.com/jstemmer/gotags                                          \  
       github.com/golang/mock/gomock                                       \
