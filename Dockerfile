@@ -14,7 +14,7 @@ RUN apt-get update -y                                      && \
     update-ca-certificates -f                              && \
 
     apt-get install -y tar sudo bash fontconfig curl git      \
-      htop unzip openssl mosh                              && \
+      htop unzip openssl mosh rsync                        && \
 
     apt-get autoclean -y                                   && \    
     rm -rf /tmp/* /var/lib/apt/lists/*
@@ -65,13 +65,8 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 #Golang
 
-RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
-
-    sudo apt-get update -y                                             && \
+RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
-
-    sudo chown ${uid}:${gid} -R $GOPATH                                && \
-    sudo chown ${uid}:${gid} -R $GOROOT                                && \
     
     go get -u                                                             \
     
@@ -118,9 +113,7 @@ RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
-    sudo mv -f $GOPATH/src/* $GOROOT/src/*                             && \
-    sudo mv -f $GOPATH/bin/* $GOROOT/bin/*                             && \
-    sudo mv -f $GOPATH/pkg/* $GOROOT/pkg/*                             && \
+    sudo rsync -a $GOPATH/ $GOROOT/                                    && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
 
