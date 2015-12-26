@@ -65,6 +65,9 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 #Golang
 
+ENV _GOPATH $GOPATH
+ENV GOPATH $GOROOT
+
 RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
     sudo chown ${uid}:${gid} -R /usr/lib/go                            && \
@@ -114,12 +117,13 @@ RUN sudo apt-get update -y                                             && \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
-    sudo mv -f $GOPATH/src/* $GOROOT/src/                              && \
     sudo chown ${uid}:${gid} -R /usr/lib/go                            && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/* $HOME/workspace/*
-    
+
+ENV GOPATH $_GOPATH
+
 #Fonts
 
 ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
