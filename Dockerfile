@@ -71,6 +71,7 @@ RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
     sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
+    sudo chown ${uid}:${gid} -R $GOROOT                                && \
     
     go get -u                                                             \
     
@@ -117,11 +118,11 @@ RUN sudo mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/               && \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
-    sudo chown ${uid}:${gid} -R $GOROOT                                && \
+    sudo mv -f $GOPATH/src/* $GOROOT/src/*                             && \
+    sudo mv -f $GOPATH/bin/* $GOROOT/bin/*                             && \
+    sudo mv -f $GOPATH/pkg/* $GOROOT/pkg/*                             && \
 
-    mv -f $GOPATH/src/* $GOROOT/src/*                                  && \
-    mv -f $GOPATH/bin/* $GOROOT/bin/*                                  && \
-    mv -f $GOPATH/pkg/* $GOROOT/pkg/*                                  && \
+    sudo chown ${uid}:${gid} -R $GOROOT                                && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
