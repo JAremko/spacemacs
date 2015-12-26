@@ -296,10 +296,10 @@ layers configuration. You are free to put any user code."
   (indent-guide-global-mode)
 
   ;; Window resize
-  (global-set-key (kbd "<C-j>") 'shrink-window)
-  (global-set-key (kbd "<C-k>") 'enlarge-window)
-  (global-set-key (kbd "<C-l>") 'shrink-window-horizontally)
-  (global-set-key (kbd "<C-h>") 'enlarge-window-horizontally)
+  (global-set-key (kbd "<C-up>") 'shrink-window)
+  (global-set-key (kbd "<C-down>") 'enlarge-window)
+  (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
+  (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
   
   ;; toggle follow-mode
   (evil-leader/set-key "wf" 'follow-mode)
