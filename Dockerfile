@@ -114,8 +114,8 @@ RUN sudo apt-get update -y                                             && \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
-    mv -f $GOPATH/src/* $GOROOT/src/                                   && \
-
+    sudo mv -f $GOPATH/src/* $GOROOT/src/                              && \
+    sudo chown ${uid}:${gid} -R /usr/lib/go                            && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/* $HOME/workspace/*
