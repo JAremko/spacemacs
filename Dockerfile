@@ -67,6 +67,8 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
+
+    sudo chown ${uid}:${gid} -R $GOROOT                                && \
     
     go get -u                                                             \
     
