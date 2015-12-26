@@ -8,7 +8,7 @@
   - [Golang](https://golang.org/) + a ton of tools
   - [Docker](https://www.docker.com/)
   - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
-  - [Chromium](https://www.chromium.org/Home)
+  - [Phantomjs](http://phantomjs.org/)
 
 You can set container's user by changing those lines in the Dockerfile:
 ```

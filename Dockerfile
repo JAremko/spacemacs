@@ -133,11 +133,16 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo fc-cache -fv                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
-#Chromium
+#Iceweasel
 
-RUN sudo apt-get update -y                                          && \
-    sudo apt-get install -y chromium chromedriver                   && \
-    sudo ln -s /usr/lib/chromium/chromedriver /usr/bin/chromedriver && \
+RUN sudo apt-get update -y              && \
+    sudo apt-get install -y iceweasel   && \
+    sudo rm -rf /var/cache/apk/* /tmp/*
+
+#Phantomjs
+
+RUN sudo apt-get update -y              && \
+    sudo apt-get install -y phantomjs   && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
 #Docker
