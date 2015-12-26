@@ -65,7 +65,8 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 #Golang
 
-RUN sudo rm -rf $GOPATH/*                                              && \
+RUN mkdir -p $GOPATH/src/ $GOPATH/bin/ $GOPATH/pkg/                    && \
+    mkdir -p $GOROOT/src/ $GOROOT/bin/ $GOROOT/pkg/                    && \
 
     sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
@@ -116,12 +117,15 @@ RUN sudo rm -rf $GOPATH/*                                              && \
       github.com/mattn/goveralls                                          \
       gopkg.in/godo.v2/cmd/godo                                        && \
 
-    mv -f $GOPATH/* $GOROOT/                                           && \
-
     sudo chown ${uid}:${gid} -R /usr/lib/go                            && \
+
+    mv -f $GOPATH/src/* $GOROOT/src/*                                  && \
+    mv -f $GOPATH/bin/* $GOROOT/bin/*                                  && \
+    mv -f $GOPATH/pkg/* $GOROOT/pkg/*                                  && \
+
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo apt-get autoclean -y                                          && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/* $HOME/workspace/*
+    sudo rm -rf /tmp/* /var/lib/apt/lists/* $GOPATH/*
 
 #Fonts
 
