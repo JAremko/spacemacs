@@ -95,28 +95,34 @@ RUN sudo apt-get update -y                                             && \
       golang.org/x/tools/cmd/stress                                       \
       golang.org/x/tools/cmd/stringer                                     \
       golang.org/x/tools/cmd/tip                                          \
-      golang.org/x/tools/cmd/vet                                          \
-      github.com/rogpeppe/godef                                           \
-      github.com/tools/godep                                              \  
+      golang.org/x/tools/cmd/vet                                          \  
       golang.org/x/tools/refactor/eg                                      \
       golang.org/x/tools/refactor/importgraph                             \
       golang.org/x/tools/refactor/rename                                  \
       golang.org/x/tools/refactor/satisfy                                 \
+
+      github.com/rogpeppe/godef                                           \
+      github.com/tools/godep                                              \
       github.com/nsf/gocode                                               \
       github.com/kisielk/errcheck                                         \
       github.com/golang/lint/golint                                       \
-      github.com/jstemmer/gotags                                          \  
+      github.com/jstemmer/gotags                                          \
+  
       github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
+
       github.com/dustin/go-humanize                                       \
       github.com/gosuri/uiprogress                                        \
       github.com/fsouza/go-dockerclient                                   \                         
-      github.com/dougm/goflymake                                          \
       github.com/mattn/goveralls                                          \
-      gopkg.in/godo.v2/cmd/godo                                        && \
+      github.com/fatih/color                                              \
+      github.com/gizak/termui                                             \
+      gopkg.in/godo.v2/cmd/godo                                           \
+
+      github.com/dougm/goflymake                                       && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \

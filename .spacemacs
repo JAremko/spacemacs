@@ -262,6 +262,10 @@ values."
   (add-hook 'go-mode-hook
               (lambda ()
               (push '("go" . ?⇉) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("omega" . Ω prettify-symbols-alist)))
   ;;===============================================================
 
   ;; replace the standard text representations globally
