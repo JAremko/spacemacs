@@ -176,9 +176,6 @@ RUN sudo apt-get update -y                                                      
       >> $HOME/.config/fish/config.fish                                                    && \
 
     fish -c source $HOME/.config/fish/config.fish                                          && \
-    curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install >                 \
-      /tmp/ohmf-install                                                                    && \
-    fish /tmp/ohmf-install                                                                 && \
     
     sudo apt-get autoclean -y                                                              && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                                   && \

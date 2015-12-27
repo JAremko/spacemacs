@@ -110,15 +110,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         monokai
+   dotspacemacs-themes '(monokai
+                         spacemacs-dark
                          solarized-dark)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 18
+                               :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.8)
@@ -279,7 +279,7 @@ user code."
 layers configuration. You are free to put any user code."
 
   ;; Disable fancy arrows 
-  (setq powerline-default-separator 'bar)
+  (setq powerline-default-separator 'slant)
 
   ;; Realative  line number
   (global-linum-mode)
