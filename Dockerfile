@@ -114,13 +114,13 @@ RUN sudo apt-get update -y                                             && \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
 
-      github.com/dustin/go-humanize                                       \
-      github.com/gosuri/uiprogress                                        \
-      github.com/fsouza/go-dockerclient                                   \                         
-      github.com/mattn/goveralls                                          \
-      github.com/fatih/color                                              \
-      github.com/gizak/termui                                             \
-      gopkg.in/godo.v2/cmd/godo                                           \
+#      github.com/dustin/go-humanize                                       \
+#      github.com/gosuri/uiprogress                                        \
+#      github.com/fsouza/go-dockerclient                                   \
+#      github.com/mattn/goveralls                                          \
+#      github.com/fatih/color                                              \
+#      github.com/gizak/termui                                             \
+#      gopkg.in/godo.v2/cmd/godo                                           \
 
       github.com/dougm/goflymake                                       && \
 
