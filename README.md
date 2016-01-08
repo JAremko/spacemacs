@@ -1,7 +1,8 @@
 #### Dockerized Spacemacs(GUI)  
 
 [![screenshot](http://i.imgur.com/PjGF8iY.png)](http://i.imgur.com/PjGF8iY.png)
-*Press <kbd><SPC></kbd><kbd>T</kbd><kbd>n</kbd> to cycle to the [next theme](https://github.com/JAremko/spacemacs/blob/master/.spacemacs#L113), [More themes](http://themegallery.robdor.com/)*
+*Press `" "`-`"T"`-`"n"` to cycle to the [next theme](https://github.com/JAremko/spacemacs/blob/master/.spacemacs#L113)*  
+*[More themes](http://themegallery.robdor.com/)*
 #### What's inside?
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)
