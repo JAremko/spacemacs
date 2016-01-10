@@ -180,6 +180,11 @@ RUN sudo apt-get update -y                                                      
 COPY .spacemacs $HOME/.spacemacs
 COPY private /tmp/private
 
+### Emacs 25
+#    sudo add-apt-repository -y ppa:ubuntu-elisp                        && \
+#    sudo apt-get update -y                                             && \
+#    sudo apt-get install -y emacs-snapshot                             && \
+    
 RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y emacs ispell iamerican-insane                 \
     ibritish-insane irussian dbus-x11                                  && \
