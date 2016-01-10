@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM debian:testing
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -152,18 +152,6 @@ RUN sudo apt-get update -y              && \
     sudo apt-get install -y iceweasel   && \
     sudo rm -rf /var/cache/apk/* /tmp/*
 
-#Phantomjs
-
-RUN sudo apt-get update -y              && \
-    sudo apt-get install -y phantomjs   && \
-    sudo rm -rf /var/cache/apk/* /tmp/*
-
-#Docker
-
-RUN sudo curl -sSL https://test.docker.com/ | sh && \
-    sudo apt-get autoclean -y                    && \
-    sudo rm -rf /var/cache/apk/* /tmp/*
-
 #fish
 
 RUN sudo apt-get update -y                                                                 && \
@@ -217,7 +205,7 @@ RUN sudo apt-get update -y                                             && \
 
     sudo apt-get purge -y software-properties-common                   && \ 
     sudo apt-get autoclean -y                                          && \
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
+#   sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080
