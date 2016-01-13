@@ -26,22 +26,20 @@ EXPOSE 80 8080
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Setup user
-
-RUN mkdir -p /home/${UNAME}/workspace                                                   && \
-    echo "${UNAME}:x:${uid}:${gid}:${UNAME},,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
-    echo "${UNAME}:x:${uid}:" >> /etc/group                                             && \
-    mkdir -p /etc/sudoers.d/                                                            && \
-    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME}                   && \
-    echo "docker:x:999:${UNAME}" >> /etc/group                                          && \
-    chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
-    chown ${uid}:${gid} -R /home/${UNAME}                                               && \
-
 # Basic stuff    
 
-    apt-get update -y                                      && \
+RUN apt-get update -y                                      && \
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
+
+# Setup user
+
+    mkdir -p /home/${UNAME}/workspace                                                   && \
+    echo "${UNAME}:x:${uid}:${gid}:${UNAME},,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
+    echo "${UNAME}:x:${uid}:" >> /etc/group                                             && \
+    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME}                   && \
+    chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
+    chown ${uid}:${gid} -R /home/${UNAME}                                               && \
     
     su ${UNAME}               && \
     export $HOME=/home/$UNAME && \
