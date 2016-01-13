@@ -63,6 +63,7 @@ RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
+    sudo chown ${uid}:${gid} -R /usr/share/go                          && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
     
     go get -u                                                             \
@@ -100,9 +101,10 @@ RUN sudo apt-get update -y                                             && \
       github.com/golang/lint/golint                                       \
       github.com/jstemmer/gotags                                          \
       github.com/dougm/goflymake                                          \
+      github.com/golang/mock/gomock                                       \
       github.com/alecthomas/gometalinter                               && \
-      
-    sudo gometalinter --install --update                               && \
+
+    gometalinter --install --update                                    && \
     
     rm -rf $GOPATH/*                                                   && \
     
