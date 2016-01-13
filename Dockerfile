@@ -182,12 +182,11 @@ COPY private /tmp/private
 #    sudo apt-get install -y emacs-snapshot                             && \
     
 RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y emacs ispell iamerican-insane                 \
-    ibritish-insane irussian dbus-x11                                  && \
+    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
  
     git clone https://github.com/syl20bnr/spacemacs.git $HOME/.emacs.d && \
     cd $HOME/.emacs.d                                                  && \
-    git submodule update --init --recursive                            && \ 
+    git submodule update --init --recursive                            && \
     
     sudo mv -f /tmp/private  $HOME/.emacs.d/private                    && \
                 
@@ -204,7 +203,7 @@ RUN sudo apt-get update -y                                             && \
     export SHELL=/usr/bin/fish                                         && \
     emacs -nw -batch -u "${UNAME}" -q -kill                            && \
 
-    sudo apt-get purge -y software-properties-common                   && \ 
+    sudo apt-get purge -y software-properties-common                   && \
     sudo apt-get autoclean -y                                          && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
