@@ -53,7 +53,7 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
     echo "export GOBIN=$GOBIN" >> $HOME/.bashrc                           && \
     echo "export NODEBIN=$NODEBIN" >> $HOME/.bashrc                       && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
-    . $HOME/.bashrc                                                       && \
+    . $HOME/.bashrc                                                     
 
 #Golang
 
