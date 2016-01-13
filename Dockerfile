@@ -2,10 +2,37 @@ FROM debian:testing
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
+
+#add repos
+
+RUN apt-get update -y                                      && \
+    apt-get install -y tar sudo bash fontconfig curl git      \
+      htop unzip openssl mosh rsync                        && \
+      
+    apt-get autoclean -y                                   && \
+    rm -rf /tmp/* /var/lib/apt/lists/*
+
+# Setup user
+
 ENV uid 1000
 ENV gid 1000
 ENV UNAME jare
-ENV HOME=/home/$UNAME
+
+RUN mkdir -p /home/${UNAME}/workspace                                                   && \
+    echo "${UNAME}:x:${uid}:${gid}:${UNAME},,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
+    echo "${UNAME}:x:${uid}:" >> /etc/group                                             && \
+    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME}                   && \
+    echo "docker:x:999:${UNAME}" >> /etc/group                                          && \
+    chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
+    chown ${uid}:${gid} -R /home/${UNAME}
+
+USER ${UNAME}
+
+RUN mkdir -p $HOME/.ssh   && \
+    chmod 664 $HOME/.ssh 
+    
+ENV HOME /home/${UNAME}
 
 LABEL HOME=$HOME
 
@@ -18,35 +45,9 @@ ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
-ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
-ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
-
-COPY .spacemacs $HOME/.spacemacs
-COPY private /tmp/private
-COPY start.bash /usr/local/bin/start.bash
-
-EXPOSE 80 8080
-
-ENV DEBIAN_FRONTEND noninteractive
-
-# Basic stuff    
-
-RUN apt-get update -y                                      && \
-    apt-get install -y tar sudo bash fontconfig curl git      \
-      htop unzip openssl mosh rsync                        && \
-
-# Setup user
-
-    mkdir -p /home/${UNAME}/workspace                                                   && \
-    echo "${UNAME}:x:${uid}:${gid}:${UNAME},,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
-    echo "${UNAME}:x:${uid}:" >> /etc/group                                             && \
-    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME}                   && \
-    chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
-    chown ${uid}:${gid} -R /home/${UNAME}                                               && \
-    
 #bash
 
-    echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
+RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
     echo "export GOPATH=$GOPATH" >> $HOME/.bashrc                         && \
     echo "export GOROOT=$GOROOT" >> $HOME/.bashrc                         && \
     echo "export GOBIN=$GOBIN" >> $HOME/.bashrc                           && \
@@ -54,10 +55,9 @@ RUN apt-get update -y                                      && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
     . $HOME/.bashrc                                                       && \
 
-    sudo -u $UNAME bash                                                   && \
-
 #Golang
 
+RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
@@ -109,7 +109,6 @@ RUN apt-get update -y                                      && \
     export GOPATH=/usr/share/go                                        && \
     
     go get -u                                                             \
-    
       github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
@@ -119,23 +118,36 @@ RUN apt-get update -y                                      && \
       gopkg.in/godo.v2/cmd/godo                                           \
       github.com/fatih/color                                           && \
       
-    export GOPATH=$HOME/workspace                                      && \
+    sudo chown ${uid}:${gid} -R $GOROOT                                && \
+    sudo chown ${uid}:${gid} -R $GOPATH                                && \
+
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+ENV GOPATH $HOME/workspace
 
 #Fonts
 
-    sudo mkdir -p /usr/local/share/fonts               && \
+ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
+ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
+
+RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo unzip /tmp/scp.zip -d /usr/local/share/fonts  && \
     sudo unzip /tmp/ng.zip -d /usr/local/share/fonts   && \
     sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
     sudo chmod 777 -R /usr/local/share/fonts           && \
     sudo fc-cache -fv                                  && \
+    sudo rm -rf /tmp/*                                                                                    
 
 #Iceweasel
 
+RUN sudo apt-get update -y              && \
     sudo apt-get install -y iceweasel   && \
+    sudo rm -rf /var/cache/apk/*
 
 #fish
 
+RUN sudo apt-get update -y                                                                 && \
     sudo apt-get install -y fish                                                           && \
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
 
@@ -152,13 +164,19 @@ RUN apt-get update -y                                      && \
 
     fish -c source $HOME/.config/fish/config.fish                                          && \
     
+    sudo rm -rf /var/lib/apt/lists/* 
+    
 #Spacemacs
+
+COPY .spacemacs $HOME/.spacemacs
+COPY private /tmp/private
 
 ### Emacs 25
 #    sudo add-apt-repository -y ppa:ubuntu-elisp                        && \
 #    sudo apt-get update -y                                             && \
 #    sudo apt-get install -y emacs-snapshot                             && \
     
+RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
  
     git clone https://github.com/syl20bnr/spacemacs.git $HOME/.emacs.d && \
@@ -185,7 +203,8 @@ RUN apt-get update -y                                      && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
-USER $UNAME
-ENV HOME /home/$UNAME
+EXPOSE 80 8080
+
+COPY start.bash /usr/local/bin/start.bash
 
 ENTRYPOINT ["bash", "/usr/local/bin/start.bash"]
