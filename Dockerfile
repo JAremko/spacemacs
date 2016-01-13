@@ -31,6 +31,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p /home/${UNAME}/workspace                                                   && \
     echo "${UNAME}:x:${uid}:${gid}:${UNAME},,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
     echo "${UNAME}:x:${uid}:" >> /etc/group                                             && \
+    mkdir -p /etc/sudoers.d/                                                            && \
     echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME}                   && \
     echo "docker:x:999:${UNAME}" >> /etc/group                                          && \
     chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
@@ -66,7 +67,7 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
     sudo chown ${uid}:${gid} -R /usr/share/go                          && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
     
-    go get -u                                                             \
+    go get -u -buildmode=exe                                              \
     
       golang.org/x/tools/cmd/benchcmp                                     \
       golang.org/x/tools/cmd/bundle                                       \
@@ -120,9 +121,6 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
       gopkg.in/godo.v2/cmd/godo                                           \
       github.com/fatih/color                                           && \
       
-    sudo chown ${uid}:${gid} -R $GOROOT                                && \
-    sudo chown ${uid}:${gid} -R $GOPATH                                && \
-
     export GOPATH=$HOME/workspace                                      && \
 
 #Fonts
