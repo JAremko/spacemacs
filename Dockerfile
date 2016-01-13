@@ -5,7 +5,9 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 ENV uid 1000
 ENV gid 1000
 ENV UNAME jare
-LABEL HOME=/home/$UNAME
+ENV HOME=/home/$UNAME
+
+LABEL HOME=$HOME
 
 ENV GOPATH $HOME/workspace
 ENV GOROOT /usr/lib/go
@@ -107,6 +109,7 @@ RUN apt-get update -y                                      && \
     export GOPATH=/usr/share/go                                        && \
     
     go get -u                                                             \
+    
       github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
