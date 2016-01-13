@@ -104,7 +104,7 @@ RUN sudo apt-get update -y                                             && \
       github.com/dougm/goflymake                                          \
       github.com/alecthomas/gometalinter                               && \
       
-    gometalinter --install --update                                    && \
+    sudo gometalinter --install --update                               && \
     
     rm -rf $GOPATH/*                                                   && \
     
