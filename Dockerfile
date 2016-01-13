@@ -8,11 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y                                      && \
     apt-get upgrade -y                                     && \
-
-    apt-get purge -y ca-certificates                       && \
-    apt-get install -y ca-certificates                     && \
-    update-ca-certificates -f                              && \
-
+    
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
 
@@ -65,8 +61,6 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
 
 #Golang
 
-ENV GOPATH /usr/share/go
-
 RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
 
@@ -107,23 +101,25 @@ RUN sudo apt-get update -y                                             && \
       github.com/kisielk/errcheck                                         \
       github.com/golang/lint/golint                                       \
       github.com/jstemmer/gotags                                          \
-  
+      github.com/dougm/goflymake                                          \
+      github.com/alecthomas/gometalinter                               && \
+      
+    gometalinter --install --update                                    && \
+    
+    rm -rf $GOPATH/*                                                   && \
+    
+    export GOPATH=/usr/share/go                                        && \
+    
+    go get -u                                                             \
       github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
-
-#      github.com/dustin/go-humanize                                       \
-#      github.com/gosuri/uiprogress                                        \
-#      github.com/fsouza/go-dockerclient                                   \
-#      github.com/mattn/goveralls                                          \
-#      github.com/fatih/color                                              \
-#      github.com/gizak/termui                                             \
-#      gopkg.in/godo.v2/cmd/godo                                           \
-
-      github.com/dougm/goflymake                                       && \
-
+      
+      gopkg.in/godo.v2/cmd/godo                                           \
+      github.com/fatih/color                                           && \
+      
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
 
@@ -210,7 +206,7 @@ RUN sudo apt-get update -y                                             && \
 
     sudo apt-get purge -y software-properties-common                   && \ 
     sudo apt-get autoclean -y                                          && \
-#   sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080
