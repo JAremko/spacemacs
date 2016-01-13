@@ -11,6 +11,7 @@ ENV GOPATH $HOME/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
 
+#WIP
 ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
@@ -41,12 +42,6 @@ RUN apt-get update -y                                      && \
     chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
     chown ${uid}:${gid} -R /home/${UNAME}                                               && \
     
-    sudo -u ${UNAME} bash    && \
-    export HOME=/home/$UNAME && \
-    
-    mkdir -p $HOME/.ssh  && \
-    chmod 664 $HOME/.ssh && \
-
 #bash
 
     echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
@@ -57,7 +52,7 @@ RUN apt-get update -y                                      && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
     . $HOME/.bashrc                                                       && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                  && \
+    sudo -u $UNAME bash                                                   && \
 
 #Golang
 
