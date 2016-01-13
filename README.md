@@ -36,8 +36,8 @@ You can set container's user by changing those lines in the Dockerfile:
     -v /tmp/.X11-unix:/tmp/.X11-unix                        \
     -v /etc/machine-id:/etc/machine-id:ro                   \
     -e DISPLAY=$DISPLAY                                     \
-    -e "GEMAIL=w3techplayground@gmail.com"                  \
-    -e "GNAME=JAremko"                                      \
+    -e "GITEMAIL=w3techplayground@gmail.com"                \
+    -e "GITNAME=JAremko"                                    \
     -p 80:80 -p 8080:8080                                   \
     --name spacemacs jare/spacemacs:latest
 ```
