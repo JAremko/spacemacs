@@ -41,8 +41,8 @@ RUN apt-get update -y                                      && \
     chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
     chown ${uid}:${gid} -R /home/${UNAME}                                               && \
     
-    su ${UNAME}               && \
-    export $HOME=/home/$UNAME && \
+    sudo -u ${UNAME} bash    && \
+    export HOME=/home/$UNAME && \
     
     mkdir -p $HOME/.ssh  && \
     chmod 664 $HOME/.ssh && \
