@@ -7,12 +7,10 @@ ENV DEBIAN_FRONTEND noninteractive
 #add repos
 
 RUN apt-get update -y                                      && \
-    apt-get upgrade -y                                     && \
-    
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
-
-    apt-get autoclean -y                                   && \    
+      
+    apt-get autoclean -y                                   && \
     rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Setup user
@@ -89,7 +87,7 @@ RUN sudo apt-get update -y                                             && \
       golang.org/x/tools/cmd/stress                                       \
       golang.org/x/tools/cmd/stringer                                     \
       golang.org/x/tools/cmd/tip                                          \
-      golang.org/x/tools/cmd/vet                                          \  
+      golang.org/x/tools/cmd/vet                                          \
       golang.org/x/tools/refactor/eg                                      \
       golang.org/x/tools/refactor/importgraph                             \
       golang.org/x/tools/refactor/rename                                  \
