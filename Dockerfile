@@ -37,13 +37,15 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
     chmod 0440 /etc/sudoers.d/${UNAME}                                                  && \
     chown ${uid}:${gid} -R /home/${UNAME}                                               && \
 
-# Basic stuff                              
+# Basic stuff    
+
     apt-get update -y                                      && \
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
     
-    su ${UNAME} && \
-
+    su ${UNAME}               && \
+    export $HOME=/home/$UNAME && \
+    
     mkdir -p $HOME/.ssh  && \
     chmod 664 $HOME/.ssh && \
 
@@ -186,5 +188,8 @@ RUN mkdir -p /home/${UNAME}/workspace                                           
     sudo apt-get autoclean -y                                          && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+USER $UNAME
+ENV HOME /home/$UNAME
 
 ENTRYPOINT ["bash", "/usr/local/bin/start.bash"]
