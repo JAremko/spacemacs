@@ -3,6 +3,13 @@
 [![screenshot](http://i.imgur.com/PjGF8iY.png)](http://i.imgur.com/PjGF8iY.png)
 *Press `" "`-`"T"`-`"n"` to cycle to the [next theme](https://github.com/JAremko/spacemacs/blob/master/.spacemacs#L113)*  
 *[More themes](http://themegallery.robdor.com/)*
+
+##### [Also You might want to look at my Vim+Tmux based thingy `jare/drop-in`](https://hub.docker.com/r/jare/drop-in)  
+[![jare/drop-in:latest](https://badge.imagelayers.io/jare/drop-in:latest.svg)](https://imagelayers.io/?images=jare/drop-in:latest 'jare/drop-in:latest')  *- uncompressed size*
+[![](http://i.imgur.com/RVTlBBO.png)](http://i.imgur.com/RVTlBBO.png)
+*Pros: much lighter, modular and well tested, works via Mosh - better for the remote access*
+
+---------------------------------------------------------------------------------
 #### What's inside?
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)
