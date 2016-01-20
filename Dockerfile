@@ -174,7 +174,7 @@ RUN sudo apt-get update -y                         && \
     
 #slim
 
-RUN sudo gem install slim
+RUN sudo gem install slim slim_lint
 
 #fish
 
