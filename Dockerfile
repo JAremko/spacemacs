@@ -158,6 +158,7 @@ RUN sudo apt-get update -y               && \
 
 RUN sudo apt-get update -y                                    && \
     sudo apt-get install -y node-typescript nodejs-legacy npm && \
+    sudo npm install -g npm                                   && \
     sudo rm -rf /var/cache/apk/*                              && \
     sudo npm install -g angular2 bower yo tslint http-server  && \
        generator-angular2 generator-polymer tsd               && \
