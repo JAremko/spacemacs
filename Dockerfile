@@ -159,19 +159,23 @@ RUN sudo apt-get update -y               && \
 RUN sudo apt-get update -y                             && \
     sudo apt-get install -y node-typescript npm        && \
     sudo rm -rf /var/cache/apk/*                       && \
-    sudo npm install -g angular2 bower yo tslint       && \
-    jade generator-angular2 tslint jade http-server       \
+    sudo npm install -g angular2 bower tslint          && \
+    generator-angular2 tslint http-server                 \
       generator-polymer tsd                            && \
       
     sudo bower install -save polymer-ts polymer-ts-gen    \
       Polymer/polymer#^1.2.0
 
-#sass && compass stuff
+#compass
 
 RUN sudo apt-get update -y                         && \
     sudo apt-get install -y ruby-compass           && \
     sudo rm -rf /var/cache/apk/*
-      
+    
+#slim
+
+RUN sudo gem install slim
+
 #fish
 
 RUN sudo apt-get update -y                                                                 && \
