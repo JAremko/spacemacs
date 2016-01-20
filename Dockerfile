@@ -98,7 +98,6 @@ RUN sudo apt-get update -y                                             && \
       github.com/golang/lint/golint                                       \
       github.com/jstemmer/gotags                                          \
       github.com/dougm/goflymake                                          \
-      github.com/golang/mock/gomock                                       \
       github.com/golang/mock/mockgen                                      \
       github.com/alecthomas/gometalinter                               && \
 
@@ -110,7 +109,6 @@ RUN sudo apt-get update -y                                             && \
     
     go get -u                                                             \
       github.com/golang/mock/gomock                                       \
-      github.com/golang/mock/mockgen                                      \
       github.com/onsi/ginkgo/ginkgo                                       \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
