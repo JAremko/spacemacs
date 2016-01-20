@@ -140,10 +140,12 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo fc-cache -fv                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
-#chromium-browser 
+#chromium 
 
-RUN sudo apt-get update -y                   && \
-    sudo apt-get install -y chromium-browser && \
+RUN sudo apt-get update -y                             && \
+    sudo apt-get install -y chromium chromium-l10n        \
+	libcanberra-gtk-module libexif-dev libgl1-mesa-dri    \
+	libgl1-mesa-glx libpango1.0-0 libv4l-0             && \
     sudo rm -rf /var/cache/apk/*
 
 #chromedriver
