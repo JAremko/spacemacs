@@ -157,7 +157,7 @@ RUN sudo apt-get update -y               && \
 #Node.js && TypeScript stuff
 
 RUN sudo apt-get update -y                          && \
-    sudo apt-get install -y node-typescript         && \
+    sudo apt-get install -y node-typescript npm     && \
     sudo rm -rf /var/cache/apk/*                    && \
     npm install -save polymer-ts -g angular2 bower     \
       yo http-server generator-angular2 tslint jade    \
