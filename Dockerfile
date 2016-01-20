@@ -156,22 +156,28 @@ RUN sudo apt-get update -y               && \
 
 #Node.js && TypeScript stuff
 
-RUN sudo apt-get update -y                                    && \
-    sudo apt-get install -y nodejs nodejs-legacy npm          && \
-    sudo rm -rf /var/cache/apk/*                              && \
+RUN sudo apt-get update -y                           && \
+    sudo apt-get install -y nodejs nodejs-legacy npm && \
+    sudo rm -rf /var/cache/apk/*                     && \
   
-    sudo npm cache clean -f                                   && \
-    sudo npm install -g n                                     && \
-    sudo n stable                                             && \
+    sudo npm cache clean -f                          && \
+    sudo npm install -g n                            && \
+    sudo n stable                                    && \
     
-    sudo npm install -g npm                                   && \
+    sudo npm install -g npm                          && \
     
-    sudo npm install -g typescript angular2 bower yo tslint   && \
-       generator-angular2 generator-polymer tsd http-server   && \
+    sudo npm install -g bower typescript tslint tsd  && \
+      http-server yo                                 && \
       
-    sudo bower install -save Polymer/polymer#^1.2.0              \
-       polymer-ts polymer-ts-gen
-      
+    sudo bower install -save Polymer/polymer#^1.2.0     
+       
+    sudo npm install -g generator-polymer polymer-ts    \
+      polymer-ts-gen
+
+#Angular2
+
+RUN sudo npm install angular2 -g generator-angular2
+
 #compass
 
 RUN sudo apt-get update -y               && \
