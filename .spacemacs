@@ -20,11 +20,9 @@ values."
    '(
      restclient
      emacs-lisp
-     haskell
      html
      javascript
      markdown
-     scala
      shell-scripts
      typescript
      yaml
@@ -238,7 +236,8 @@ values."
   ;; Frame title
   (setq frame-title-format '("Spacemacs"))
   
-  ;;===========Text-representations================================
+  ;;===========Text-representations-go=============================
+
   (add-hook 'go-mode-hook
               (lambda ()
               (push '(">=" . ?≥) prettify-symbols-alist)))
@@ -263,9 +262,38 @@ values."
               (lambda ()
               (push '("go" . ?⇉) prettify-symbols-alist)))
 
+
   (add-hook 'go-mode-hook
               (lambda ()
               (push '("omega" . ?Ω) prettify-symbols-alist)))
+
+
+  ;;===========Text-representations-typescript=====================
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '(">=" . ?≥) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<=" . ?≤) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("!=" . ?≠) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("->" . ?→) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("<-" . ?←) prettify-symbols-alist)))
+
+  (add-hook 'go-mode-hook
+              (lambda ()
+              (push '("=>" . ?⇒) prettify-symbols-alist)))
+
   ;;===============================================================
 
   ;; replace the standard text representations globally

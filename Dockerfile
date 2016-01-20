@@ -40,7 +40,6 @@ ENV GOPATH $HOME/workspace
 ENV GOROOT /usr/lib/go
 ENV GOBIN $GOROOT/bin
 
-#WIP
 ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
@@ -100,6 +99,7 @@ RUN sudo apt-get update -y                                             && \
       github.com/jstemmer/gotags                                          \
       github.com/dougm/goflymake                                          \
       github.com/golang/mock/gomock                                       \
+      github.com/golang/mock/mockgen                                      \
       github.com/alecthomas/gometalinter                               && \
 
     gometalinter --install --update                                    && \
@@ -114,6 +114,9 @@ RUN sudo apt-get update -y                                             && \
       github.com/onsi/ginkgo/ginkgo                                       \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
+
+      github.com/GeertJohan/go.rice                                       \
+      github.com/GeertJohan/go.rice/rice                                  \
       
       gopkg.in/godo.v2/cmd/godo                                           \
       github.com/fatih/color                                           && \
@@ -145,6 +148,27 @@ RUN sudo apt-get update -y              && \
     sudo apt-get install -y iceweasel   && \
     sudo rm -rf /var/cache/apk/*
 
+#chromedriver
+
+RUN sudo apt-get update -y               && \
+    sudo apt-get install -y chromedriver && \
+    sudo rm -rf /var/cache/apk/*
+
+#Node.js && TypeScript stuff
+
+RUN sudo apt-get update -y                          && \
+    sudo apt-get install -y node-typescript         && \
+    sudo rm -rf /var/cache/apk/*                    && \
+    npm install -save polymer-ts -g angular2 bower     \
+      yo http-server generator-angular2 tslint jade    \
+      generator-polymer tsd
+      
+#sass && compass stuff
+
+RUN sudo apt-get update -y                         && \
+    sudo apt-get install -y ruby-compass           && \
+    sudo rm -rf /var/cache/apk/*
+      
 #fish
 
 RUN sudo apt-get update -y                                                                 && \

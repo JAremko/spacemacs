@@ -12,9 +12,16 @@
 ---------------------------------------------------------------------------------
 #### What's inside?
 
-  - [Spacemacs](https://github.com/syl20bnr/spacemacs)
-  - [Golang](https://golang.org/) + a ton of tools
-  - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+  - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
+  - [Golang](https://golang.org/) + a ton of tools  
+  - [Chromium](https://www.chromium.org/)  
+  - [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/)  
+  - [Compass](http://compass-style.org/)  
+  - [Node.js](https://nodejs.org/) + some tools  
+  - [TypeScript](http://www.typescriptlang.org/) + some tools  
+  - [Angular2](https://angular.io/)  
+
+*It's pretty crowded, for now*  
 
 You can set container's user by changing those lines in the Dockerfile:
 ```
