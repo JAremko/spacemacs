@@ -166,7 +166,7 @@ RUN sudo apt-get update -y                           && \
     
     sudo npm install -g npm                          && \
     
-    sudo npm install -g bower typescript tslint tsd  && \
+    sudo npm install -g bower typescript tslint tsd     \
       http-server yo                                 && \
       
     sudo bower install -save Polymer/polymer#^1.2.0     
