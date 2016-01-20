@@ -157,19 +157,25 @@ RUN sudo apt-get update -y               && \
 #Node.js && TypeScript stuff
 
 RUN sudo apt-get update -y                                    && \
-    sudo apt-get install -y node-typescript nodejs-legacy npm && \
-    sudo npm install -g npm                                   && \
+    sudo apt-get install -y nodejs nodejs-legacy npm          && \
     sudo rm -rf /var/cache/apk/*                              && \
-    sudo npm install -g angular2 bower yo tslint http-server  && \
-       generator-angular2 generator-polymer tsd               && \
+  
+    sudo npm cache clean -f                                   && \
+    sudo npm install -g n                                     && \
+    sudo n stable                                             && \
+    
+    sudo npm install -g npm                                   && \
+    
+    sudo npm install -g typescript angular2 bower yo tslint   && \
+       generator-angular2 generator-polymer tsd http-server   && \
       
     sudo bower install -save Polymer/polymer#^1.2.0              \
        polymer-ts polymer-ts-gen
       
 #compass
 
-RUN sudo apt-get update -y                         && \
-    sudo apt-get install -y ruby-compass           && \
+RUN sudo apt-get update -y               && \
+    sudo apt-get install -y ruby-compass && \
     sudo rm -rf /var/cache/apk/*
     
 #slim
