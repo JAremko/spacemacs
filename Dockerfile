@@ -115,8 +115,8 @@ RUN sudo apt-get update -y                                             && \
       github.com/onsi/gomega                                              \
       github.com/sclevine/agouti                                          \
 
-      github.com/GeertJohan/go.rice                                       \
-      github.com/GeertJohan/go.rice/rice                                  \
+#      github.com/GeertJohan/go.rice                                       \
+#      github.com/GeertJohan/go.rice/rice                                  \
       
       gopkg.in/godo.v2/cmd/godo                                           \
       github.com/fatih/color                                           && \
