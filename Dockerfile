@@ -105,19 +105,19 @@ RUN sudo apt-get update -y                                             && \
     
     rm -rf $GOPATH/*                                                   && \
     
-    export GOPATH=/usr/share/go                                        && \
-    
-    go get -u                                                             \
-      github.com/golang/mock/gomock                                       \
-      github.com/onsi/ginkgo/ginkgo                                       \
-      github.com/onsi/gomega                                              \
-      github.com/sclevine/agouti                                          \
-
+#    export GOPATH=/usr/share/go                                        && \
+#    
+#    go get -u                                                             \
+#      github.com/golang/mock/gomock                                       \
+#      github.com/onsi/ginkgo/ginkgo                                       \
+#      github.com/onsi/gomega                                              \
+#     github.com/sclevine/agouti                                           \
+#
 #      github.com/GeertJohan/go.rice                                       \
 #      github.com/GeertJohan/go.rice/rice                                  \
-      
-      gopkg.in/godo.v2/cmd/godo                                           \
-      github.com/fatih/color                                           && \
+#      
+#      gopkg.in/godo.v2/cmd/godo                                           \
+#      github.com/fatih/color                                           && \
       
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
@@ -140,10 +140,10 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo fc-cache -fv                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
-#Iceweasel
+#chromium-browser 
 
-RUN sudo apt-get update -y              && \
-    sudo apt-get install -y iceweasel   && \
+RUN sudo apt-get update -y                   && \
+    sudo apt-get install -y chromium-browser && \
     sudo rm -rf /var/cache/apk/*
 
 #chromedriver
