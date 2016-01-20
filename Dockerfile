@@ -156,13 +156,16 @@ RUN sudo apt-get update -y               && \
 
 #Node.js && TypeScript stuff
 
-RUN sudo apt-get update -y                          && \
-    sudo apt-get install -y node-typescript npm     && \
-    sudo rm -rf /var/cache/apk/*                    && \
-    npm install -save polymer-ts -g angular2 bower     \
-      yo http-server generator-angular2 tslint jade    \
-      generator-polymer tsd
+RUN sudo apt-get update -y                             && \
+    sudo apt-get install -y node-typescript npm        && \
+    sudo rm -rf /var/cache/apk/*                       && \
+    sudo npm install -g angular2 bower yo tslint       && \
+    jade generator-angular2 tslint jade http-server       \
+      generator-polymer tsd                            && \
       
+    sudo bower install -save polymer-ts polymer-ts-gen    \
+      Polymer/polymer#^1.2.0
+
 #sass && compass stuff
 
 RUN sudo apt-get update -y                         && \
