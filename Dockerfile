@@ -168,7 +168,7 @@ RUN sudo apt-get update -y                            && \
     
     cd $HOME                                          && \
     sudo npm install -g bower typescript tslint tsd      \
-      http-server yo generator-polymer polymer-ts-gen    \
+      http-server yo generator-polymer polymer-ts-gen    
 
 #Angular2
 
