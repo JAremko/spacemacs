@@ -6,13 +6,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
-RUN apt-get update -y                                      && \
-    apt-get upgrade -y                                     && \
+RUN rm -rf /var/lib/apt/lists/*                            && \
+    apt-get update -y                                      && \
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
       
-    apt-get autoclean -y                                   && \
-    rm -rf /tmp/* /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 # Setup user
 
