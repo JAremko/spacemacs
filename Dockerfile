@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:latest
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
