@@ -154,15 +154,21 @@ RUN sudo apt-get update -y               && \
     sudo apt-get install -y chromedriver && \
     sudo rm -rf /var/cache/apk/*
 
-#Node.js && TypeScript stuff
+#Node.js
 
-RUN sudo apt-get update -y                                      && \
-    sudo curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    sudo apt-get install -y nodejs                              && \
-    sudo rm -rf /var/cache/apk/*                                && \
+USER root
 
-    cd $HOME                                                    && \
-    sudo npm install -g bower typescript tslint tsd tern           \
+RUN apt-get update -y                                      && \
+    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    apt-get install -y nodejs                              && \
+    rm -rf /var/cache/apk/*                              
+
+USER ${UNAME}
+
+#TypeScript stuff
+
+RUN cd $HOME                                             && \
+    sudo npm install -g bower typescript tslint tsd tern    \
       http-server yo generator-polymer polymer-ts-gen    
 
 #Angular2
