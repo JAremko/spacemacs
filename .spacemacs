@@ -338,7 +338,7 @@ layers configuration. You are free to put any user code."
  
   ;;===========Use chromium-browser to open links===============================
     (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "chromium")
+          browse-url-generic-program "chromium --no-sandbox")
   ;;============================================================================
  
   ;;compile on save
