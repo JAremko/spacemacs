@@ -4,6 +4,16 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# Hash Sum mismatch fix
+
+RUN rm -f /etc/apt/sources.list                                                    && \
+    echo "deb http://ftp.ca.debian.org/debian stretch main contrib non-free"          \
+      >> /etc/apt/sources.list                                                     && \
+    echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free"    \
+      >> /etc/apt/sources.list                                                     && \
+    echo "deb http://security.debian.org/ stretch/updates main contrib non-free"      \
+      >> /etc/apt/sources.list                                                     && \
+
 # Basic stuff
 
 RUN rm -rf /var/lib/apt/lists/*                            && \
