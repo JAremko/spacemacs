@@ -156,18 +156,13 @@ RUN sudo apt-get update -y               && \
 
 #Node.js && TypeScript stuff
 
-RUN sudo apt-get update -y                            && \
-    sudo apt-get install -y nodejs nodejs-legacy npm  && \
-    sudo rm -rf /var/cache/apk/*                      && \
-  
-    sudo npm cache clean -f                           && \
-    sudo npm install -g n                             && \
-    sudo n stable                                     && \
-    
-    sudo npm install -g npm                           && \
-    
-    cd $HOME                                          && \
-    sudo npm install -g bower typescript tslint tsd      \
+RUN sudo apt-get update -y                                 && \
+    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    sudo apt-get install -y nodejs                         && \
+    sudo rm -rf /var/cache/apk/*                           && \
+
+    cd $HOME                                               && \
+    sudo npm install -g bower typescript tslint tsd tern      \
       http-server yo generator-polymer polymer-ts-gen    
 
 #Angular2
@@ -242,7 +237,7 @@ RUN sudo apt-get update -y                                             && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
-EXPOSE 80 8080 443
+EXPOSE 80 8080 443 3000
 
 COPY start.bash /usr/local/bin/start.bash
 
