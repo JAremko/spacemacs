@@ -1,17 +1,13 @@
-FROM debian:latest
+FROM debian:testing
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Add repos
-
-RUN echo "deb http://http.debian.net/debian jessie-backports main" >> \
-      /etc/apt/sources.list.d/sources.list
-
 # Basic stuff
 
 RUN apt-get update -y                                      && \
+    apt-get upgrade -y                                     && \
     apt-get install -y tar sudo bash fontconfig curl git      \
       htop unzip openssl mosh rsync                        && \
       
