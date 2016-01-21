@@ -4,7 +4,12 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-#add repos
+# Add repos
+
+RUN echo "deb http://http.debian.net/debian jessie-backports main" >> \
+      /etc/apt/sources.list.d/sources.list
+
+# Basic stuff
 
 RUN apt-get update -y                                      && \
     apt-get install -y tar sudo bash fontconfig curl git      \
@@ -44,7 +49,7 @@ ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
-#bash
+# Bash
 
 RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
     echo "export GOPATH=$GOPATH" >> $HOME/.bashrc                         && \
@@ -54,7 +59,7 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
     . $HOME/.bashrc                                                     
 
-#Golang
+# Golang
 
 RUN sudo apt-get update -y                                             && \
     sudo apt-get install -y mercurial golang-go                        && \
@@ -127,7 +132,7 @@ RUN sudo apt-get update -y                                             && \
 
 ENV GOPATH $HOME/workspace
 
-#Fonts
+# Fonts
 
 ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
 ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
@@ -140,7 +145,7 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo fc-cache -fv                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
-#chromium 
+# Chromium 
 
 RUN sudo apt-get update -y                                 && \
     sudo apt-get install -y chromium chromium-l10n            \
@@ -148,13 +153,13 @@ RUN sudo apt-get update -y                                 && \
 	libgl1-mesa-glx libpango1.0-0 libv4l-0             && \
     sudo rm -rf /var/cache/apk/*
 
-#chromedriver
+# Chromedriver
 
 RUN sudo apt-get update -y               && \
     sudo apt-get install -y chromedriver && \
     sudo rm -rf /var/cache/apk/*
 
-#Node.js
+# Node.js
 
 USER root
 
@@ -165,27 +170,27 @@ RUN apt-get update -y                                      && \
 
 USER ${UNAME}
 
-#TypeScript stuff
+# TypeScript stuff
 
 RUN cd $HOME                                             && \
     sudo npm install -g bower typescript tslint tsd tern    \
       http-server yo generator-polymer polymer-ts-gen    
 
-#Angular2
+# Angular2
 
 RUN sudo npm install angular2 -g generator-angular2
 
-#compass
+# Compass
 
 RUN sudo apt-get update -y               && \
     sudo apt-get install -y ruby-compass && \
     sudo rm -rf /var/cache/apk/*
     
-#slim
+# Slim
 
 RUN sudo gem install slim slim_lint
 
-#fish
+# Fish
 
 RUN sudo apt-get update -y                                                                 && \
     sudo apt-get install -y fish                                                           && \
@@ -206,7 +211,7 @@ RUN sudo apt-get update -y                                                      
     
     sudo rm -rf /var/lib/apt/lists/* 
     
-#Spacemacs
+# Spacemacs
 
 COPY .spacemacs $HOME/.spacemacs
 COPY private /tmp/private
