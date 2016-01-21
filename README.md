@@ -55,7 +55,7 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
  -e DISPLAY=$DISPLAY                                      \
  -e "GEMAIL=w3techplayground@gmail.com"                   \
  -e "GNAME=JAremko"                                       \
- -p 80:80 -p 8080:8080 -p 443:443                         \
+ -p 80:80 -p 8080:8080 -p 443:443 -p 3000:3000            \
  --name spacemacs jare/spacemacs:latest
 ```
 
