@@ -156,13 +156,13 @@ RUN sudo apt-get update -y               && \
 
 #Node.js && TypeScript stuff
 
-RUN sudo apt-get update -y                                 && \
-    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    sudo apt-get install -y nodejs                         && \
-    sudo rm -rf /var/cache/apk/*                           && \
+RUN sudo apt-get update -y                                      && \
+    sudo curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    sudo apt-get install -y nodejs                              && \
+    sudo rm -rf /var/cache/apk/*                                && \
 
-    cd $HOME                                               && \
-    sudo npm install -g bower typescript tslint tsd tern      \
+    cd $HOME                                                    && \
+    sudo npm install -g bower typescript tslint tsd tern           \
       http-server yo generator-polymer polymer-ts-gen    
 
 #Angular2
