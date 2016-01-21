@@ -242,7 +242,7 @@ RUN sudo apt-get update -y                                             && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
-EXPOSE 80 8080
+EXPOSE 80 8080 443
 
 COPY start.bash /usr/local/bin/start.bash
 
