@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:stretch
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
