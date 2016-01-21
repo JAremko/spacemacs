@@ -12,7 +12,7 @@ RUN rm -f /etc/apt/sources.list                                                 
     echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free"    \
       >> /etc/apt/sources.list                                                     && \
     echo "deb http://security.debian.org/ stretch/updates main contrib non-free"      \
-      >> /etc/apt/sources.list                                                     && \
+      >> /etc/apt/sources.list                                               
 
 # Basic stuff
 
