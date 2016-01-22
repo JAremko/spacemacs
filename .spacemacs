@@ -270,27 +270,27 @@ values."
 
   ;;===========Text-representations-typescript=====================
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '(">=" . ?≥) prettify-symbols-alist)))
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '("<=" . ?≤) prettify-symbols-alist)))
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '("!=" . ?≠) prettify-symbols-alist)))
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '("->" . ?→) prettify-symbols-alist)))
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '("<-" . ?←) prettify-symbols-alist)))
 
-  (add-hook 'go-mode-hook
+  (add-hook 'typescript-mode-hook
               (lambda ()
               (push '("=>" . ?⇒) prettify-symbols-alist)))
 
