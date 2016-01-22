@@ -158,15 +158,15 @@ RUN sudo apt-get update -y                                            && \
 
 # PhantonJS 
 
-RUN sudo apt-get update -y                                                 && \
-    sudo apt-get install -y build-essential g++ flex bison gperf ruby perl    \
-      libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev    \
-      libpng-dev libjpeg-dev python libx11-dev libxext-dev                 && \
+RUN sudo apt-get update -y                                                           && \
+    sudo apt-get install -y build-essential g++ flex bison gperf ruby perl              \
+      libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev              \
+      libpng-dev libjpeg-dev python libx11-dev libxext-dev ttf-mscorefonts-installer && \
   
-    cd /tmp/                                                               && \
-    git clone --recurse-submodules git://github.com/ariya/phantomjs.git    && \
-    cd ./phantomjs                                                         && \
-    sudo ./build.py                                                        && \
+    cd /tmp/                                                                         && \
+    git clone --recurse-submodules git://github.com/ariya/phantomjs.git              && \
+    cd ./phantomjs                                                                   && \
+    sudo ./build.py                                                                  && \
     
     sudo rm -rf /tmp/* /var/cache/apk/*
     
