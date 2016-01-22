@@ -158,10 +158,10 @@ RUN sudo apt-get update -y                                 && \
 	libgl1-mesa-glx libpango1.0-0 libv4l-0             && \
     sudo rm -rf /var/cache/apk/*
 
-# Chromedriver
+# Iceweasel
 
-RUN sudo apt-get update -y               && \
-    sudo apt-get install -y chromedriver && \
+RUN sudo apt-get update -y            && \
+    sudo apt-get install -y iceweasel && \
     sudo rm -rf /var/cache/apk/*
 
 # Node.js
