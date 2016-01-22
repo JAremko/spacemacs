@@ -150,20 +150,26 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo fc-cache -fv                                  && \
     sudo rm -rf /tmp/*                                                                                    
 
-# Chromium 
-
-RUN sudo apt-get update -y                                 && \
-    sudo apt-get install -y chromium chromium-l10n            \
-	libcanberra-gtk-module libexif-dev libgl1-mesa-dri    \
-	libgl1-mesa-glx libpango1.0-0 libv4l-0             && \
-    sudo rm -rf /var/cache/apk/*
-
 # Iceweasel
 
-RUN sudo apt-get update -y            && \
-    sudo apt-get install -y iceweasel && \
+RUN sudo apt-get update -y                                            && \
+    sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
     sudo rm -rf /var/cache/apk/*
 
+# PhantonJS 
+
+RUN sudo apt-get update -y                                                 && \
+    sudo apt-get install build-essential g++ flex bison gperf ruby perl       \
+      libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev    \
+      libpng-dev libjpeg-dev python libx11-dev libxext-dev                 && \
+  
+    cd /tmp/                                                               && \
+    git clone --recurse-submodules git://github.com/ariya/phantomjs.git    && \
+    cd ./phantomjs                                                         && \
+    sudo ./build.py                                                        && \
+    
+    sudo rm -rf /tmp/* /var/cache/apk/*
+    
 # Node.js
 
 USER root
@@ -177,9 +183,18 @@ USER ${UNAME}
 
 # TypeScript stuff
 
-RUN cd $HOME                                             && \
-    sudo npm install -g bower typescript tslint tsd tern    \
-      http-server yo generator-polymer polymer-ts-gen    
+RUN cd $HOME                                                    && \
+    sudo npm install -g bower typescript tslint tsd tern           \
+      http-server yo generator-polymer polymer-ts-gen           && \
+      
+    cd /tmp/                                                    && \
+    git clone git://github.com/clausreinke/typescript-tools.git && \
+    cd /tmp/typescript-tools/                                   && \
+    sudo npm install -g                                         && \
+    
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;        && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    
 
 # Angular2
 
