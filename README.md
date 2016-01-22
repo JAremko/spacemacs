@@ -14,8 +14,8 @@
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
   - [Golang](https://golang.org/) + a ton of tools  
-  - [Chromium](https://www.chromium.org/)  
-  - [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/)  
+  - [Iceweasel(Firefox)](https://www.mozilla.org/en-US/firefox/new/)  
+  - [PhantomJS](http://phantomjs.org/)  
   - [Compass](http://compass-style.org/)  
   - [Node.js](https://nodejs.org/) + some tools  
   - [TypeScript](http://www.typescriptlang.org/) + some tools  
