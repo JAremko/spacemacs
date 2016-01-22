@@ -73,7 +73,7 @@ RUN sudo apt-get update -y                                             && \
     sudo chown ${uid}:${gid} -R /usr/share/go                          && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
     
-    go get -u -buildmode=exe -ldflags '-s'                                \
+    go get -u -buildmode=exe -ldflags '-s -w'                             \
     
       golang.org/x/tools/cmd/benchcmp                                     \
       golang.org/x/tools/cmd/bundle                                       \
