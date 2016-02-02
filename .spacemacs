@@ -31,13 +31,14 @@ values."
      evil-snipe
      unimpaired
      vinegar
-     auto-completion
     (auto-completion :variables
       auto-completion-enable-help-tooltip t)
     (auto-completion :variables
       auto-completion-enable-snippets-in-popup t)
      smex
      spell-checking
+    (version-control :variables
+                     version-control-global-margin t)
      syntax-checking
      shell
      search-engine
@@ -313,13 +314,15 @@ layers configuration. You are free to put any user code."
   ;; Disable fancy arrows 
   (setq powerline-default-separator 'slant)
 
+  (setq powerline-default-separator 'slant)
+
   ;; Realative  line number
   (global-linum-mode)
   (linum-relative-toggle)
 
   ;; Magit
   (setq-default git-magit-status-fullscreen t)
-  (setq magit-repository-directories '("~/workspace/"))
+  (setq magit-repository-directories '("~/"))
   
   ;; Use undo-tree globally
   (global-undo-tree-mode 1)

@@ -183,23 +183,13 @@ USER ${UNAME}
 
 # TypeScript stuff
 
-RUN cd $HOME                                                    && \
-    sudo npm install -g bower typescript tslint tsd tern           \
-      http-server yo generator-polymer polymer-ts-gen           && \
-      
-    cd /tmp/                                                    && \
-    git clone git://github.com/clausreinke/typescript-tools.git && \
-    cd /tmp/typescript-tools/                                   && \
-    sudo npm install -g                                         && \
-    
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;        && \
+RUN sudo npm install -g bower typescript typings tslint             \
+      yo generator-polymer polymer-ts-gen karma jasmine             \
+      protractor webpack webpack-dev-server typescript-formatter && \
+     
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;         && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
     
-
-# Angular2
-
-RUN sudo npm install angular2 -g generator-angular2
-
 # Compass
 
 RUN sudo apt-get update -y               && \
@@ -231,27 +221,24 @@ RUN sudo apt-get update -y                                                      
     
     sudo rm -rf /var/lib/apt/lists/* 
     
+# Emacs
+
+RUN sudo apt-get update -y                                             && \
+    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
+    sudo apt-get autoclean -y                                          && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
 # Spacemacs
 
 COPY .spacemacs $HOME/.spacemacs
 COPY private /tmp/private
-
-### Emacs 25
-#    sudo add-apt-repository -y ppa:ubuntu-elisp                        && \
-#    sudo apt-get update -y                                             && \
-#    sudo apt-get install -y emacs-snapshot                             && \
-    
-RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
- 
-    git clone https://github.com/syl20bnr/spacemacs.git $HOME/.emacs.d && \
-    cd $HOME/.emacs.d                                                  && \
-    git submodule update --init --recursive                            && \
-    
-    sudo mv -f /tmp/private  $HOME/.emacs.d/private                    && \
-                
-    git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
+                    
+RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
       /tmp/snippets                                                    && \
+    git clone https://github.com/syl20bnr/spacemacs.git -b develop        \
+      $HOME/.emacs.d/
+   
+    sudo mv -f /tmp/private $HOME/.emacs.d/private                     && \
     sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
       
     sudo find $HOME/                                                      \
@@ -262,9 +249,8 @@ RUN sudo apt-get update -y                                             && \
     
     export SHELL=/usr/bin/fish                                         && \
     emacs -nw -batch -u "${UNAME}" -q -kill                            && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
 
-    sudo apt-get purge -y software-properties-common                   && \
-    sudo apt-get autoclean -y                                          && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 

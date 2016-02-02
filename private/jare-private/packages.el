@@ -15,11 +15,7 @@
 (setq jare-private-packages
     '(
       ;; package names go here
-      git-gutter
-      fringe-helper
-      git-gutter-fringe
       multiple-cursors
-      indent-guide
       ))
 
 ;; List of packages to exclude.
@@ -43,35 +39,4 @@
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-)
-
-(defun jare-private/init-indent-guide ()
-  (use-package indent-guide)
-)
-
-(defun jare-private/init-git-gutter ()
-  (use-package git-gutter)
-
-  (global-git-gutter-mode +1)
-
-  ;; If you enable global minor mode
-  (global-git-gutter-mode t)
-
-  ;; If you would like to use git-gutter.el and linum-mode
-  (git-gutter:linum-setup)
-
-  (evil-leader/set-key "gut" 'git-gutter:toggle)
-  (evil-leader/set-key "gu=" 'git-gutter:popup-hunk)
-  (evil-leader/set-key "gup" 'git-gutter:previous-hunk)
-  (evil-leader/set-key "gun" 'git-gutter:next-hunk)
-  (evil-leader/set-key "gus" 'git-gutter:stage-hunk)
-  (evil-leader/set-key "gur" 'git-gutter:revert-hunk)
-)
-
-(defun jare-private/init-fringe-helper ()
-  (use-package fringe-helper)
-)
-
-(defun jare-private/init-git-gutter-fringe ()
-  (use-package git-gutter-fringe)
 )
