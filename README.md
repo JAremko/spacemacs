@@ -19,7 +19,6 @@
   - [Compass](http://compass-style.org/)  
   - [Node.js](https://nodejs.org/) + some tools  
   - [TypeScript](http://www.typescriptlang.org/) + some tools  
-  - [Angular2](https://angular.io/)  
 
 *It's pretty crowded, for now*  
 
