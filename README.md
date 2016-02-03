@@ -14,13 +14,10 @@
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
   - [Golang](https://golang.org/) + a ton of tools  
-  - [Iceweasel(Firefox)](https://www.mozilla.org/en-US/firefox/new/)  
-  - [PhantomJS](http://phantomjs.org/)  
   - [Compass](http://compass-style.org/)  
   - [Node.js](https://nodejs.org/) + some tools  
-  - [TypeScript](http://www.typescriptlang.org/) + some tools  
-
-*It's pretty crowded, for now*  
+  - [TypeScript](http://www.typescriptlang.org/) + some tools 
+  - [Slim](http://slim-lang.com/) 
 
 You can set container's user by changing those lines in the Dockerfile:
 ```

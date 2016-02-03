@@ -4,22 +4,12 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Hash Sum mismatch fix
-
-RUN rm -f /etc/apt/sources.list                                                    && \
-    echo "deb http://ftp.ca.debian.org/debian stretch main contrib non-free"          \
-      >> /etc/apt/sources.list                                                     && \
-    echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free"    \
-      >> /etc/apt/sources.list                                                     && \
-    echo "deb http://security.debian.org/ stretch/updates main contrib non-free"      \
-      >> /etc/apt/sources.list                                               
-
 # Basic stuff
 
 RUN rm -rf /var/lib/apt/lists/*                            && \
     apt-get update -y                                      && \
     apt-get install -y tar sudo bash fontconfig curl git      \
-      htop unzip openssl mosh rsync                        && \
+      htop unzip openssl mosh rsync make                   && \
       
     rm -rf /var/lib/apt/lists/*
 
@@ -54,6 +44,19 @@ ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
+# Fonts
+
+ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
+ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
+
+RUN sudo mkdir -p /usr/local/share/fonts               && \
+    sudo unzip /tmp/scp.zip -d /usr/local/share/fonts  && \
+    sudo unzip /tmp/ng.zip -d /usr/local/share/fonts   && \
+    sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
+    sudo chmod 777 -R /usr/local/share/fonts           && \
+    sudo fc-cache -fv                                  && \
+    sudo rm -rf /tmp/*                                                                                    
+
 # Bash
 
 RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
@@ -63,6 +66,60 @@ RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
     echo "export NODEBIN=$NODEBIN" >> $HOME/.bashrc                       && \
     echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
     . $HOME/.bashrc                                                     
+
+# Fish
+
+RUN sudo apt-get update -y                                                                 && \
+    sudo apt-get install -y fish                                                           && \
+    sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
+
+    mkdir -p $HOME/.config/fish                                                            && \
+
+    echo "set -x HOME $HOME" >> $HOME/.config/fish/config.fish                             && \
+    echo "set -x GOPATH $GOPATH" >> $HOME/.config/fish/config.fish                         && \
+    echo "set -x GOROOT $GOROOT" >> $HOME/.config/fish/config.fish                         && \
+    echo "set -x GOBIN $GOBIN" >> $HOME/.config/fish/config.fish                           && \
+    echo "set -x NODEBIN $NODEBIN" >> $HOME/.config/fish/config.fish                       && \
+    echo "set -g fish_key_bindings fish_vi_key_bindings" >> $HOME/.config/fish/config.fish && \
+    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"       \
+      >> $HOME/.config/fish/config.fish                                                    && \
+
+    fish -c source $HOME/.config/fish/config.fish                                          && \
+    
+    sudo rm -rf /var/lib/apt/lists/* 
+
+# Emacs
+
+RUN sudo apt-get update -y                                             && \
+    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
+    sudo apt-get autoclean -y                                          && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+# Spacemacs
+
+COPY .spacemacs $HOME/.spacemacs
+COPY private /tmp/private
+                    
+RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
+      /tmp/snippets                                                    && \
+    git clone https://github.com/JAremko/spacemacs-pr.git -b ts-fmt       \
+      $HOME/.emacs.d/
+   
+    sudo mv -f /tmp/private $HOME/.emacs.d/private                     && \
+    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
+      
+    sudo find $HOME/                                                      \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
+     
+    sudo chown -R ${uid}:${gid} $HOME                                  && \
+    
+    export SHELL=/usr/bin/fish                                         && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
+
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Golang
 
@@ -136,39 +193,6 @@ RUN sudo apt-get update -y                                             && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 ENV GOPATH $HOME/workspace
-
-# Fonts
-
-ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
-ADD http://www.ffonts.net/NanumGothic.font.zip /tmp/ng.zip
-
-RUN sudo mkdir -p /usr/local/share/fonts               && \
-    sudo unzip /tmp/scp.zip -d /usr/local/share/fonts  && \
-    sudo unzip /tmp/ng.zip -d /usr/local/share/fonts   && \
-    sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
-    sudo chmod 777 -R /usr/local/share/fonts           && \
-    sudo fc-cache -fv                                  && \
-    sudo rm -rf /tmp/*                                                                                    
-
-# Iceweasel
-
-RUN sudo apt-get update -y                                            && \
-    sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
-    sudo rm -rf /var/cache/apk/*
-
-# PhantonJS 
-
-RUN sudo apt-get update -y                                                           && \
-    sudo apt-get install -y build-essential g++ flex bison gperf ruby perl              \
-      libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev              \
-      libpng-dev libjpeg-dev python libx11-dev libxext-dev ttf-mscorefonts-installer && \
-  
-    cd /tmp/                                                                         && \
-    git clone --recurse-submodules git://github.com/ariya/phantomjs.git              && \
-    cd ./phantomjs                                                                   && \
-    sudo ./build.py                                                                  && \
-    
-    sudo rm -rf /tmp/* /var/cache/apk/*
     
 # Node.js
 
@@ -199,60 +223,6 @@ RUN sudo apt-get update -y               && \
 # Slim
 
 RUN sudo gem install slim slim_lint
-
-# Fish
-
-RUN sudo apt-get update -y                                                                 && \
-    sudo apt-get install -y fish                                                           && \
-    sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
-
-    mkdir -p $HOME/.config/fish                                                            && \
-
-    echo "set -x HOME $HOME" >> $HOME/.config/fish/config.fish                             && \
-    echo "set -x GOPATH $GOPATH" >> $HOME/.config/fish/config.fish                         && \
-    echo "set -x GOROOT $GOROOT" >> $HOME/.config/fish/config.fish                         && \
-    echo "set -x GOBIN $GOBIN" >> $HOME/.config/fish/config.fish                           && \
-    echo "set -x NODEBIN $NODEBIN" >> $HOME/.config/fish/config.fish                       && \
-    echo "set -g fish_key_bindings fish_vi_key_bindings" >> $HOME/.config/fish/config.fish && \
-    echo "set --universal fish_user_paths $fish_user_paths $GOBIN $GOPATH/bin $NODEBIN"       \
-      >> $HOME/.config/fish/config.fish                                                    && \
-
-    fish -c source $HOME/.config/fish/config.fish                                          && \
-    
-    sudo rm -rf /var/lib/apt/lists/* 
-    
-# Emacs
-
-RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
-    sudo apt-get autoclean -y                                          && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
-# Spacemacs
-
-COPY .spacemacs $HOME/.spacemacs
-COPY private /tmp/private
-                    
-RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
-      /tmp/snippets                                                    && \
-    git clone https://github.com/syl20bnr/spacemacs.git -b develop        \
-      $HOME/.emacs.d/
-   
-    sudo mv -f /tmp/private $HOME/.emacs.d/private                     && \
-    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
-      
-    sudo find $HOME/                                                      \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
-     
-    sudo chown -R ${uid}:${gid} $HOME                                  && \
-    
-    export SHELL=/usr/bin/fish                                         && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080 443 3000
 
