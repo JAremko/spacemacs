@@ -38,7 +38,7 @@ values."
      smex
      spell-checking
     (version-control :variables
-                     version-control-global-margin t)
+                     version-control-global-margin t) 
      syntax-checking
      shell
      search-engine
@@ -263,11 +263,6 @@ values."
               (push '("go" . ?⇉) prettify-symbols-alist)))
 
 
-  (add-hook 'go-mode-hook
-              (lambda ()
-              (push '("omega" . ?Ω) prettify-symbols-alist)))
-
-
   ;;===========Text-representations-typescript=====================
 
   (add-hook 'typescript-mode-hook
@@ -284,11 +279,11 @@ values."
 
   (add-hook 'typescript-mode-hook
               (lambda ()
-              (push '("->" . ?→) prettify-symbols-alist)))
+              (push '("===" . ?≣) prettify-symbols-alist)))
 
   (add-hook 'typescript-mode-hook
               (lambda ()
-              (push '("<-" . ?←) prettify-symbols-alist)))
+              (push '("function" . ?ƒ) prettify-symbols-alist)))
 
   (add-hook 'typescript-mode-hook
               (lambda ()
@@ -326,6 +321,5 @@ layers configuration. You are free to put any user code."
 
   ;; Enable indent-guide-mode in all buffers
   (indent-guide-global-mode))
-  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

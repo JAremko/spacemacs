@@ -15,6 +15,7 @@
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
   - [Golang](https://golang.org/) + a ton of tools  
   - [Compass](http://compass-style.org/)  
+  - [PhantomJS](http://phantomjs.org/)  
   - [Node.js](https://nodejs.org/) + some tools  
   - [TypeScript](http://www.typescriptlang.org/) + some tools 
   - [Slim](http://slim-lang.com/) 

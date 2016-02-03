@@ -6,12 +6,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
-RUN rm -rf /var/lib/apt/lists/*                            && \
-    apt-get update -y                                      && \
-    apt-get install -y tar sudo bash fontconfig curl git      \
-      htop unzip openssl mosh rsync make                   && \
+RUN apt-get update -y                                    && \
+    apt-get install -y tar sudo bash fontconfig curl git    \
+      htop unzip openssl mosh rsync make                 && \
       
-    rm -rf /var/lib/apt/lists/*
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Setup user
 
@@ -44,6 +43,16 @@ ENV NODEBIN /usr/lib/node_modules/bin
 
 ENV PATH $PATH:$GOBIN:$GOPATH/bin:$NODEBIN
 
+# Bash
+
+RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
+    echo "export GOPATH=$GOPATH" >> $HOME/.bashrc                         && \
+    echo "export GOROOT=$GOROOT" >> $HOME/.bashrc                         && \
+    echo "export GOBIN=$GOBIN" >> $HOME/.bashrc                           && \
+    echo "export NODEBIN=$NODEBIN" >> $HOME/.bashrc                       && \
+    echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
+    . $HOME/.bashrc                                                     
+
 # Fonts
 
 ADD https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.zip /tmp/scp.zip
@@ -55,22 +64,13 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
     sudo chmod 777 -R /usr/local/share/fonts           && \
     sudo fc-cache -fv                                  && \
-    sudo rm -rf /tmp/*                                                                                    
-
-# Bash
-
-RUN echo "export HOME=$HOME" >> $HOME/.bashrc                             && \
-    echo "export GOPATH=$GOPATH" >> $HOME/.bashrc                         && \
-    echo "export GOROOT=$GOROOT" >> $HOME/.bashrc                         && \
-    echo "export GOBIN=$GOBIN" >> $HOME/.bashrc                           && \
-    echo "export NODEBIN=$NODEBIN" >> $HOME/.bashrc                       && \
-    echo "export PATH=$PATH:$GOBIN:$GOPATH/bin:$NODEBIN" >> $HOME/.bashrc && \
-    . $HOME/.bashrc                                                     
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Fish
 
-RUN sudo apt-get update -y                                                                 && \
-    sudo apt-get install -y fish                                                           && \
+RUN sudo apt-get -y update                                                                 && \
+    sudo apt-get -y install fish                                                           && \
+
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
 
     mkdir -p $HOME/.config/fish                                                            && \
@@ -86,39 +86,6 @@ RUN sudo apt-get update -y                                                      
 
     fish -c source $HOME/.config/fish/config.fish                                          && \
     
-    sudo rm -rf /var/lib/apt/lists/* 
-
-# Emacs
-
-RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11     && \
-    sudo apt-get autoclean -y                                          && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
-# Spacemacs
-
-COPY .spacemacs $HOME/.spacemacs
-COPY private /tmp/private
-                    
-RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
-      /tmp/snippets                                                    && \
-    git clone https://github.com/JAremko/spacemacs-pr.git -b ts-fmt       \
-      $HOME/.emacs.d/
-   
-    sudo mv -f /tmp/private $HOME/.emacs.d/private                     && \
-    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
-      
-    sudo find $HOME/                                                      \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
-     
-    sudo chown -R ${uid}:${gid} $HOME                                  && \
-    
-    export SHELL=/usr/bin/fish                                         && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Golang
@@ -201,7 +168,7 @@ USER root
 RUN apt-get update -y                                      && \
     curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y nodejs                              && \
-    rm -rf /var/cache/apk/*                              
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*                             
 
 USER ${UNAME}
 
@@ -216,13 +183,68 @@ RUN sudo npm install -g bower typescript typings tslint             \
     
 # Compass
 
-RUN sudo apt-get update -y               && \
-    sudo apt-get install -y ruby-compass && \
-    sudo rm -rf /var/cache/apk/*
+RUN sudo apt-get update -y                  && \
+    sudo apt-get install -y ruby-compass    && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
     
 # Slim
 
 RUN sudo gem install slim slim_lint
+
+# PhantomJS
+
+
+RUN sudo apt-get update -y                                                            && \
+    sudo apt-get install -y wget bzip2                                                && \
+
+    PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
+    cd /tmp/                                                                          && \
+    wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2          && \
+    sudo mv $PHANTOM_JS.tar.bz2 /usr/local/share/                                     && \
+    cd /usr/local/share/                                                              && \
+    sudo tar xvjf $PHANTOM_JS.tar.bz2                                                 && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/share/phantomjs && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin/phantomjs   && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/bin/phantomjs         && \
+    sudo rm -fr $PHANTOM_JS.tar.bz2                                                   && \
+
+    sudo apt-get -y purge wget bzip2                                                  && \
+    sudo apt-get -y autoremove                                                        && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                              && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+# Emacs
+
+RUN sudo apt-get update -y                                             && \
+    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11        \
+      libegl1-mesa libgl1-mesa-dri libgl1-mesa-glx                     && \
+
+    sudo apt-get autoclean -y                                          && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+# Spacemacs
+
+COPY .spacemacs $HOME/.spacemacs
+                    
+RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
+      /tmp/snippets                                                    && \
+    git clone https://github.com/JAremko/spacemacs-pr.git -b ts-fmt       \
+      $HOME/.emacs.d/                                                  && \
+   
+    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
+      
+    sudo find $HOME/                                                      \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
+     
+    sudo chown -R ${uid}:${gid} $HOME                                  && \
+    
+    export SHELL=/usr/bin/fish                                         && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
+
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080 443 3000
 
