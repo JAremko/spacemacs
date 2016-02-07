@@ -11,6 +11,7 @@ RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/s
 RUN apt-get clean -y                                     && \
     rm -rf /var/lib/apt/lists/*                          && \
     apt-get clean -y                                     && \
+    apt-get update -y                                    && \
     apt-get upgrade -y                                   && \
     apt-get dist-upgrade -y                              && \
     apt-get install -y tar sudo bash fontconfig curl git    \
