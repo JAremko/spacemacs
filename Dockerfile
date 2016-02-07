@@ -8,7 +8,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/sources.list
 
-RUN apt-get update -y                                    && \
+RUN apt-get clean -y                                     && \
+    rm -rf /var/lib/apt/lists/*                          && \
+    apt-get clean -y                                     && \
     apt-get upgrade -y                                   && \
     apt-get dist-upgrade -y                              && \
     apt-get install -y tar sudo bash fontconfig curl git    \
