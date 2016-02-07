@@ -6,8 +6,13 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
-RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/sources.list
-
+RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free"    \
+      > /etc/apt/sources.list                                                       && \
+    echo "deb http://security.debian.org/ jessie/updates main contrib non-free "       \
+     >> /etc/apt/sources.list                                                       && \
+    echo "deb http://ftp.ca.debian.org/debian/ jessie main contrib non-free"           \
+     >> /etc/apt/sources.list
+     
 RUN apt-get clean -y                                     && \
     rm -rf /var/lib/apt/lists/*                          && \
     apt-get clean -y                                     && \
