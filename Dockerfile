@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:sid
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
