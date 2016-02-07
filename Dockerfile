@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:testing
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -6,11 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
-RUN  echo "deb http://security.debian.org/ jessie/updates main contrib non-free "    \
-     >> /etc/apt/sources.list                                                     && \
-     echo "deb http://ftp.ca.debian.org/debian/ jessie main contrib non-free"        \
-     >> /etc/apt/sources.list
-     
 RUN apt-get clean -y                                     && \
     rm -rf /var/lib/apt/lists/*                          && \
     apt-get clean -y                                     && \
@@ -196,8 +191,7 @@ RUN sudo apt-get update -y                                                      
 # Golang
 
 RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y mercurial                                  && \
-    sudo apt-get install -y -t jessie-backports install golang-go      && \
+    sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R /usr/share/go                          && \
