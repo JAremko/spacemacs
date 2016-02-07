@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:stretch
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -6,6 +6,13 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
+RUN echo "deb http://ftp.debian.org/debian stretch main contrib non-free"             \
+      >> /etc/apt/sources.list.d/sources.list                                      && \
+    echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free"    \
+      >> /etc/apt/sources.list.d/sources.list                                      && \
+    echo "deb http://security.debian.org/ stretch/updates main contrib non-free"      \
+      >> /etc/apt/sources.list.d/sources.list                                                     
+      
 RUN apt-get clean -y                                     && \
     rm -rf /var/lib/apt/lists/*                          && \
     apt-get clean -y                                     && \
