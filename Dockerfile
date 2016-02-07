@@ -92,7 +92,7 @@ RUN sudo apt-get -y update                                                      
 
 RUN sudo apt-get update -y                                            && \
     sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
-    sudo rm -rf /var/cache/apk/*
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 # Emacs
 
