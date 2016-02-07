@@ -88,6 +88,47 @@ RUN sudo apt-get -y update                                                      
     
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
+# Iceweasel
+
+RUN sudo apt-get update -y                                            && \
+    sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
+    sudo rm -rf /var/cache/apk/*
+
+# Emacs
+
+RUN sudo apt-get update -y                                         && \
+    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11    \
+      libegl1-mesa                                                 && \
+
+    sudo apt-get autoclean -y                                      && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
+# Spacemacs
+
+COPY .spacemacs $HOME/.spacemacs
+                   
+RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git     \
+      /tmp/snippets                                                   && \
+
+git clone https://github.com/JAremko/spacemacs-pr -b clearerer-wew       \
+      $HOME/.emacs.d                                                  && \
+   
+   
+    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets          && \
+      
+    sudo find $HOME/                                                     \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                      \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                   && \
+     
+    sudo chown -R ${uid}:${gid} $HOME                                 && \    
+    export SHELL=/usr/bin/fish                                        && \
+
+    emacs -nw -batch -u "${UNAME}" -q -kill                           && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                           && \
+
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;              && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
 # Golang
 
 RUN sudo apt-get update -y                                             && \
@@ -211,39 +252,6 @@ RUN sudo apt-get update -y                                                      
     sudo apt-get -y purge wget bzip2                                                  && \
     sudo apt-get -y autoremove                                                        && \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;                              && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
-# Emacs
-
-RUN sudo apt-get update -y                                             && \
-    sudo apt-get install -y emacs ispell iamerican-insane dbus-x11        \
-      libegl1-mesa libgl1-mesa-dri libgl1-mesa-glx                     && \
-
-    sudo apt-get autoclean -y                                          && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
-# Spacemacs
-
-COPY .spacemacs $HOME/.spacemacs
-                    
-RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git      \
-      /tmp/snippets                                                    && \
-    git clone https://github.com/JAremko/spacemacs-pr.git -b ts-fmt       \
-      $HOME/.emacs.d/                                                  && \
-   
-    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets           && \
-      
-    sudo find $HOME/                                                      \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                       \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                    && \
-     
-    sudo chown -R ${uid}:${gid} $HOME                                  && \
-    
-    export SHELL=/usr/bin/fish                                         && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-    emacs -nw -batch -u "${UNAME}" -q -kill                            && \
-
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080 443 3000

@@ -13,7 +13,8 @@
 #### What's inside?
 
   - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
-  - [Golang](https://golang.org/) + a ton of tools  
+  - [Golang](https://golang.org/) + a ton of tools 
+  - [Iceweasel(Firefox)](https://www.mozilla.org/en-US/firefox/new/)   
   - [Compass](http://compass-style.org/)  
   - [PhantomJS](http://phantomjs.org/)  
   - [Node.js](https://nodejs.org/) + some tools  
