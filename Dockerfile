@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM debian:latest
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -6,7 +6,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
+RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/sources.list
+
 RUN apt-get update -y                                    && \
+    apt-get upgrade -y                                   && \
+    apt-get dist-upgrade -y                              && \
     apt-get install -y tar sudo bash fontconfig curl git    \
       htop unzip openssl mosh rsync make                 && \
       
@@ -129,6 +133,60 @@ git clone https://github.com/JAremko/spacemacs-pr -b clearerer-wew       \
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;              && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
+ENV GOPATH $HOME/workspace
+    
+# Node.js
+
+USER root
+
+RUN apt-get update -y                                      && \
+    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    apt-get install -y nodejs                              && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*                             
+
+USER ${UNAME}
+
+# TypeScript stuff
+
+RUN sudo npm install -g bower typescript typings tslint             \
+      yo generator-polymer polymer-ts-gen karma jasmine             \
+      protractor webpack webpack-dev-server typescript-formatter && \
+     
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;         && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    
+# Compass
+
+RUN sudo apt-get update -y                  && \
+    sudo apt-get install -y ruby-compass    && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    
+# Slim
+
+RUN sudo gem install slim slim_lint
+
+# PhantomJS
+
+
+RUN sudo apt-get update -y                                                            && \
+    sudo apt-get install -y wget bzip2                                                && \
+
+    PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
+    cd /tmp/                                                                          && \
+    wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2          && \
+    sudo mv $PHANTOM_JS.tar.bz2 /usr/local/share/                                     && \
+    cd /usr/local/share/                                                              && \
+    sudo tar xvjf $PHANTOM_JS.tar.bz2                                                 && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/share/phantomjs && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin/phantomjs   && \
+    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/bin/phantomjs         && \
+    sudo rm -fr $PHANTOM_JS.tar.bz2                                                   && \
+
+    sudo apt-get -y purge wget bzip2                                                  && \
+    sudo apt-get -y autoremove                                                        && \
+    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                              && \
+    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+
 # Golang
 
 RUN sudo apt-get update -y                                             && \
@@ -198,60 +256,6 @@ RUN sudo apt-get update -y                                             && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
 
     sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
-ENV GOPATH $HOME/workspace
-    
-# Node.js
-
-USER root
-
-RUN apt-get update -y                                      && \
-    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    apt-get install -y nodejs                              && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*                             
-
-USER ${UNAME}
-
-# TypeScript stuff
-
-RUN sudo npm install -g bower typescript typings tslint             \
-      yo generator-polymer polymer-ts-gen karma jasmine             \
-      protractor webpack webpack-dev-server typescript-formatter && \
-     
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;         && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-    
-# Compass
-
-RUN sudo apt-get update -y                  && \
-    sudo apt-get install -y ruby-compass    && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-    
-# Slim
-
-RUN sudo gem install slim slim_lint
-
-# PhantomJS
-
-
-RUN sudo apt-get update -y                                                            && \
-    sudo apt-get install -y wget bzip2                                                && \
-
-    PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
-    cd /tmp/                                                                          && \
-    wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2          && \
-    sudo mv $PHANTOM_JS.tar.bz2 /usr/local/share/                                     && \
-    cd /usr/local/share/                                                              && \
-    sudo tar xvjf $PHANTOM_JS.tar.bz2                                                 && \
-    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/share/phantomjs && \
-    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin/phantomjs   && \
-    sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/bin/phantomjs         && \
-    sudo rm -fr $PHANTOM_JS.tar.bz2                                                   && \
-
-    sudo apt-get -y purge wget bzip2                                                  && \
-    sudo apt-get -y autoremove                                                        && \
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                              && \
     sudo rm -rf /tmp/* /var/lib/apt/lists/*
 
 EXPOSE 80 8080 443 3000
