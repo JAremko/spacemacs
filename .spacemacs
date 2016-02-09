@@ -319,6 +319,11 @@ layers configuration. You are free to put any user code."
   ;; Use undo-tree globally
   (global-undo-tree-mode 1)
 
+  ;; avy-goto-char-timer bindings
+  
+    ;; avy bindings
+  (define-key evil-normal-state-map (kbd "SPC SPC") 'avy-goto-char-timer)
+
   ;; Enable indent-guide-mode in all buffers
   (indent-guide-global-mode))
 ;; Do not write anything past this comment. This is where Emacs will
