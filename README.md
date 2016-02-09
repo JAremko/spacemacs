@@ -34,8 +34,8 @@ You can set container's user by changing those lines in the Dockerfile:
 ```bash
 #!/bin/bash
 
-  #Keep the container up-to-date
-#docker pull jare/spacemacs:latest
+#Keep the container up-to-date
+docker pull jare/spacemacs:latest
   
 cd /home/jare/Documents/workspace
 
