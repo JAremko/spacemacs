@@ -6,19 +6,16 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
+ADD cleanup.sh /usr/local/bin/cleanup.sh
+ADD aptupd.sh /usr/local/bin/aptupd.sh
+
 RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" \
       >> /etc/apt/sources.list.d/sources.list                                                     
       
-RUN apt-get clean -y                                     && \
-    rm -rf /var/lib/apt/lists/*                          && \
-    apt-get clean -y                                     && \
-    apt-get update -y                                    && \
-    apt-get upgrade -y                                   && \
-    apt-get dist-upgrade -y                              && \
+RUN sh aptupd.sh                                         && \
     apt-get install -y tar sudo bash fontconfig curl git    \
       htop unzip openssl mosh rsync make                 && \
-      
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sh cleanup.sh 
 
 # Setup user
 
@@ -72,11 +69,11 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
     sudo chmod 777 -R /usr/local/share/fonts           && \
     sudo fc-cache -fv                                  && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh 
 
 # Fish
 
-RUN sudo apt-get -y update                                                                 && \
+RUN sudo sh aptupd.sh                                                                      && \
     sudo apt-get -y install fish                                                           && \
 
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
@@ -94,22 +91,21 @@ RUN sudo apt-get -y update                                                      
 
     fish -c source $HOME/.config/fish/config.fish                                          && \
     
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
 
 # Iceweasel
 
-RUN sudo apt-get update -y                                            && \
+RUN sudo sh aptupd.sh                                                 && \
     sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
 
 # Emacs
 
-RUN sudo apt-get update -y                                         && \
+RUN sudo sh aptupd.sh                                              && \
     sudo apt-get install -y emacs ispell iamerican-insane dbus-x11    \
       libegl1-mesa                                                 && \
 
-    sudo apt-get autoclean -y                                      && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
 
 # Spacemacs
 
@@ -133,8 +129,7 @@ git clone https://github.com/JAremko/spacemacs-pr.git -b doc-fmt         \
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;              && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
 
 ENV GOPATH $HOME/workspace
     
@@ -142,10 +137,10 @@ ENV GOPATH $HOME/workspace
 
 USER root
 
-RUN apt-get update -y                                      && \
+RUN sh aptupd.sh                                           && \
     curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y nodejs                              && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*                             
+    sh cleanup.sh                        
 
 USER ${UNAME}
 
@@ -155,22 +150,22 @@ RUN sudo npm install -g bower typescript typings tslint             \
       yo generator-polymer polymer-ts-gen karma jasmine             \
       protractor webpack webpack-dev-server typescript-formatter && \
      
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;         && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
     
 # Compass
 
-RUN sudo apt-get update -y                  && \
-    sudo apt-get install -y ruby-compass    && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+RUN sudo sh aptupd.sh                    && \
+    sudo apt-get install -y ruby-compass && \
+    sudo sh cleanup.sh
     
 # Slim
 
-RUN sudo gem install slim slim_lint
+RUN sudo gem install slim slim_lint && \
+    sudo sh cleanup.sh
 
 # PhantomJS
 
-RUN sudo apt-get update -y                                                            && \
+RUN sudo sh aptupd.sh                                                                 && \
     sudo apt-get install -y wget bzip2                                                && \
 
     PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
@@ -185,13 +180,11 @@ RUN sudo apt-get update -y                                                      
     sudo rm -fr $PHANTOM_JS.tar.bz2                                                   && \
 
     sudo apt-get -y purge wget bzip2                                                  && \
-    sudo apt-get -y autoremove                                                        && \
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;                              && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
-
+    sudo sh cleanup.sh
+    
 # Golang
 
-RUN sudo apt-get update -y                                             && \
+RUN sudo sh aptupd.sh                                                  && \
     sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
@@ -257,8 +250,7 @@ RUN sudo apt-get update -y                                             && \
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
 
-    sudo find / -name ".git" -prune -exec rm -rf "{}" \;               && \
-    sudo rm -rf /tmp/* /var/lib/apt/lists/*
+    sudo sh cleanup.sh
 
 EXPOSE 80 8080 443 3000
 
