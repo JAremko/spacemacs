@@ -6,3 +6,5 @@ rm -rf /var/lib/apt/lists/partial/*
 apt-get clean -y
 apt-get update -y
 apt-get upgrade -y
+
+find / -name ".git" -prune -exec rm -rf "{}" \;
