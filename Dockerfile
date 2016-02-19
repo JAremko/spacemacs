@@ -174,13 +174,12 @@ RUN sudo gem install slim slim_lint
 
 # PhantomJS
 
-
 RUN sudo apt-get update -y                                                            && \
     sudo apt-get install -y wget bzip2                                                && \
 
     PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
     cd /tmp/                                                                          && \
-    wget https://npm.taobao.org/mirrors/phantomjs/$PHANTOM_JS.tar.bz2                 && \
+    wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2          && \
     sudo mv $PHANTOM_JS.tar.bz2 /usr/local/share/                                     && \
     cd /usr/local/share/                                                              && \
     sudo tar xvjf $PHANTOM_JS.tar.bz2                                                 && \
