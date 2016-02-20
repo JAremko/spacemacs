@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:stretch
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -9,9 +9,6 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY cleanup.sh /usr/local/bin/cleanup.sh
 COPY aptupd.sh /usr/local/bin/aptupd.sh
 
-RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" \
-      >> /etc/apt/sources.list.d/sources.list                                                     
-      
 RUN sh /usr/local/bin/aptupd.sh                          && \
     apt-get install -y tar sudo bash fontconfig curl git    \
       htop unzip openssl mosh rsync make                 && \
