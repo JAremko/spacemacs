@@ -69,7 +69,7 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
     sudo chown ${uid}:${gid} -R /usr/local/share/fonts && \
     sudo chmod 777 -R /usr/local/share/fonts           && \
     sudo fc-cache -fv                                  && \
-    sudo sh cleanup.sh 
+    sudo sh /usr/local/bin/cleanup.sh 
 
 # Fish
 
