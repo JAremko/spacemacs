@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Basic stuff
 
-ADD cleanup.sh /usr/local/bin/cleanup.sh
-ADD aptupd.sh /usr/local/bin/aptupd.sh
+COPY cleanup.sh /usr/local/bin/cleanup.sh
+COPY aptupd.sh /usr/local/bin/aptupd.sh
 
 RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" \
       >> /etc/apt/sources.list.d/sources.list                                                     
