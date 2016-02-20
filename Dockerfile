@@ -12,10 +12,10 @@ COPY aptupd.sh /usr/local/bin/aptupd.sh
 RUN echo "deb http://http.debian.net/debian jessie-backports main contrib non-free" \
       >> /etc/apt/sources.list.d/sources.list                                                     
       
-RUN sh aptupd.sh                                         && \
+RUN sh /usr/local/bin/aptupd.sh                          && \
     apt-get install -y tar sudo bash fontconfig curl git    \
       htop unzip openssl mosh rsync make                 && \
-    sh cleanup.sh 
+    sh /usr/local/bin/cleanup.sh 
 
 # Setup user
 
@@ -73,7 +73,7 @@ RUN sudo mkdir -p /usr/local/share/fonts               && \
 
 # Fish
 
-RUN sudo sh aptupd.sh                                                                      && \
+RUN sudo sh /usr/local/bin/aptupd.sh                                                       && \
     sudo apt-get -y install fish                                                           && \
 
     sudo sed -i 's/\/bin\/ash/\/usr\/bin\/fish/g' /etc/passwd                              && \
@@ -91,21 +91,21 @@ RUN sudo sh aptupd.sh                                                           
 
     fish -c source $HOME/.config/fish/config.fish                                          && \
     
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 # Iceweasel
 
-RUN sudo sh aptupd.sh                                                 && \
+RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
     sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 # Emacs
 
-RUN sudo sh aptupd.sh                                              && \
+RUN sudo sh /usr/local/bin/aptupd.sh                               && \
     sudo apt-get install -y emacs ispell iamerican-insane dbus-x11    \
       libegl1-mesa                                                 && \
 
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 # Spacemacs
 
@@ -129,7 +129,7 @@ git clone https://github.com/JAremko/spacemacs-pr.git -b doc-fmt         \
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
 
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 ENV GOPATH $HOME/workspace
     
@@ -137,10 +137,10 @@ ENV GOPATH $HOME/workspace
 
 USER root
 
-RUN sh aptupd.sh                                           && \
+RUN sh /usr/local/bin/aptupd.sh                            && \
     curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y nodejs                              && \
-    sh cleanup.sh                        
+    sh /usr/local/bin/cleanup.sh                        
 
 USER ${UNAME}
 
@@ -150,22 +150,22 @@ RUN sudo npm install -g bower typescript typings tslint             \
       yo generator-polymer polymer-ts-gen karma jasmine             \
       protractor webpack webpack-dev-server typescript-formatter && \
      
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
     
 # Compass
 
-RUN sudo sh aptupd.sh                    && \
+RUN sudo sh /usr/local/bin/aptupd.sh     && \
     sudo apt-get install -y ruby-compass && \
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
     
 # Slim
 
 RUN sudo gem install slim slim_lint && \
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 # PhantomJS
 
-RUN sudo sh aptupd.sh                                                                 && \
+RUN sudo sh /usr/local/bin/aptupd.sh                                                  && \
     sudo apt-get install -y wget bzip2                                                && \
 
     PHANTOM_JS=phantomjs-2.1.1-linux-x86_64                                           && \
@@ -180,11 +180,11 @@ RUN sudo sh aptupd.sh                                                           
     sudo rm -fr $PHANTOM_JS.tar.bz2                                                   && \
 
     sudo apt-get -y purge wget bzip2                                                  && \
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
     
 # Golang
 
-RUN sudo sh aptupd.sh                                                  && \
+RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
     sudo apt-get install -y mercurial golang-go                        && \
 
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
@@ -250,7 +250,7 @@ RUN sudo sh aptupd.sh                                                  && \
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
 
-    sudo sh cleanup.sh
+    sudo sh /usr/local/bin/cleanup.sh
 
 EXPOSE 80 8080 443 3000
 
