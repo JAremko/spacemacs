@@ -146,7 +146,7 @@ USER ${UNAME}
 
 # TypeScript stuff
 
-RUN sudo npm install -g bower typescript typings tslint             \
+RUN sudo npm install -g bower typescript typings tslint tsun        \
       yo generator-polymer polymer-ts-gen karma jasmine             \
       protractor webpack webpack-dev-server typescript-formatter && \
      
