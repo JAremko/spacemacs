@@ -240,13 +240,11 @@ values."
   (setq frame-title-format '("Spacemacs"))
   
   ;;===========Text-representations-go=============================
-
   (add-hook 'go-mode-hook
               (lambda ()
                 (push '("<-" . ?←) prettify-symbols-alist)
                 (push '("->" . ?→) prettify-symbols-alist)
                 (push '("!=" . ?≠) prettify-symbols-alist)
-                (push '("go" . ?⇉) prettify-symbols-alist)
                 (push '("<=" . ?≤) prettify-symbols-alist)
                 (push '(">=" . ?≥) prettify-symbols-alist)))
   ;;===========Text-representations-typescript=====================
@@ -255,7 +253,6 @@ values."
               (lambda ()
                 (push '("=>" . ?⇒) prettify-symbols-alist)
                 (push '("function" . ?ƒ) prettify-symbols-alist)
-                (push '("===" . ?≣) prettify-symbols-alist)
                 (push '("!=" . ?≠) prettify-symbols-alist)
                 (push '("<=" . ?≤) prettify-symbols-alist)
                 (push '(">=" . ?≥) prettify-symbols-alist)))
