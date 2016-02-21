@@ -58,3 +58,5 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
 ```
 
  - **Add this line to .bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`
+ 
+*If you see Emacs warnings, you can add `--privileged` but it's not necessary.*
