@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:testing
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
@@ -143,7 +143,7 @@ USER ${UNAME}
 
 # TypeScript stuff
 
-RUN sudo npm install -g bower typescript typings tslint tsun        \
+RUN sudo npm install -g bower typescript typings tslint             \
       yo generator-polymer polymer-ts-gen karma jasmine             \
       protractor webpack webpack-dev-server typescript-formatter && \
      
