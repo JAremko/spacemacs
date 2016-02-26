@@ -32,6 +32,7 @@ values."
      evil-snipe
      unimpaired
      vinegar
+     colors
     (auto-completion :variables
       auto-completion-enable-help-tooltip t)
     (auto-completion :variables
