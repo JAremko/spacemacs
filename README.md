@@ -13,9 +13,8 @@
 #### What's inside?
 
 ##### jare/spacemacs:base  
-  - [Emacs 24](https://www.gnu.org/software/emacs/)
-  - [Spacemacs](https://github.com/syl20bnr/spacemacs) (all layers)  
-  - [Spacemacs](https://github.com/syl20bnr/spacemacs) (all layers)  
+  - [Emacs 24](https://www.gnu.org/software/emacs/)  
+  - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
   - *bash, curl, git, openssl, mosh, rsync, make, htop and fish.*     
 
 ##### jare/spacemacs:latest  
@@ -28,13 +27,13 @@
   - [TypeScript](http://www.typescriptlang.org/) + some tools 
   - [Slim](http://slim-lang.com/) 
 
-You can set container's user by changing those lines in the jare/spacemacs:base Dockerfile:
+You can set the user by changing those lines in the jare/spacemacs:base Dockerfile:
 ```
   ENV uid 1000
   ENV gid 1000
   ENV UNAME jare
 ```
-Then you can use it as a base.  
+Also edit [.spacemacs](https://github.com/JAremko/spacemacs/blob/master/.spacemacs) to add stuff that you would like to have.
 
 #### Usage: 
 
