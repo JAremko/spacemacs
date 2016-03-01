@@ -16,7 +16,37 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
-   dotspacemacs-configuration-layers 'all
+   dotspacemacs-configuration-layers
+   '(
+     restclient
+     emacs-lisp
+     html
+     javascript
+     markdown
+     shell-scripts
+     typescript
+     yaml
+     git
+     github
+     evil-snipe
+     unimpaired
+     vinegar
+     colors
+     auto-completion 
+     smex
+     spell-checking
+     version-control
+     syntax-checking
+     shell
+     search-engine
+     prodigy
+     org
+     eyebrowse
+     perspectives
+     gnus
+     clojure
+     dockerfile
+     go)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -197,8 +227,8 @@ values."
               (push '("!=" . ?≠) prettify-symbols-alist)
               (push '("<=" . ?≤) prettify-symbols-alist)
               (push '(">=" . ?≥) prettify-symbols-alist)))
+              
   ;;===========Text-representations-typescript=====================
-
   (add-hook 'typescript-mode-hook
             (lambda ()
               (push '("=>" . ?⇒) prettify-symbols-alist)
@@ -275,6 +305,7 @@ layers configuration. You are free to put any user code."
   (setq typescript-fmt-on-save t
         auto-completion-enable-help-tooltip t
         auto-completion-enable-snippets-in-popup t
+        clojure-enable-fancify-symbols t
         version-control-global-margin t))
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
