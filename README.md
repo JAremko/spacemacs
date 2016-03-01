@@ -15,10 +15,11 @@
 ##### jare/spacemacs:base  
   - [Emacs 24](https://www.gnu.org/software/emacs/)
   - [Spacemacs](https://github.com/syl20bnr/spacemacs) (all layers)  
-  
+  - [Spacemacs](https://github.com/syl20bnr/spacemacs) (all layers)  
+  - *bash, curl, git, openssl, mosh, rsync, make, htop and fish.*     
+
 ##### jare/spacemacs:latest  
-  - [Emacs 24](https://www.gnu.org/software/emacs/)
-  - [Spacemacs](https://github.com/syl20bnr/spacemacs) (all layers) 
+  - Same as jare/spacemacs:base +
   - [Golang](https://golang.org/) + a ton of tools 
   - [Iceweasel(Firefox)](https://www.mozilla.org/en-US/firefox/new/)   
   - [Compass](http://compass-style.org/)  
@@ -27,12 +28,14 @@
   - [TypeScript](http://www.typescriptlang.org/) + some tools 
   - [Slim](http://slim-lang.com/) 
 
-You can set container's user by changing those lines in the Dockerfile:
+You can set container's user by changing those lines in the jare/spacemacs:base Dockerfile:
 ```
   ENV uid 1000
   ENV gid 1000
   ENV UNAME jare
 ```
+Then you can use it as a base.  
+
 #### Usage: 
 
  - **Create /usr/local/bin/spacemacs.bash**
