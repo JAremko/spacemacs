@@ -16,58 +16,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
-   dotspacemacs-configuration-layers
-   '(
-     restclient
-     emacs-lisp
-     html
-     javascript
-     markdown
-     shell-scripts
-     (typescript :variables
-              typescript-fmt-on-save t)
-     yaml
-     git
-     github
-     evil-snipe
-     unimpaired
-     vinegar
-     colors
-    (auto-completion :variables
-      auto-completion-enable-help-tooltip t)
-    (auto-completion :variables
-      auto-completion-enable-snippets-in-popup t)
-     smex
-     spell-checking
-    (version-control :variables
-                     version-control-global-margin t) 
-     syntax-checking
-     shell
-     search-engine
-     prodigy
-     org
-     eyebrowse
-     perspectives
-     gnus
-     go
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     ;; auto-completion
-     ;; better-defaults
-     emacs-lisp
-     ;; git
-     ;; markdown
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
-     )
+   dotspacemacs-configuration-layers 'all
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
@@ -242,21 +191,21 @@ values."
   
   ;;===========Text-representations-go=============================
   (add-hook 'go-mode-hook
-              (lambda ()
-                (push '("<-" . ?←) prettify-symbols-alist)
-                (push '("->" . ?→) prettify-symbols-alist)
-                (push '("!=" . ?≠) prettify-symbols-alist)
-                (push '("<=" . ?≤) prettify-symbols-alist)
-                (push '(">=" . ?≥) prettify-symbols-alist)))
+            (lambda ()
+              (push '("<-" . ?←) prettify-symbols-alist)
+              (push '("->" . ?→) prettify-symbols-alist)
+              (push '("!=" . ?≠) prettify-symbols-alist)
+              (push '("<=" . ?≤) prettify-symbols-alist)
+              (push '(">=" . ?≥) prettify-symbols-alist)))
   ;;===========Text-representations-typescript=====================
 
   (add-hook 'typescript-mode-hook
-              (lambda ()
-                (push '("=>" . ?⇒) prettify-symbols-alist)
-                (push '("function" . ?ƒ) prettify-symbols-alist)
-                (push '("!=" . ?≠) prettify-symbols-alist)
-                (push '("<=" . ?≤) prettify-symbols-alist)
-                (push '(">=" . ?≥) prettify-symbols-alist)))
+            (lambda ()
+              (push '("=>" . ?⇒) prettify-symbols-alist)
+              (push '("function" . ?ƒ) prettify-symbols-alist)
+              (push '("!=" . ?≠) prettify-symbols-alist)
+              (push '("<=" . ?≤) prettify-symbols-alist)
+              (push '(">=" . ?≥) prettify-symbols-alist)))
   ;;===============================================================
 
   ;; replace the standard text representations globally
@@ -268,30 +217,27 @@ values."
   Default to the URL around or before point.  The strings in
   variable `browse-url-firefox-arguments' are also passed to
   Firefox.
-  
      When called interactively, if variable
      `browse-url-new-window-flag' is non-nil, load the document in a
       new Firefox window, otherwise use a random existing one.  A
       non-nil interactive prefix argument reverses the effect of
       `browse-url-new-window-flag'.
-  
       If `browse-url-firefox-new-window-is-tab' is non-nil, then
       whenever a document would otherwise be loaded in a new window, it
       is loaded in a new tab in an existing window instead.
-  
       When called non-interactively, optional second argument
       NEW-WINDOW is used instead of `browse-url-new-window-flag'."
-        (interactive (browse-url-interactive-arg "URL: "))
-        (setq url (browse-url-encode-url url))
-       (let* ((process-environment (browse-url-process-environment))
-              (window-args (if (browse-url-maybe-new-window new-window)
-                                (if browse-url-firefox-new-window-is-tab
-                                    '("-new-tab")
-                                  '("-new-window"))))
-               (ff-args (append browse-url-firefox-arguments window-args (list url)))
-               (process-name (concat "firefox " url))
-               (process (apply 'start-process process-name nil
-                               browse-url-firefox-program ff-args)))))
+    (interactive (browse-url-interactive-arg "URL: "))
+    (setq url (browse-url-encode-url url))
+    (let* ((process-environment (browse-url-process-environment))
+           (window-args (if (browse-url-maybe-new-window new-window)
+                            (if browse-url-firefox-new-window-is-tab
+                                '("-new-tab")
+                              '("-new-window"))))
+           (ff-args (append browse-url-firefox-arguments window-args (list url)))
+           (process-name (concat "firefox " url))
+           (process (apply 'start-process process-name nil
+                           browse-url-firefox-program ff-args)))))
   ;;===============================================================================
 
   "Initialization function for user code.
@@ -305,7 +251,7 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  ;; Disable fancy arrows 
+  ;; Disable fancy arrows
   (setq powerline-default-separator 'slant)
 
   ;; Realative  line number
@@ -315,16 +261,20 @@ layers configuration. You are free to put any user code."
   ;; Magit
   (setq-default git-magit-status-fullscreen t)
   (setq magit-repository-directories '("~/"))
-  
   ;; Use undo-tree globally
   (global-undo-tree-mode 1)
 
   ;; avy-goto-char-timer bindings
-  
-    ;; avy bindings
+  ;; avy bindings
   (define-key evil-normal-state-map (kbd "SPC SPC") 'avy-goto-char-timer)
 
   ;; Enable indent-guide-mode in all buffers
-  (indent-guide-global-mode))
+  (indent-guide-global-mode)
+
+  ;;Layers settings
+  (setq typescript-fmt-on-save t
+        auto-completion-enable-help-tooltip t
+        auto-completion-enable-snippets-in-popup t
+        version-control-global-margin t))
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
