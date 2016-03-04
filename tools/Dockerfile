@@ -67,7 +67,6 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       golang.org/x/tools/cmd/benchcmp                                     \
       golang.org/x/tools/cmd/bundle                                       \
       golang.org/x/tools/cmd/callgraph                                    \
-      golang.org/x/tools/cmd/cover                                        \
       golang.org/x/tools/cmd/digraph                                      \
       golang.org/x/tools/cmd/eg                                           \
       golang.org/x/tools/cmd/fiximports                                   \
@@ -84,7 +83,6 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       golang.org/x/tools/cmd/stress                                       \
       golang.org/x/tools/cmd/stringer                                     \
       golang.org/x/tools/cmd/tip                                          \
-      golang.org/x/tools/cmd/vet                                          \
       golang.org/x/tools/refactor/eg                                      \
       golang.org/x/tools/refactor/importgraph                             \
       golang.org/x/tools/refactor/rename                                  \
