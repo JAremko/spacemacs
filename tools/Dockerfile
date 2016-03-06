@@ -87,6 +87,8 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       golang.org/x/tools/refactor/importgraph                             \
       golang.org/x/tools/refactor/rename                                  \
       golang.org/x/tools/refactor/satisfy                                 \
+      
+      gopkg.in/check.v1                                                   \
 
       github.com/rogpeppe/godef                                           \
       github.com/tools/godep                                              \
