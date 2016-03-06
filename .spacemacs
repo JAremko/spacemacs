@@ -284,6 +284,9 @@ layers configuration. You are free to put any user code."
   ;; Disable fancy arrows
   (setq powerline-default-separator 'slant)
 
+  ;; Golang testing
+  (setq go-use-gocheck-for-testing  t)
+
   ;; Realative  line number
   (global-linum-mode)
   (linum-relative-toggle)
