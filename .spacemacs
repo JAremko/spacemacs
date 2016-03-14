@@ -45,6 +45,7 @@ values."
      perspectives
      gnus
      clojure
+     ranger
      dockerfile
      go)
    ;; List of additional packages that will be installed without being
@@ -287,6 +288,9 @@ layers configuration. You are free to put any user code."
   ;; Golang testing
   (setq go-use-gocheck-for-testing  t)
 
+  ;; Ranger
+  (setq ranger-show-preview t)
+  
   ;; Realative  line number
   (global-linum-mode)
   (linum-relative-toggle)
