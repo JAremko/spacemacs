@@ -59,12 +59,12 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
  -v /tmp/.X11-unix:/tmp/.X11-unix                         \
  -v /etc/machine-id:/etc/machine-id:ro                    \
  -e DISPLAY=$DISPLAY                                      \
- -e "GEMAIL=w3techplayground@gmail.com"                   \
- -e "GNAME=JAremko"                                       \
+ -e "GITEMAIL=w3techplayground@gmail.com"                 \
+ -e "GITNAME=JAremko"                                     \
  -p 80:80 -p 8080:8080 -p 443:443 -p 3000:3000            \
  --name spacemacs jare/spacemacs:latest
 ```
-
- - **Add this line to .bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`
+ - **Add this line to .bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`  
+ - *Change `GITEMAIL=w3techplayground@gmail.com` and `GITNAME=JAremko` to yours*  
  
 *If you see Emacs warnings, you can add `--privileged` but it's not necessary.*
