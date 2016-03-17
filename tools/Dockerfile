@@ -124,7 +124,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
     sudo sh /usr/local/bin/cleanup.sh
 
 # Iceweasel
-
+# TODO: Initialize the browser to reduce the first start delay.
 RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
     sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
     sudo sh /usr/local/bin/cleanup.sh
