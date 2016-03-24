@@ -4,6 +4,14 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
+COPY init_iceweasel.bash /usr/local/bin/init_iceweasel.bash
+
+# Iceweasel
+RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
+    sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
+    bash /usr/local/bin/init_iceweasel.bash                           && \
+    sudo sh /usr/local/bin/cleanup.sh
+   
 # Node.js
 
 USER root
@@ -120,23 +128,6 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
-
-    sudo sh /usr/local/bin/cleanup.sh
-
-# Iceweasel
-RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
-    sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
-
-    # initialize Iceweasel
-    sudo apt-get install -y xvfb                                      && \
-    Xvfb :1 -screen 0 800x600x24&                                     && \
-    xvfbPID=$!                                                        && \
-    sleep 5                                                           && \
-    DISPLAY=:1 iceweasel&                                             && \
-    sleep 50                                                          && \
-    sudo kill $!                                                      && \
-    sudo kill $xvfbPID                                                && \
-    sudo apt-get -y purge xvfb                                        && \
 
     sudo sh /usr/local/bin/cleanup.sh
 
