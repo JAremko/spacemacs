@@ -124,9 +124,20 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
     sudo sh /usr/local/bin/cleanup.sh
 
 # Iceweasel
-# TODO: Initialize the browser to reduce the first start delay.
 RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
     sudo apt-get install -y iceweasel libgl1-mesa-dri libgl1-mesa-glx && \
+
+    # initialize Iceweasel
+    sudo apt-get install -y xvfb                                      && \
+    Xvfb :1 -screen 0 800x600x24&                                     && \
+    xvfbPID=$!                                                        && \
+    sleep 5                                                           && \
+    DISPLAY=:1 iceweasel&                                             && \
+    sleep 50                                                          && \
+    sudo kill $!                                                      && \
+    sudo kill $xvfbPID                                                && \
+    sudo apt-get -y purge xvfb                                        && \
+
     sudo sh /usr/local/bin/cleanup.sh
 
 EXPOSE 80 8080 443 3000
