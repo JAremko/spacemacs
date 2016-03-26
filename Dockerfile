@@ -119,6 +119,7 @@ RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git     \
     export SHELL=/usr/bin/fish                                        && \
 
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
+    # Sometime it does something.
     emacs -nw -batch -u "${UNAME}" -q -kill                           && \
 
     sudo sh /usr/local/bin/cleanup.sh
