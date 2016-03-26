@@ -29,7 +29,6 @@ values."
      git
      github
      evil-snipe
-     unimpaired
      vinegar
      colors
      auto-completion 
@@ -41,10 +40,8 @@ values."
      search-engine
      prodigy
      org
-     eyebrowse
-     perspectives
      gnus
-;;     clojure
+     clojure
      ranger
      dockerfile
      go)
@@ -312,7 +309,7 @@ layers configuration. You are free to put any user code."
   (setq typescript-fmt-on-save t
         auto-completion-enable-help-tooltip t
         auto-completion-enable-snippets-in-popup t
-;;        clojure-enable-fancify-symbols t
+        clojure-enable-fancify-symbols t
         version-control-global-margin t))
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
