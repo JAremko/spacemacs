@@ -9,10 +9,11 @@ echo "start iceweasel"
 DISPLAY=:1 iceweasel&
 echo "sleep 60"
 sleep 60
-echo "kill Xvfb"
-sudo pkill Xvfb
 echo "kill iceweasel"
 sudo pkill -f iceweasel
+echo "kill Xvfb"
+sudo pkill Xvfb
 sudo apt-get -y purge xvfb
+
 echo "exit 0"
 exit 0
