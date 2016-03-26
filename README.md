@@ -14,7 +14,7 @@
 
 ##### jare/spacemacs:base  
   - [Emacs 24](https://www.gnu.org/software/emacs/)  
-  - [Spacemacs](https://github.com/syl20bnr/spacemacs)  
+  - [Spacemacs(develop)](https://github.com/syl20bnr/spacemacs)  
   - *bash, curl, git, openssl, mosh, rsync, make, htop and fish.*     
 
 ##### jare/spacemacs:latest  
