@@ -105,7 +105,8 @@ COPY .spacemacs $HOME/.spacemacs
 RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git     \
       /tmp/snippets                                                   && \
 
-    git clone https://github.com/syl20bnr/spacemacs.git -b develop       \
+   # git clone https://github.com/syl20bnr/spacemacs.git -b develop       \
+    git clone https://github.com/syl20bnr/spacemacs.git -b master       \
       $HOME/.emacs.d                                                  && \
    
     sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets          && \
