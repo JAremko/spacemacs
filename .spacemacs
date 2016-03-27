@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; (default t)
-   dotspacemacs-enable-lazy-installation nil
+   dotspacemacs-enable-lazy-installation t
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
