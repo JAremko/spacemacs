@@ -122,10 +122,10 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
+                               :size 16
                                :weight normal
                                :width normal
-                               :powerline-scale 1.8)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -283,7 +283,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; Frame title
   (setq frame-title-format '("Spacemacs"))
-  
+  )
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place you code here."
+
   ;;===========Text-representations-go=============================
   (add-hook 'go-mode-hook
             (lambda ()
@@ -334,15 +343,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
            (process (apply 'start-process process-name nil
                            browse-url-firefox-program ff-args)))))
   ;;===============================================================================
-  )
-
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place you code here."
 
   ;; Disable fancy arrows
   (setq powerline-default-separator 'slant)
