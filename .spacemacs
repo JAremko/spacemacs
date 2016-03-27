@@ -35,7 +35,7 @@ values."
      evil-snipe
      vinegar
      colors
-     auto-completion 
+     auto-completion
      smex
      spell-checking
      version-control
@@ -267,7 +267,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Start spacemacs in the workspace
   (getenv "HOME")
   (setq default-directory "~/workspace/")
-  
+
   ;; Automatically save and restore sessions
   (require 'desktop)
   (desktop-save-mode 1)
@@ -301,7 +301,7 @@ you should place you code here."
               (push '("!=" . ?≠) prettify-symbols-alist)
               (push '("<=" . ?≤) prettify-symbols-alist)
               (push '(">=" . ?≥) prettify-symbols-alist)))
-              
+
   ;;===========Text-representations-typescript=====================
   (add-hook 'typescript-mode-hook
             (lambda ()
@@ -352,7 +352,7 @@ you should place you code here."
 
   ;; Ranger
   (setq ranger-show-preview t)
-  
+
   ;; Magit
   (setq-default git-magit-status-fullscreen t)
   (setq magit-repository-directories '("~/"))
