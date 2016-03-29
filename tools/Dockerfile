@@ -23,20 +23,20 @@ RUN sh /usr/local/bin/aptupd.sh                            && \
 
 USER ${UNAME}
 
-# TypeScript stuff
+# TypeScript && npm stuff
 
-RUN sudo npm install -g bower typescript typings tslint             \
-      yo generator-polymer polymer-ts-gen karma jasmine             \
+RUN sudo npm install -g bower typescript typings foundation-cli     \
+      yo generator-polymer polymer-ts-gen karma jasmine tslint      \
       protractor webpack webpack-dev-server typescript-formatter && \
      
     sudo sh /usr/local/bin/cleanup.sh
     
-# Compass
+# Compass && scss
 
-RUN sudo sh /usr/local/bin/aptupd.sh     && \
-    sudo apt-get install -y ruby-compass && \
+RUN sudo sh /usr/local/bin/aptupd.sh               && \
+    sudo apt-get install -y ruby-compass scss-lint && \
     sudo sh /usr/local/bin/cleanup.sh
-    
+
 # Slim
 
 RUN sudo gem install slim slim_lint && \
