@@ -33,11 +33,11 @@ RUN sudo npm install -g bower typescript typings foundation-cli     \
     
 # ruby && Compass && scss
 
-RUN sudo sh /usr/local/bin/aptupd.sh       && \
-    sudo apt-get install -y ruby-compass   && \
-    sudo yes | gem install rubygems-update && \
-    sudo yes | update_rubygems             && \
-    sudo yes | gem update --system         && \
+RUN sudo sh /usr/local/bin/aptupd.sh     && \
+    sudo apt-get install -y ruby-compass && \
+    sudo gem install rubygems-update     && \
+    sudo update_rubygems                 && \
+    sudo gem update --system             && \
     sudo sh /usr/local/bin/cleanup.sh
 
 # scss stuff
