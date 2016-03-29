@@ -42,8 +42,10 @@ RUN sudo sh /usr/local/bin/aptupd.sh     && \
 
 # scss stuff
 
-RUN sudo gem update --system          && \
-    sudo gem install scss-lint        && \
+RUN sudo gem specific_install                                            \
+      https://github.com/brigade/scss-lint.git                        && \
+    sudo gem specific_install                                            \
+      https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git && \
     sudo sh /usr/local/bin/cleanup.sh
     
 # Slim
