@@ -31,12 +31,21 @@ RUN sudo npm install -g bower typescript typings foundation-cli     \
      
     sudo sh /usr/local/bin/cleanup.sh
     
-# Compass && scss
+# ruby && Compass && scss
 
-RUN sudo sh /usr/local/bin/aptupd.sh               && \
-    sudo apt-get install -y ruby-compass scss-lint && \
+RUN sudo sh /usr/local/bin/aptupd.sh       && \
+    sudo apt-get install -y ruby-compass   && \
+    sudo yes | gem install rubygems-update && \
+    sudo yes | update_rubygems             && \
+    sudo yes | gem update --system         && \
     sudo sh /usr/local/bin/cleanup.sh
 
+# scss stuff
+
+RUN sudo gem update --system
+    sudo gem install scss-lint        && \
+    sudo sh /usr/local/bin/cleanup.sh
+    
 # Slim
 
 RUN sudo gem install slim slim_lint && \
