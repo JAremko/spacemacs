@@ -42,7 +42,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh     && \
 
 # scss stuff
 
-RUN sudo gem update --system
+RUN sudo gem update --system          && \
     sudo gem install scss-lint        && \
     sudo sh /usr/local/bin/cleanup.sh
     
