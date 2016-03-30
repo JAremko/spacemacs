@@ -9,6 +9,10 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY cleanup.sh /usr/local/bin/cleanup.sh
 COPY aptupd.sh /usr/local/bin/aptupd.sh
 
+RUN echo  'Acquire::Retries       "5";'  >> /etc/apt/apt.conf.d/70debconf && \
+    echo  'Acquire::http::Timeout "10";' >> /etc/apt/apt.conf.d/70debconf && \
+    echo  'Acquire::ftp::Timeout  "10";' >> /etc/apt/apt.conf.d/70debconf
+
 RUN sh /usr/local/bin/aptupd.sh                          && \
     apt-get install -y tar sudo bash fontconfig curl git    \
       htop unzip openssl mosh rsync make                 && \
