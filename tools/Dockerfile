@@ -42,7 +42,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh     && \
 
 # scss stuff
 
-RUN sudo gem install -y specific_install                              && \
+RUN sudo gem install specific_install                                 && \
     sudo gem specific_install                                            \
       https://github.com/brigade/scss-lint.git                        && \
     sudo gem specific_install                                            \
