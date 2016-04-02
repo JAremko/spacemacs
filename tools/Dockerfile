@@ -23,11 +23,12 @@ RUN sh /usr/local/bin/aptupd.sh                            && \
 
 USER ${UNAME}
 
-# TypeScript && npm stuff
+# TypeScript && js stuff
 
 RUN sudo npm install -g bower typescript typings foundation-cli     \
       yo generator-polymer polymer-ts-gen karma jasmine tslint tern \
-      protractor webpack webpack-dev-server typescript-formatter && \
+      protractor webpack webpack-dev-server typescript-formatter    \
+        js-beautify jshint                                        && \
      
     sudo sh /usr/local/bin/cleanup.sh
     
