@@ -6,7 +6,6 @@
 
 ##### [Also You might want to look at my Vim+Tmux based thingy `jare/drop-in`](https://hub.docker.com/r/jare/drop-in)  
 [![](http://i.imgur.com/RVTlBBO.png)](http://i.imgur.com/RVTlBBO.png)
-*Pros: much lighter, modular and well tested, works via Mosh - better for the remote access*
 
 ---------------------------------------------------------------------------------
 #### What's inside?
