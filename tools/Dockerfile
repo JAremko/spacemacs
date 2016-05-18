@@ -26,9 +26,9 @@ USER ${UNAME}
 # TypeScript && js stuff
 
 RUN sudo npm install -g bower typescript typings foundation-cli     \
-      yo generator-polymer polymer-ts-gen karma jasmine tslint tern \
+      generator-polymer polymer-ts-gen karma jasmine tslint tern    \
       protractor webpack webpack-dev-server typescript-formatter    \
-        js-beautify jshint                                        && \
+        js-beautify jshint                                       && \
      
     sudo sh /usr/local/bin/cleanup.sh
     
