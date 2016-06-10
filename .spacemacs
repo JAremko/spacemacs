@@ -309,19 +309,13 @@ you should place you code here."
   (add-hook 'go-mode-hook
             (lambda ()
               (push '("<-" . ?←) prettify-symbols-alist)
-              (push '("->" . ?→) prettify-symbols-alist)
-              (push '("!=" . ?≠) prettify-symbols-alist)
-              (push '("<=" . ?≤) prettify-symbols-alist)
-              (push '(">=" . ?≥) prettify-symbols-alist)))
+              (push '("->" . ?→) prettify-symbols-alist)))
 
   ;;===========Text-representations-typescript=====================
   (add-hook 'typescript-mode-hook
             (lambda ()
               (push '("=>" . ?⇒) prettify-symbols-alist)
-              (push '("function" . ?ƒ) prettify-symbols-alist)
-              (push '("!=" . ?≠) prettify-symbols-alist)
-              (push '("<=" . ?≤) prettify-symbols-alist)
-              (push '(">=" . ?≥) prettify-symbols-alist)))
+              (push '("function" . ?ƒ) prettify-symbols-alist)))
   ;;===============================================================
 
   ;; replace the standard text representations globally
