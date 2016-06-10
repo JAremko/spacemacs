@@ -119,8 +119,9 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       github.com/jstemmer/gotags                                          \
       github.com/dougm/goflymake                                          \
       github.com/golang/mock/mockgen                                      \
-      github.com/alecthomas/gometalinter                               && \
-      
+      github.com/alecthomas/gometalinter                               
+      github.com/onsi/ginkgo/ginkgo                                    && \
+    
     go install github.com/onsi/ginkgo/ginkgo                           && \
 
     gometalinter --install --update                                    && \
