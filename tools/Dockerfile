@@ -82,6 +82,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
     sudo chown ${uid}:${gid} -R $GOROOT                                && \
     sudo chown ${uid}:${gid} -R /usr/share/go                          && \
     sudo chown ${uid}:${gid} -R $GOPATH                                && \
+    sudo chown ${uid}:${gid} -R /usr/lib/go/bin                        && \
     
     go get -u -buildmode=exe -ldflags '-s -w'                             \
     
@@ -119,7 +120,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       github.com/jstemmer/gotags                                          \
       github.com/dougm/goflymake                                          \
       github.com/golang/mock/mockgen                                      \
-      github.com/alecthomas/gometalinter                               
+      github.com/alecthomas/gometalinter                                  \
       github.com/onsi/ginkgo/ginkgo                                    && \
     
     go install github.com/onsi/ginkgo/ginkgo                           && \
