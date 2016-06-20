@@ -152,5 +152,9 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
 RUN emacs -nw -batch -u "${UNAME}" -q -kill && \
     # Sometimes it does something.
     emacs -nw -batch -u "${UNAME}" -q -kill
-    
+
+# Should speed up startup
+RUN sed -i "s/download-packages 'all/download-packages 'used-but-keep-unused/g" \
+      $HOME/.spacemacs
+
 EXPOSE 80 8080 443 3000
