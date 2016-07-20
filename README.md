@@ -12,8 +12,10 @@
 
 ##### jare/spacemacs:base  
   - [Emacs 24](https://www.gnu.org/software/emacs/)  
-  - [Spacemacs(develop)](https://github.com/syl20bnr/spacemacs)  
+  - [Spacemacs(develop)*](https://github.com/syl20bnr/spacemacs)  
   - *bash, curl, git, openssl, mosh, rsync, make, htop and fish.*     
+
+*The image contains all Emacs packages used by Spacemacs.
 
 ##### jare/spacemacs:latest  
   - Same as jare/spacemacs:base +
@@ -63,6 +65,5 @@ docker run -ti --rm -v $('pwd'):"${SPACE_HOME}/workspace" \
  --name spacemacs jare/spacemacs:latest
 ```
  - **Add this line to .bashrc** `alias spacemacs='bash /usr/local/bin/spacemacs.bash'`  
- - *Change `GITEMAIL=w3techplayground@gmail.com` and `GITNAME=JAremko` to yours*  
- 
+ - *To use GitHub, change `GITEMAIL=w3techplayground@gmail.com`, `GITNAME=JAremko` and `home/jare/.ssh/id_rsa`*  
 *If you see Emacs warnings, you can add `--privileged` but it's not necessary.*
