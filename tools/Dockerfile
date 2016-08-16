@@ -17,6 +17,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                  && \
 USER root
 
 RUN sh /usr/local/bin/aptupd.sh                            && \
+    apt-get install -y gnupg2                              && \
     curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y nodejs                              && \
     sh /usr/local/bin/cleanup.sh                        
