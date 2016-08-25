@@ -15,7 +15,7 @@
   - [Spacemacs(develop)*](https://github.com/syl20bnr/spacemacs)  
   - *bash, curl, git, openssl, mosh, rsync, make, htop and fish.*     
 
-*The image contains all Emacs packages used by Spacemacs. ([issues/6769](https://github.com/syl20bnr/spacemacs/issues/6769))
+*The image contains all Emacs packages used by Spacemacs.
 
 ##### jare/spacemacs:latest  
   - Same as jare/spacemacs:base +
