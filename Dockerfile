@@ -106,25 +106,27 @@ RUN sudo sh /usr/local/bin/aptupd.sh                               && \
 
 COPY .spacemacs $HOME/.spacemacs
                    
-RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git     \
-      /tmp/snippets                                                   && \
+RUN git clone https://github.com/AndreaCrotti/yasnippet-snippets.git               \
+      /tmp/snippets                                                             && \
 
-    git clone https://github.com/syl20bnr/spacemacs.git -b develop       \
-   # git clone https://github.com/syl20bnr/spacemacs.git -b master       \
-      $HOME/.emacs.d                                                  && \
+    git clone https://github.com/syl20bnr/spacemacs.git -b develop                 \
+      ${HOME}/.emacs.d                                                          && \
    
-    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets          && \
+    sudo mv -f /tmp/snippets $HOME/.emacs.d/private/snippets                    && \
       
-    sudo find $HOME/                                                     \
-      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                      \
-      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                   && \
+    sudo find $HOME/                                                               \
+      \( -type d -exec chmod u+rwx,g+rwx,o+rx {} \;                                \
+      -o -type f -exec chmod u+rw,g+rw,o+r {} \; \)                             && \
      
-    sudo chown -R ${uid}:${gid} $HOME                                 && \    
-    export SHELL=/usr/bin/fish                                        && \
+    sudo chown -R ${uid}:${gid} $HOME                                           && \
+    export SHELL=/usr/bin/fish                                                  && \
 
-    emacs -nw -batch -u "${UNAME}" -q -kill                           && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                                     && \
     # Sometimes it does something.
-    emacs -nw -batch -u "${UNAME}" -q -kill                           && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                                     && \
+    sed -i "s/download-packages 'all/download-packages 'used-but-keep-unused/g"    \
+      ${HOME}/.spacemacs                                                        && \
+    emacs -nw -batch -u "${UNAME}" -q -kill                                     && \
 
     sudo sh /usr/local/bin/cleanup.sh
 
