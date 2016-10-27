@@ -100,7 +100,7 @@ RUN sudo sh /usr/local/bin/aptupd.sh                                   && \
       golang.org/x/tools/cmd/gorename                                     \
       golang.org/x/tools/cmd/gotype                                       \
       golang.org/x/tools/cmd/html2article                                 \
-      golang.org/x/tools/cmd/oracle                                       \
+      golang.org/x/tools/cmd/guru                                         \
       golang.org/x/tools/cmd/present                                      \
       golang.org/x/tools/cmd/ssadump                                      \
       golang.org/x/tools/cmd/stress                                       \
