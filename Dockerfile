@@ -1,4 +1,4 @@
-FROM jare/spacebox
+FROM spacemacs/emacs-snapshot:develop
 
 MAINTAINER JAremko <w3techplaygound@gmail.com>
 
