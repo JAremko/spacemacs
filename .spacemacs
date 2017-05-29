@@ -55,6 +55,7 @@ values."
      markdown
      org
      pandoc
+     parinfer
      pdf-tools
      prodigy
      (ranger :variables ranger-show-preview t)
