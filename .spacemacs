@@ -32,8 +32,12 @@ values."
    dotspacemacs-configuration-layers
    '((clojure :variables clojure-enable-fancify-symbols t)
      (go :variables go-use-gometalinter t)
-     (auto-completion :variables auto-completion-enable-help-tooltip t
-                                 auto-completion-enable-snippets-in-popup t)
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t)
+     (typescript :variables
+                 typescript-fmt-on-save t
+                 typescript-fmt-tool 'typescript-formatter)
      colors
      dash
      deft
