@@ -36,7 +36,6 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t)
      (typescript :variables
-                 typescript-fmt-on-save t
                  typescript-fmt-tool 'typescript-formatter)
      colors
      dash
@@ -80,7 +79,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(clojure-snippets)
+   dotspacemacs-additional-packages '(clojure-snippets editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -346,7 +345,12 @@ you should place your code here."
   (indent-guide-global-mode)
   (spacemacs/set-leader-keys "SPC" 'avy-goto-char-timer)
   (setq browse-url-browser-function 'browse-url-firefox)
-  )
+
+  ;;helm-dash docsets path (default for Zeal app).
+  (setq helm-dash-docset-newpath "/home/emacs/.local/share/Zeal/Zeal/docsets/")
+  ;;Open helm-dash in eww.
+  (setq helm-dash-browser-func 'eww))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
