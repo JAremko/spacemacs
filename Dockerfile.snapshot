@@ -6,7 +6,10 @@ ENV UNAME="jare"
 
 # Ubuntu Xenial
 RUN apt-get update \
-    && apt-get install firefox \
+    && apt-get install \
+    rlwrap \
+    firefox \
+    silversearcher-ag \
     && rm -rf /tmp/* /var/lib/apt/lists/*
 
 COPY .spacemacs "${UHOME}/.spacemacs"
