@@ -37,6 +37,8 @@ values."
                       auto-completion-enable-snippets-in-popup t)
      (typescript :variables
                  typescript-fmt-tool 'typescript-formatter)
+     treemacs
+     java
      colors
      dash
      deft
@@ -79,7 +81,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(clojure-snippets editorconfig)
+   dotspacemacs-additional-packages '(clojure-snippets
+                                      editorconfig
+                                      flycheck-clojure)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -152,6 +156,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(darkokai
+                         doom-molokai
+                         doom-one
+                         doom-tomorrow-night
                          monokai
                          spacemacs-dark
                          spacemacs-light)
@@ -345,11 +352,8 @@ you should place your code here."
   (indent-guide-global-mode)
   (spacemacs/set-leader-keys "SPC" 'avy-goto-char-timer)
   (setq browse-url-browser-function 'browse-url-firefox)
-
-  ;;helm-dash docsets path (default for Zeal app).
-  (setq helm-dash-docset-newpath "/home/emacs/.local/share/Zeal/Zeal/docsets/")
-  ;;Open helm-dash in eww.
-  (setq helm-dash-browser-func 'eww))
+  (eval-after-load 'cider '(flycheck-clojure-setup))
+  (spacemacs/enable-flycheck 'clojure-mode))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
