@@ -38,6 +38,7 @@ values."
      (typescript :variables
                  typescript-fmt-tool 'typescript-formatter)
      treemacs
+     python
      java
      colors
      dash
