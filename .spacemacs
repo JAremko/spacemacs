@@ -38,7 +38,6 @@ values."
      (typescript :variables
                  typescript-fmt-tool 'typescript-formatter)
      treemacs
-     python
      java
      colors
      dash
@@ -52,7 +51,6 @@ values."
      git
      github
      gnus
-     gtags
      helm
      html
      ibuffer
@@ -62,7 +60,6 @@ values."
      org
      pandoc
      parinfer
-     pdf-tools
      prodigy
      (ranger :variables ranger-show-preview t)
      rebox
@@ -168,10 +165,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 15
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
