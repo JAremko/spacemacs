@@ -24,6 +24,8 @@ USER $UNAME
 RUN git config --global user.name JAremko \
     && git config --global user.email w3techplayground@gmail.com
 
-RUN lein deps
-
+RUN echo "(defproject stub \"0.0.1-SNAPSHOT\")" > /tmp/project.clj \
+    && cd /tmp/ \
+    && lein deps \
+    && rm -rf /tmp/*
 USER root
