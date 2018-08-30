@@ -20,6 +20,10 @@ COPY .lein "${UHOME}/.lein"
 RUN install-deps
 
 USER $UNAME
+
 RUN git config --global user.name JAremko \
     && git config --global user.email w3techplayground@gmail.com
+
+RUN lein deps
+
 USER root
