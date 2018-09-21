@@ -59,12 +59,6 @@ values."
      markdown
      org
      pandoc
-     (parinfer :variables parinfer-extensions '(defaults
-                                                pretty-parens
-                                                evil
-                                                paredit
-                                                smart-tab
-                                                smart-yank))
      prodigy
      (ranger :variables ranger-show-preview t)
      rebox
@@ -344,11 +338,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (with-eval-after-load 'parinfer
-    (bind-key (kbd "<tab>")
-              #'parinfer-smart-tab:shift-right parinfer-mode-map)
-    (bind-key (kbd "<backtab>")
-              #'parinfer-smart-tab:shift-left parinfer-mode-map))
   (add-hook 'go-mode-hook
             (lambda ()
               (push '("<-" . ?←) prettify-symbols-alist)
