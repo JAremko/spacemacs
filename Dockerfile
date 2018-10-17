@@ -4,13 +4,25 @@ MAINTAINER JAremko <w3techplaygound@gmail.com>
 
 ENV UNAME="jare"
 
-# Ubuntu Xenial
+ENV CHROME_KEY="https://dl-ssl.google.com/linux/linux_signing_key.pub" \
+    CHROME_REP="deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+
 RUN apt-get update \
     && apt-get install \
+    curl \
     rlwrap \
-    firefox \
     silversearcher-ag \
-    && rm -rf /tmp/* /var/lib/apt/lists/*
+    wget \
+    && wget -q -O - "${CHROME_KEY}" | apt-key add - \
+    && echo "${CHROME_REP}" >> /etc/apt/sources.list.d/google.list \
+    && apt-get update \
+    && apt-get install 	google-chrome-stable \
+    && rm -rf /tmp/* /var/lib/apt/lists/* \
+    && google-chrome \
+    --disable-gpu \
+    --headless \
+    --no-sandbox \
+    https://example.org/
 
 COPY .spacemacs "${UHOME}/.spacemacs"
 COPY private "${UHOME}/.emacs.d/private"
