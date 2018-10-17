@@ -347,7 +347,11 @@ you should place your code here."
   (global-undo-tree-mode +1)
   (indent-guide-global-mode)
   (spacemacs/set-leader-keys "SPC" 'avy-goto-char-timer)
-  (setq browse-url-browser-function 'browse-url-firefox))
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-args '("--disable-gpu"
+                                  "--no-sandbox"
+                                  "--no-first-run")
+        browse-url-generic-program "google-chrome"))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
