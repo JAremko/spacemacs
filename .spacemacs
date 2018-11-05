@@ -346,6 +346,7 @@ you should place your code here."
   (setq powerline-default-separator 'slant)
   (global-undo-tree-mode +1)
   (indent-guide-global-mode)
+  (put 'vc-follow-symlinks 'safe-local-variable (lambda (x) (booleanp x)))
   (spacemacs/set-leader-keys "SPC" 'avy-goto-char-timer)
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-args '("--disable-gpu"
