@@ -41,6 +41,7 @@ values."
      java
      colors
      dash
+     gtags
      deft
      docker
      elfeed
