@@ -30,7 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(clojure
+   '((clojure :variables
+              clojure-enable-clj-refactor t
+              clojure-enable-linters t)
      (go :variables go-use-gometalinter t)
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t

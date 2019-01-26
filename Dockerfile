@@ -9,6 +9,7 @@ ENV CHROME_KEY="https://dl-ssl.google.com/linux/linux_signing_key.pub" \
 
 RUN apt-get update \
     && apt-get install \
+    gcc \
     curl \
     rlwrap \
     silversearcher-ag \
@@ -32,6 +33,10 @@ COPY .lein "${UHOME}/.lein"
 RUN install-deps
 
 USER $UNAME
+
+RUN emacs --batch -u $UNAME \
+    --eval="(require 'emacsql-sqlite)" \
+    --eval="(emacsql-sqlite-compile)"
 
 RUN git config --global user.name JAremko \
     && git config --global user.email w3techplayground@gmail.com
