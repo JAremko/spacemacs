@@ -34,13 +34,23 @@ RUN install-deps
 
 USER $UNAME
 
+# Compile emacsql version of sqlite (used by ranger.el)
 RUN emacs --batch -u $UNAME \
     --eval="(require 'emacsql-sqlite)" \
     --eval="(emacsql-sqlite-compile)"
 
+# Install Cask
+
+ENV CASK_EMACS="/usr/bin/emacs"
+RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+
+ENV PATH="${UHOME}/.cask/bin:$PATH"
+
+# Configure git
 RUN git config --global user.name JAremko \
     && git config --global user.email w3techplayground@gmail.com
 
+# Install Clojure user level stuff
 RUN echo "(defproject stub \"0.0.1-SNAPSHOT\")" > /tmp/project.clj \
     && cd /tmp/ \
     && lein deps \
