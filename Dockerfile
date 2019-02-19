@@ -9,8 +9,9 @@ ENV CHROME_KEY="https://dl-ssl.google.com/linux/linux_signing_key.pub" \
 
 RUN apt-get update \
     && apt-get install \
-    gcc \
     curl \
+    gcc \
+    python \
     rlwrap \
     silversearcher-ag \
     wget \
@@ -30,11 +31,10 @@ COPY private "${UHOME}/.emacs.d/private"
 COPY .lein "${UHOME}/.lein"
 
 # Install Cask
-
 ENV CASK_EMACS="/usr/bin/emacs"
-RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-
-ENV PATH="${UHOME}/.cask/bin:$PATH"
+RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go \
+    | python \
+    && ln -s "${UHOME}/.cask/bin/cask" "/usr/local/bin/cask"
 
 # Install Spacemacs layers dependencies and init user
 RUN install-deps
