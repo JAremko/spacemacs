@@ -29,6 +29,13 @@ COPY .spacemacs "${UHOME}/.spacemacs"
 COPY private "${UHOME}/.emacs.d/private"
 COPY .lein "${UHOME}/.lein"
 
+# Install Cask
+
+ENV CASK_EMACS="/usr/bin/emacs"
+RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+
+ENV PATH="${UHOME}/.cask/bin:$PATH"
+
 # Install Spacemacs layers dependencies and init user
 RUN install-deps
 
@@ -38,13 +45,6 @@ USER $UNAME
 RUN emacs --batch -u $UNAME \
     --eval="(require 'emacsql-sqlite)" \
     --eval="(emacsql-sqlite-compile)"
-
-# Install Cask
-
-ENV CASK_EMACS="/usr/bin/emacs"
-RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-
-ENV PATH="${UHOME}/.cask/bin:$PATH"
 
 # Configure git
 RUN git config --global user.name JAremko \
