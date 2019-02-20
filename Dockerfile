@@ -30,16 +30,16 @@ COPY .spacemacs "${UHOME}/.spacemacs"
 COPY private "${UHOME}/.emacs.d/private"
 COPY .lein "${UHOME}/.lein"
 
-# Install Cask
-ENV CASK_EMACS="/usr/bin/emacs"
-RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go \
-    | python \
-    && ln -s "${UHOME}/.cask/bin/cask" "/usr/local/bin/cask"
-
 # Install Spacemacs layers dependencies and init user
 RUN install-deps
 
 USER $UNAME
+
+# Install Cask
+ENV CASK_EMACS="/usr/bin/emacs"
+RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go \
+    | python \
+    && sudo ln -s "${UHOME}/.cask/bin/cask" "/usr/local/bin/cask"
 
 # Compile emacsql version of sqlite (used by ranger.el)
 RUN emacs --batch -u $UNAME \
