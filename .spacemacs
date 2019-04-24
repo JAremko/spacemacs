@@ -352,6 +352,9 @@ you should place your code here."
   (put 'vc-follow-symlinks
        'safe-local-variable
        (lambda (x) (memq x '(t nil ask))))
+  (put 'find-file-existing-other-name
+       'safe-local-variable
+       (lambda (x) (memq x '(t nil))))
   (spacemacs/set-leader-keys "SPC" 'avy-goto-char-timer)
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-args '("--disable-gpu"
