@@ -63,7 +63,8 @@ values."
      org
      pandoc
      prodigy
-     (ranger :variables ranger-show-preview t)
+     (ranger :variables ranger-show-preview t
+                        ranger-show-hidden t)
      rebox
      restclient
      search-engine
